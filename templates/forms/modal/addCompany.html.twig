@@ -1,0 +1,58 @@
+{% extends 'templates/modalContainer.html.twig' %}
+
+{% block header %}Add Your Company{% endblock %}
+
+{% block id %}addCompany{% endblock %}
+
+{% block content %}
+
+    <form name="addCompany" data-url="company/add" data-form-type="modal">
+
+        <div class="col-sm-12">
+            {% include 'fragments/alerts/formAlert.html.twig' %}
+        </div>
+
+        {# FORM ELEMENTS  #}
+
+        <div class="form-row">
+            <div class="form-group col-xs-12">
+                <input type="text" class="form-control clear-border-radius" name="companyName" placeholder="Name" required/>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-xs-12">
+                <input type="email" class="form-control clear-border-radius" name="email" placeholder="Email address" >
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-xs-12">
+                <input type="tel" class="tel-mask form-control clear-border-radius" name="phoneNumber" placeholder="Phone number" minlength="10" />
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="col-xs-12">
+                <input type="text" class="form-control clear-border-radius" name="selectAddress" placeholder="Address" />
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div class="form-group">
+                <div class="modal-footer clear-side-padding">
+                    <div class="text-center">
+                        <input type="submit" value="Add Company" name="addCompanyInfo" class="form-control button-primary push-down-small clear-border-radius"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('addCompany') }}" >
+
+        {# include address placeholder fields - required for google address autocomplete #}
+        {% include 'fragments/addressPlaceholder.html.twig' %}
+
+    </form>
+
+
+{% endblock %}
+
+

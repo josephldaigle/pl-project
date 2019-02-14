@@ -1,0 +1,91 @@
+{% import 'templates/macros/formFields.html.twig' as fields %}
+
+<form name="resolveDispute" data-url="/referral/dispute" data-form-type="inline">
+
+    <div class="col-xs-12">
+        {% include 'fragments/alerts/formAlert.html.twig' %}
+    </div>
+
+    {% if is_granted('ROLE_ADMIN') %}
+        <div class="row apply-border contour-inner-xsmall">
+            <div class="col-xs-4">
+                <span class="text-bold">Agreement Name:</span>
+            </div>
+
+            <div class="col-xs-8">
+                <span class="dispute-user">{{ item.agreementName }}</span>
+            </div>
+        </div>
+
+        <div class="row apply-border contour-inner-xsmall">
+            <div class="col-xs-4">
+                <span class="text-bold">Date:</span>
+            </div>
+
+            <div class="col-xs-8">
+                <span class="dispute-date">{{ item.timeUpdated | date('m/d/Y - h:i A', app.user.timezone) }}</span>
+            </div>
+        </div>
+
+        <div class="row apply-border contour-inner-xsmall">
+            <div class="col-xs-4">
+                <span class="text-bold">Explanation:</span>
+            </div>
+
+            <div class="col-xs-8">
+                <span class="dispute-explanation">{{ item.ratingNote }}</span>
+            </div>
+        </div>
+
+        <div class="row apply-border contour-inner-xsmall">
+            <div class="col-xs-12">
+                <span class="text-bold">Reason:</span>
+            </div>
+
+            <div class="col-xs-12">
+
+                {{ fields.textArea('reviewerNote', item.reviewerNote , 'Describe the resolution details.', (item.reviewerNote is defined and item.reviewerNote is not empty) ? {'rows': 5, 'disabled': true} : {'rows': 5, 'maxlength': 255}) }}
+
+                {% if (item.reviewerNote is not defined or item.reviewerNote is empty) %}
+                <div class="btn-resolute">
+                    <div class="col-xs-6 clear-side-padding push-down-xs">
+                        <input type="submit" name="approve" class="resolve-dispute btn btn-success clear-border-radius" value="Approve">
+                    </div>
+
+                    <div class="col-xs-6 clear-side-padding push-down-xs">
+                        <input type="submit" name="deny" class="resolve-dispute btn btn-danger clear-border-radius pull-right" value="Deny">
+                    </div>
+
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('resolveDispute') }}" />
+                    <input type="hidden" name="referralGuid" value="{{ item.guid.value }}" />
+                    <input type="hidden" name="resolution" value="-1" />
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+
+    {% if not is_granted('ROLE_ADMIN') and (item.reviewerNote is defined and item.reviewerNote is not empty) %}
+        <div class="row apply-border contour-inner-xsmall">
+            <div class="col-xs-4">
+                <span class="text-bold">Date:</span>
+            </div>
+
+            <div class="col-xs-8">
+                <span class="dispute-date">{{ item.timeUpdated }}</span>
+            </div>
+        </div>
+
+        <div class="row apply-border contour-inner-xsmall">
+            <div class="col-xs-4">
+                <span class="text-bold">Explanation:</span>
+            </div>
+
+            <div class="col-xs-8">
+                {{ fields.textArea('reviewerNote', item.reviewerNote , 'Resolution details.', (item.reviewerNote is defined and item.reviewerNote is not empty) ? {'rows': 5, 'disabled': true} : {'rows': 5, 'maxlength': 255}) }}
+            </div>
+        </div>
+    {% endif %}
+
+</form>
+

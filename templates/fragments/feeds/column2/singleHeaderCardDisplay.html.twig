@@ -1,0 +1,20 @@
+{% extends 'templates/feedDisplay.html.twig' %}
+{#
+|--------------------------------------------------------------------------
+| Contact and company Feed Display
+|--------------------------------------------------------------------------
+|
+| This fragment contains the contact and company feed display.
+|
+#}
+{# displays target when card is selected #}
+{% block displayId %}{{ item.guid.value }}{% endblock %}
+
+{#{% block icon %}{{ asset('media/papalocal.logo.png') }}{% endblock %}#}
+{#{% block iconSize %}{{ 'medium-ico' | raw }}{% endblock %}#}
+
+{% block title %}{{ item.title }}{% endblock %}
+
+{% block feedBody %}
+    <p>{{ item.cardBody | raw }}</p>
+{% endblock %}

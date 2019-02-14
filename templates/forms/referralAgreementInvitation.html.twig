@@ -1,0 +1,29 @@
+<div class="row">
+    <div class="col-sm-6 col-xs-12">
+        <form name="joinAgreement" data-url="agreement/referral/invitation/accept" data-form-type="inline">
+
+            <div class="col-sm-12">
+                {% include 'fragments/alerts/formAlert.html.twig' %}
+            </div>
+
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('joinReferralAgreement') }}" />
+            <input type="hidden" name="agreementGuid" value="{{ item.guid.value }}" />
+            <input type="hidden" name="inviteeGuid" value="{{ app.user.guid.value }}" />
+            <input type="submit" name="submit" class="btn btn-success btn-block clear-border-radius" value="Join">
+        </form>
+    </div>
+
+    <div class="col-sm-6 col-xs-12">
+        <form name="declineAgreement" data-url="agreement/referral/invitation/decline" data-form-type="inline">
+
+            <div class="col-sm-12">
+                {% include 'fragments/alerts/formAlert.html.twig' %}
+            </div>
+
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('declineReferralAgreementInvitation') }}" />
+            <input type="hidden" name="agreementGuid" value="{{ item.guid.value }}" />
+            <input type="hidden" name="inviteeGuid" value="{{ app.user.guid.value }}" />
+            <input type="submit" name="submit" class="btn btn-danger btn-block clear-border-radius" value="Decline">
+        </form>
+    </div>
+</div>

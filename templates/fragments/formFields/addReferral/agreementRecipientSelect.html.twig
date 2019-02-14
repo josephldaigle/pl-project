@@ -1,0 +1,12 @@
+{% import 'templates/macros/formFields.html.twig' as fields %}
+{#
+
+The template is used to render a select list of participant agreements on the add Referral form.
+
+#}
+
+{% if agreements is defined and agreements is not empty  %}
+
+    {{ fields.select('selectAgreement', agreements) }}
+
+{% endif %}

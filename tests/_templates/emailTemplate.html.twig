@@ -1,0 +1,30 @@
+{# Twig template #}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Test Email Title</title>
+
+</head>
+
+<body>
+
+    {% if args is defined and args is not empty %}
+
+        {% if args.valueOne is defined and args.valueOne is not empty %}
+            {{ args.valueOne }}
+        {% endif %}
+
+        {% if args.valueTwo is defined and args.valueTwo is not empty %}
+            {{ args.valueTwo }}
+        {% endif %}
+
+    {% endif %}
+
+</body>
+
+</html>

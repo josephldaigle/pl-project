@@ -1,0 +1,64 @@
+{% extends 'templates/onPageContainer.html.twig' %}
+
+{% block header %}Register{% endblock %}
+
+{% block content %}
+    <form name="referralAgreementInviteeRegistration" action="{{ path('register_invitee') }}" method="post" data-form-type="standard" >
+
+        <div class="col-sm-12">
+            {% include 'fragments/alerts/formAlert.html.twig' %}
+        </div>
+
+        {# FORM ELEMENTS  #}
+        <div class="form-row">
+            <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <input type="text" class="form-control clear-border-radius" id="firstName" name="firstName" value="{{ (form.firstName is defined) ? form.firstName : '' }}" placeholder="First Name" maxlength="100" required/>
+            </div>
+
+            <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <input type="text" class="form-control clear-border-radius" id="lastName" name="lastName" value="{{ (form.lastName is defined) ? form.lastName : '' }}" placeholder="Last Name" maxlength="100"  required/>
+            </div>
+        </div>
+
+        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <input type="username" class="form-control clear-border-radius" name="username" value="{{ (form.username is defined) ? form.username : '' }}" placeholder="Email" required/>
+        </div>
+
+        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <input type="tel" class="tel-mask form-control clear-border-radius" name="phoneNumber" value="{{ (form.phoneNumber is defined) ? form.phoneNumber : '' }}" placeholder="Mobile Number" maxlength="10" minlength="10"
+                   autocomplete="tel" required />
+        </div>
+
+        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <input type="password" class="form-control clear-border-radius" name="password" id="password" value="{{ (form.password is defined) ? form.password : '' }}" placeholder="Password" minlength="8" maxlength="150"
+                   autocomplete="password" required/>
+        </div>
+
+        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12 clear-bottom-margin">
+            <input type="password" class="form-control clear-border-radius" name="confirmPassword" id="confirmPassword" data-match="#password" data-match-error="Must match password." placeholder="Confirm Password"
+                   autocomplete="confirm-password" required/>
+            <div class="help-block with-errors"></div>
+        </div>
+
+        {# PASSWORD REQUIREMENTS #}
+        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="text-left">
+                <a class="link-primary" href="#password-rules" data-toggle="modal" data-keyboard="true"><strong>Password Requirements</strong></a>
+            </div>
+        </div><!-- end password constraints modal -->
+
+        {# SUBMIT BUTTON #}
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="form-group">
+                <input type="submit" class="form-control button-primary push-down-small clear-border-radius" value="Register"/>
+            </div>
+        </div><!-- end registration submit button -->
+
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('referralAgreementInviteeRegistration') }}" />
+        <input type="hidden" name="agreementInvitationId" value="{{ agreementInvitationId }}" />
+
+        <div class="clearfix"></div>
+
+
+    </form>
+{% endblock %}

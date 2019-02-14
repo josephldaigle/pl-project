@@ -1,0 +1,195 @@
+{% extends 'templates/accordionAlert.html.twig' %}
+
+{#
+ # Determine the agreements status, and which workflow the user needs in order to
+ # advance the agreement through it's lifecycle. If the agreement has never been published,
+ # the `publish` transition is used, otherwise, the `activate` transition is appropriate.
+ #}
+{% if statusChangeReason == 'Created' %}
+    {# agreement has never been published, get 'publish' workflow #}
+    {% set workflow_transition = 'publish' %}
+    {% set blockerList = build_workflow_blocker_list(item, 'referral_agreement', workflow_transition) %}
+
+{% else %}
+    {# agreement is paused, get 'active' workflow #}
+    {% set workflow_transition = 'activate' %}
+    {% set blockerList = build_workflow_blocker_list(item, 'referral_agreement', workflow_transition) %}
+{% endif %}
+
+{# Creat the agreement alert header styles #}
+{% block headerAlertLevel %}
+    {% if statusChangeReason == 'Created' %}
+        {# could be published, show the user a warning #}
+        color: {{ '#fff' }};
+        background-color: {{ '#ffad17' }};
+    {% elseif statusChangeReason in  ['Quota Reached', 'Owner Requested', 'Insufficient Funds'] %}
+        color: {{ '#fff' }};
+        background-color: {{ '#ffad17' }};
+    {% else %}
+        {# show the user a danger alert #}
+        color: {{ '#fff' }};
+        background-color: {{ '#d9534f' }};
+    {% endif %}
+{% endblock %}
+
+{# Set the accordion title #}
+{% block accordion_alert_header %}
+    {% if statusChangeReason == 'Created' %}
+        {# could be published, show the user a warning #}
+        {{ 'Unpublished' }}
+    {% else %}
+        {# The agreement is paused #}
+        {{ 'Paused' }}
+    {% endif %}
+
+{% endblock %}
+
+{# Set the alert container styles #}
+{% block contentAlertLevel %}
+    {% if statusChangeReason in  ['Created', 'Quota Reached', 'Owner Requested', 'Insufficient Funds'] %}
+        {# could be published, show the user a warning #}
+        {{ 'alert-warning' }}
+    {% else %}
+        {# The agreement is paused #}
+        {{ 'alert-danger' }}
+    {% endif %}
+{% endblock %}
+
+
+{#
+ # Set the content of the accordion
+ #
+ # The accordions contents are determined by examining the agreements status, and checking the
+ # applicability of potential workflow transitions. If a blocker is generated for a particular
+ # transition, the accordion will display an appropriate message to the user.
+ #
+ #}
+{% block accordion_alert_content %}
+
+    <div class="container-fluid contour-outer-small">
+
+        {% if blockerList | length == 0 %}
+            {# no blockers exists - proceed with workflow #}
+
+            {% if workflow_transition == 'activate' %}
+                {# agreement is paused, but has no blockers #}
+                <div class="row">
+                    <p>This agreement can start receiving referrals!</p>
+                    <form name="referralAgreementStatus" data-url="agreement/referral/status/update" data-form-type="inline">
+
+                        <div class="col-sm-12">
+                            {% include 'fragments/alerts/formAlert.html.twig' %}
+                        </div>
+
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('referralAgreementStatus') }}" />
+                        <input type="hidden" name="status" value="Active" />
+                        <input type="hidden" name="agreementGuid" value="{{ item.guid.value }}" />
+                        <input type="submit" name="submit" class="btn btn-success clear-border-radius" value="Activate" />
+                    </form>
+                </div>
+
+            {% else %}
+                {# agreement is created, never published #}
+                {# the agreement can be published, show the publish button #}
+
+                <div class="row">
+                    <div class="col-xs-12 contour-inner-small">
+                        <p>This agreement can start receiving referrals!</p>
+                        <form name="publishAgreement" data-url="agreement/referral/publish" data-form-type="inline">
+
+                            <div class="col-sm-12">
+                            {% include 'fragments/alerts/formAlert.html.twig' %}
+                            </div>
+
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('publishAgreement') }}" />
+                            <input type="hidden" name="agreementId" value="{{ item.guid.value }}" />
+                            <input type="submit" name="submit" class="btn btn-success clear-border-radius" value="Publish Agreement">
+                        </form>
+                    </div>
+                </div>
+
+            {% endif %}
+
+            {#</div>#}
+
+    {% elseif blockerList | first == 'error' %}
+        {# the blocker list produced an error in the back-end, the user cannot act on this agreement #}
+            <p>This agreement is temporarily unavailable. You can contact customer support for a resolution: {{ constant('PapaLocal\\Data\\Ewebify::CUST_SUPP_LINK') | raw }}</p>
+
+    {% else %}
+
+        {# there are blockers that can be remedied by the user #}
+        {# Output remaining tasks #}
+        {% for blocker in blockerList %}
+            {% if blocker.code == constant('PapaLocal\\ReferralAgreement\\Workflow\\Agreement\\PublishGuardBlockCode::BLOCK_PARTICIPANT') %}
+
+                {# add participiants #}
+                <div class="row contour-inner-xsmall">
+                    <div class="col-sm-8 col-xs-12">
+                        <p>{{ blocker.message }}</p>
+                    </div>
+                    <div class="col-sm-4 col-xs-12">
+                        <a href="#" data-toggle="modal" data-dismiss="modal" data-agreementId="{{ item.guid.value }}" class="btn-invite-participant clear-text-decoration">
+                            <button class="contour-outer-small clear-button clear-margin">
+                                <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                <span class="text-center secondary-color text-bold">Add Participant</span>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+
+            {% elseif blocker.code == constant('PapaLocal\\ReferralAgreement\\Workflow\\Agreement\\PublishGuardBlockCode::BLOCK_PAY_METHOD') %}
+
+                {# add pay method #}
+                <div class="row">
+                    <div class="col-sm-8 col-xs-12">
+                        <p>{{ blocker.message }}</p>
+                    </div>
+                    <div class="col-sm-4 col-xs-12">
+                        <a href="#" data-toggle="modal" data-dismiss="modal" data-target="#addPaymentAccount" data-agreementId="{{ item.guid.value }}" class="btn-add-funds clear-text-decoration">
+                            <button class="contour-outer-small clear-button clear-margin">
+                                <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                <span class="text-center secondary-color text-bold">Add Payment Method</span>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+
+            {% elseif blocker.code == constant('PapaLocal\\ReferralAgreement\\Workflow\\Agreement\\PublishGuardBlockCode::BLOCK_ACCT_BAL') %}
+
+                {# add funds #}
+                <div class="row contour-inner-xsmall">
+                    <div class="col-sm-8 col-xs-12">
+                        <p>{{ blocker.message }}</p>
+                    </div>
+                    <div class="col-sm-4 col-xs-12">
+                        <a href="#" data-toggle="modal" data-dismiss="modal" data-target="#funds" data-agreementId="{{ item.guid.value }}" class="btn-add-funds clear-text-decoration">
+                            <button class="contour-outer-small clear-button clear-margin">
+                                <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                <span class="text-center secondary-color text-bold">Add Funds</span>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+
+            {% elseif blocker.code == constant('PapaLocal\\ReferralAgreement\\Workflow\\Agreement\\PublishGuardBlockCode::BLOCK_QUOTA_REACHED') %}
+                {# increase quantity or reduce strategy #}
+                <div class="row contour-inner-xsmall">
+                    <div class="col-xs-12">
+                        <p>{{ blocker.message }}</p>
+                    </div>
+
+                </div>
+            {% else %}
+
+                {# Some unknown blocker exists #}
+                <p>This agreement is temporarily unavailable. You can contact customer support for a resolution: {{ constant('PapaLocal\\Data\\Ewebify::CUST_SUPP_LINK') | raw }}</p>
+
+            {% endif %}
+        {% endfor %}
+
+    {% endif %}
+
+    </div> <!-- end container -->
+
+{% endblock %}

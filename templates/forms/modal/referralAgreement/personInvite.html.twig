@@ -1,0 +1,30 @@
+{% extends 'templates/modalContainer.html.twig' %}
+
+{% block header %}Send a Personal Invite{% endblock %}
+
+{% block id %}referralAgreementInvitee{% endblock %}
+
+{% block content %}
+
+    <form name="addReferralAgreementInvitee" data-url="agreement/invitee/add" data-form-type="modal">
+
+        {% include 'fragments/alerts/formAlert.html.twig' %}
+
+        {% include 'fragments/formFields/personInviteContact.html.twig' %}
+
+        <div class="row">
+            <div class="col-xs-12">
+                <input type="submit" name="saveAddMore" value="Save + New Invite" class="form-control button-primary clear-border-radius push-down-small" />
+                <input type="submit" name="saveContinue" value="Save and Continue" class="form-control button-primary clear-border-radius push-down-small" />
+                <input type="submit" name="proceed" value="Proceed without saving" class="form-control button-primary clear-border-radius push-down-small" />
+                <div class="noteBlock pull-left">
+                    <p class="push-down-small"><strong>NOTE:</strong> By clicking "Save and Continue" you are saving all the information that you have input so far. This does not mean that you are done with this agreement. The next page will continue the process to complete your offer.</p>
+                </div>
+            </div>
+        </div>
+
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('addReferralAgreementInvitee') }}" />
+
+    </form> <!--end form-->
+
+{% endblock %}

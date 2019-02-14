@@ -1,0 +1,25 @@
+<div id="{% block id %}{% endblock %}" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-container modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title text-center">
+
+                    {% block header %}
+                    {% endblock %}
+
+                </h4>
+            </div><!-- end modal header -->
+
+            <div class="modal-body contour-inner-2x">
+
+                {% block content %}
+                {% endblock %}
+
+                <div class="clearfix"></div>
+            </div><!-- closes modal body -->
+
+        </div><!-- closes modal container -->
+    </div><!-- closes modal dialog -->
+</div><!-- closes form container -->

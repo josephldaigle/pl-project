@@ -1,0 +1,34 @@
+{# twig template #}
+
+{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    {% set template = 'templates/user.html.twig' %}
+{% else %}
+    {% set template = 'templates/public.html.twig' %}
+{% endif %}
+
+{% extends template %}
+
+{#
+|--------------------------------------------------------------------------
+| Error template.
+|--------------------------------------------------------------------------
+| This is the default error template.
+|
+#}
+
+{% block body %}
+    <div class="col-lg-2 col-md-2 col-sm-1"></div><!-- Empty column -->
+
+    <div class="col-lg-8 col-md-8 col-sm-10 col-xs-1r2">
+        <div class="container-fluid scrollable-layout">
+
+
+            <h1>This is 404 error.</h1>
+
+
+        </div>
+    </div>
+
+    <div class="col-lg-2 col-md-2 col-sm-1"></div>
+
+{% endblock %}

@@ -1,0 +1,6 @@
+id,description,display
+1,singleHeaderCard,singleHeaderCardDisplay
+2,agreementCard,agreementCardDisplay
+3,transactionCard,transactionCardDisplay
+4,inboundReferralCard,inboundReferralCardDisplay
+5,outboundReferralCard,outboundReferralCardDisplay

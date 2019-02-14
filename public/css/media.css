@@ -1,0 +1,281 @@
+/*@media screen and (min-width: 320px) and (max-width: 767px) and (orientation: landscape) {*/
+    /*html {*/
+        /*transform: rotate(-90deg);*/
+        /*transform-origin: left top;*/
+        /*width: 100vh;*/
+        /*overflow-x: hidden;*/
+        /*position: absolute;*/
+        /*top: 100%;*/
+        /*left: 0;*/
+    /*}*/
+/*}*/
+
+@media only screen and (min-width : 320px) {
+    /*
+    |---------------------------------------------
+    | User Header
+    |---------------------------------------------
+    */
+    /* Right side icons*/
+    .navbar-nav>ul.list-inline>li.spacing-outer-small {
+        margin: 0 -8px;
+    }
+
+    /* Right side icons */
+    .navbar-nav > ul.list-inline > li.spacing-outer-small > button > a > img.custom-size-ico,
+    .navbar-nav > ul.list-inline > li.spacing-outer-small > a > img.custom-size-ico,
+    .navbar-nav > ul.list-inline > li.spacing-outer-small > button > img.custom-size-ico {
+        width: 35px;
+        height: 35px;
+    }
+
+    /* Right side icons */
+    .navbar-nav.navbar-right.push-down-medium {
+        margin-top: 5px;
+    }
+
+    .navbar.navbar-default>.container-fluid>.row>.center-block {
+        max-width: 388px;
+    }
+
+    /*
+   |---------------------------------------------
+   | Search Company Dropdown
+   |---------------------------------------------
+   */
+    .search-company > div.dropdown-menu {
+        width: 291px;
+    }
+
+    .search-company.btn-group .dropdown-toggle .filter-option {
+        display: none;
+        visibility: hidden;
+      }
+
+    i.fa.fa-caret-down.push-down-large.fa-lg.search-company-caret {
+        margin-left: 5px;
+    }
+
+    /*
+    |---------------------------------------------
+    | Feeds
+    |---------------------------------------------
+    */
+    /* Feed card container */
+    .feed-card-container {
+        width: 98%;
+        max-width: 350px;
+        border-radius: 0;
+    }
+
+    /*
+    |---------------------------------------------
+    | Account Profile
+    |---------------------------------------------
+    */
+    /*!* Tab container *!*/
+    /*#account-profile.scrollable-layout {*/
+        /*height: auto;*/
+        /*max-height: 550px;*/
+    /*}*/
+}
+
+
+/* Extra Small Devices, Phones */
+@media only screen and (min-width : 480px) {
+
+    /*
+     |---------------------------------------------
+     | User Header
+     |---------------------------------------------
+     */
+    /* Companies filter button */
+    .search-company > button.dropdown-toggle {
+        left: -26px;
+    }
+
+    /* Companies filter button */
+    .search-company > div.dropdown-menu {
+        /*margin-top: 10px;*/
+    }
+
+    .search-company.btn-group .dropdown-toggle .filter-option {
+        display: inherit;
+        margin-left: 6px;
+    }
+
+    i.fa.fa-caret-down.push-down-large.fa-lg.search-company-caret {
+        margin-left: -3px;
+    }
+    /* Right side icons */
+    .navbar-nav.navbar-right.push-down-medium {
+        margin-top: 5px;
+    }
+
+    /* Right side icons */
+    .navbar-nav > ul.list-inline > li.spacing-outer-small {
+        margin: 0 -3px;
+    }
+
+    /* Right side icons */
+    .navbar-nav > ul.list-inline > li.spacing-outer-small > button > a > img.custom-size-ico,
+    .navbar-nav > ul.list-inline > li.spacing-outer-small > button > img.custom-size-ico {
+        width: 35px;
+        height: 35px;
+    }
+
+    /* User profile and notifications menu dropdowns */
+    .navbar-nav .open .dropdown-menu {
+        margin-top: -13px;
+    }
+
+    /* User profile menu dropdowns > caret */
+    .user-profile.dropdown-menu:after {
+        right: 35px;
+    }
+
+    /* Notifications menu dropdowns > caret */
+    .notification-tray.dropdown-menu:after {
+        right: 85px;
+    }
+
+    .navbar.navbar-default>.container-fluid>.row>.center-block {
+        max-width: 468px;
+    }
+
+    /*
+    |---------------------------------------------
+    | Forms
+    |---------------------------------------------
+    */
+    /* Forms container header */
+    .form-container {
+        width: 350px;
+    }
+
+    .modal.in .modal-dialog {
+        width: 420px;
+        margin: 30px auto;
+    }
+
+    /* Feed card container */
+    .feed-card-container {
+        width: 98%;
+        max-width: 425px;
+        border-radius: 0;
+    }
+
+    /*
+    |---------------------------------------------
+    | Account Profile
+    |---------------------------------------------
+    */
+    /*!* Tab container *!*/
+    /*#account-profile.scrollable-layout {*/
+        /*height: auto;*/
+        /*max-height: 590px;*/
+    /*}*/
+
+}
+
+
+/* Small Devices, Tablets */
+@media only screen and (min-width : 768px) {
+
+    /*
+     |---------------------------------------------
+     | User Header
+     |---------------------------------------------
+     */
+    /* Companies filter button */
+    .search-company>button.dropdown-toggle.btn {
+        max-width: 460px;
+    }
+    i.fa.fa-caret-down.push-down-large.fa-lg.search-company-caret {
+        margin-left: -18px;
+    }
+    .search-company.btn-group .dropdown-toggle .filter-option {
+        margin-left: -2px;
+    }
+
+    /* User profile and notifications menu dropdowns*/
+    .navbar-nav .open .dropdown-menu{
+        margin-top: -6px;
+    }
+
+    /* Transaction date and amount change to color black at this size */
+    div.row>div.receiptDate {
+        color: black;
+    }
+
+    div.row>div.receiptAmount {
+        color: black;
+    }
+
+    /* Transaction header label to right side only once its reached this screen size */
+    .pull-right-sm {
+        float: right;
+    }
+
+    .navbar.navbar-default>.container-fluid>.row>.center-block {
+        max-width: none;
+        min-width: 748px;
+    }
+}
+/* Medium Devices, Desktops */
+@media only screen and (min-width : 992px) {
+
+    /*
+     |---------------------------------------------
+     | userHeader
+     |---------------------------------------------
+     */
+    /* Companies filter button */
+    .search-company>button.dropdown-toggle.btn {
+        margin-left: 5px;
+    }
+
+    .feed-card-container{
+        width: 98%;
+        max-width: 350px;
+        border-radius: 0;
+    }
+
+    .card-container {
+        left:1%;
+    }
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width : 1200px) {
+
+    /*
+     |---------------------------------------------
+     | userHeader
+     |---------------------------------------------
+     */
+    /* Companies filter button */
+    .search-company>button.dropdown-toggle.btn {
+        margin-left: 0;
+    }
+
+    .card-container {
+        left: 4%;
+    }
+
+}
+
+/* Extra Large Devices, Wide Screens (None-Bootstrap)*/
+@media only screen and (min-width : 1400px) {
+
+}
+
+/* 2 Extra Large Devices, Wide Screens (None-Bootstrap)*/
+@media only screen and (min-width : 1500px) {
+
+}
+
+/* 3 Extra Large Devices, Wide Screens (None-Bootstrap)*/
+@media only screen and (min-width : 1700px) {
+
+}

@@ -1,0 +1,149 @@
+{% extends 'templates/accordion.html.twig' %}
+{% import 'templates/macros/formFields.html.twig' as fields %}
+
+{# base accordion targets #}
+{% block containerId %}newReferralDetails{% endblock %}
+
+{% block parentId %}newReferralDetails{% endblock %}
+
+{% block hrefId %}new-referral-details{% endblock %}
+
+{% block ariaControlsId %}new-referral-details{% endblock %}
+
+{% block panelCollapseId %}new-referral-details{% endblock %}
+
+
+{% block headingId %}referralDetails{% endblock %}
+
+{% block ariaId %}referralDetails{% endblock %}
+
+{% block collapseIn %}in{% endblock %} {# collapse in block to open first accordion on page load #}
+
+{# accordion content #}
+{% block header %}
+    {{ 'Referral Information'| e }}
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+        <div class="form-group">
+            <div class="col-xs-12 col-sm-4 form-label control-label push-down-xs">
+
+                {{ fields.label('firstName','First Name:') }}
+
+           </div>
+
+            <div class="col-xs-12 col-sm-8">
+
+                {{ fields.input('firstName', null, 'text', null, {'required': true, 'maxlength': 100} ) }}
+
+            </div>
+        </div><!-- end referral name -->
+    </div>
+
+    <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+        <div class="form-group">
+            <div class="col-xs-12 col-sm-4 form-label control-label push-down-xs">
+
+                {{ fields.label('lastName','Last Name:') }}
+
+            </div>
+
+            <div class="col-xs-12 col-sm-8">
+
+                {{ fields.input('lastName', null, 'text', null, {'required': true, 'maxlength': 100} ) }}
+
+            </div>
+        </div><!-- end referral name -->
+    </div>
+
+    <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+        <div class="form-group">
+            <div class="col-xs-12 col-sm-4 form-label control-label push-down-xs">
+
+                {{ fields.label('phoneNumber','Cell Phone:') }}
+
+            </div>
+
+            <div class="col-xs-12 col-sm-8">
+
+                {{ fields.input('phoneNumber', null, 'tel', null, {'required': true, 'minlength': 10, 'maxlength': 10} ) }}
+
+            </div>
+        </div>
+    </div><!-- end referral phone number -->
+
+    <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+        <div class="form-group">
+            <div class="col-xs-12 col-sm-4 form-label control-label push-down-xs">
+
+                {{ fields.label('emailAddress','Email:') }}
+
+            </div>
+
+            <div class="col-xs-12 col-sm-8">
+
+                {{ fields.input('emailAddress',null,'email') }}
+
+            </div>
+        </div>
+    </div><!-- end personal contact email address -->
+
+    <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+        <div class="form-group">
+            <div class="col-xs-12 col-sm-4 form-label control-label push-down-xs">
+
+                {{ fields.label('selectAddress','Address:') }}
+
+            </div>
+
+            <div class="col-xs-12 col-sm-8">
+
+                {{ fields.input('selectAddress', null, 'selectAddress') }}
+
+            </div>
+        </div>
+    </div><!-- end excluded agreement location -->
+
+    <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+        <div class="form-group">
+            <div class="col-xs-12 col-sm-4 form-label control-label push-down-xs">
+
+                {{ fields.label('referralAbout','About:') }}
+
+            </div>
+
+            <div class="col-xs-12 col-sm-8">
+
+                {{ fields.textArea('referralAbout', null, 'In a few words, please describe what this referral is about.', {'rows': 5, 'maxlength': 255}) }}
+
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div><!-- end referral agreement description -->
+
+    {#<div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">#}
+        {#<div class="form-group">#}
+            {#<div class="col-xs-12 col-sm-4 form-label control-label push-down-xs">#}
+
+                {#{{ fields.label('referralNote','Notes:') }}#}
+
+            {#</div>#}
+
+            {#<div class="col-xs-12 col-sm-8">#}
+
+                {#{{ fields.textArea('referralNote', null, 'Is there any specific instruction the recipient of this referral should be aware of?', {'rows': 5, 'maxlength': 255}) }}#}
+
+            {#</div>#}
+
+        {#</div>#}
+        {#<div class="clearfix"></div>#}
+    {#</div><!-- end referral agreement note -->#}
+
+
+    {# google address placeholder #}
+    {% include 'fragments/addressPlaceholder.html.twig' %}
+
+{% endblock %}

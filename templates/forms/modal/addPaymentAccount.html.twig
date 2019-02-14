@@ -1,0 +1,38 @@
+{# twig template #}
+{% extends 'templates/modalContainer.html.twig' %}
+
+{% block header %}Payment Method Type{% endblock %}
+
+{% block id %}addPaymentAccount{% endblock %}
+
+{% block content %}
+
+    <div class="container-fluid">
+
+        <div class="row side-padding-35px">
+            <div class="col-xs-12">
+                <button id="addCreditCardBtn" class="clear-border-radius btn btn-block apply-shadow top-bottom-padding-25px" style="border: dashed #a7a6a6;" onclick="$('#addPaymentAccount').modal('hide'); $('#addCreditCard').modal('show');" >
+                    <i class="fa fa-credit-card fa-3x push-down-medium"></i>
+                    <p class="secondary-color text-bold" style="font-size: 14px">Debit/Credit Card</p>
+                </button>
+            </div>
+
+            {# ADD BANK ACCOUNT #}
+            {#<div class="col-xs-12 push-down-medium">#}
+                {#<button id="addBankAccountBtn" class="clear-border-radius btn btn-block apply-shadow top-bottom-padding-25px" style="border: dashed #a7a6a6;" onclick="$('#addPaymentAccount').modal('hide'); $('#addBankAccount').modal('show');" >#}
+                    {#<i class="fa fa-university fa-3x push-down-medium"></i>#}
+                    {#<p class="secondary-color text-bold" style="font-size: 14px">Bank Account</p>#}
+                {#</button>#}
+            {#</div>#}
+        </div>
+
+        {#<div class="row push-down-small">#}
+            {#<small>* Bank account is required to withdraw funds from your PapaLocal account.</small>#}
+        {#</div>#}
+
+        {#<div class="row push-down-medium">#}
+            {#<button class="clear-border-radius btn btn-block button-primary">Back</button>#}
+        {#</div>#}
+    </div>
+
+{% endblock %}

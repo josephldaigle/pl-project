@@ -1,0 +1,147 @@
+{# twig template #}
+{% extends 'templates/user.html.twig' %}
+{% import 'templates/macros/feedMacros.html.twig' as feedHelper %}
+
+{#
+|--------------------------------------------------------------------------
+| Feeds Layout: Layout for displaying feed items and details
+|--------------------------------------------------------------------------
+#}
+{% block headerResources %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/star-rating.css') }}">
+{% endblock %}
+
+{% block body %}
+
+    <div id="feed-page" xmlns="http://www.w3.org/1999/html">
+        <!-- Empty column -->
+        <div class="col-lg-2 col-md-1"></div>
+
+        <div class="col-lg-8 col-md-10 column-container page-body">
+
+            <!-- COL_1 -->
+            <div id="feed-item-container" class="col-lg-4 col-md-4 col-sm-5 clear-side-padding full-height pull-down-large">
+
+                {# output feed filter #}
+                {% include 'forms/feed-filter.html.twig' %}
+
+                {# output feed items #}
+                <div style="overflow-x: hidden" id="feed-item" class="apply-auto-overflow scrollable-layout" data-csrf-token="{{ csrf_token('selectFeedItem') }}">
+
+                    {# BEGIN INDIVIDUAL FEED ITEMS #}
+                    {% if items.all is defined and items.all is not empty %}
+                        {#feedList contains items, output them #}
+                        {% for item in items.all %}
+                            {% set cardIndex = {'id': loop.index } %}
+                            {{ feedHelper.loadCardFragment(item, cardIndex) }}
+                        {% endfor %}
+                    {% else %}
+                         {#Display a card with a simple message #}
+                        {% include 'fragments/feeds/column1/singleHeaderCard.html.twig' with
+                            { 'item':
+                                {
+                                    'guid':
+                                        {'value': constant('PapaLocal\\Feed\\ValueObject\\NoItemsFoundFeedDetail::GUID') },
+                                    'title': 'Oh No!',
+                                    'cardBody': 'We weren\'t able to find any items matching your criteria.',
+                                    'feedType': 'not found' },
+                                    'cardIndex': {'id': 0}
+                            }
+                        %}
+                    {% endif %}
+
+                </div><!-- feed-item -->
+            </div><!-- feed-item-container -->
+
+            <!-- COL_2 -->
+            <div id="feed-detail-container" class="col-lg-8 col-md-8 col-sm-7 clear-side-padding full-height pull-down-large">
+                <div id="feed-detail" class="container-fluid apply-auto-overflow feed-diplay-height">
+
+                    {# THIS IS WHERE FEED DETAIL PANELS GO #}
+
+                </div><!-- feed-detail -->
+            </div><!-- feed-detail-container -->
+        </div><!-- column-container -->
+
+        <!-- Empty column -->
+        <div class="col-lg-2 col-md-1"></div>
+    </div>
+
+{% endblock %}
+
+
+{% block footerResources %}
+    {{ parent() }}
+
+    <script type="text/javascript" async defer >
+
+        try {
+            let placesApiUrl = "//maps.googleapis.com/maps/api/js?key={{ keys.google.places_api | raw }}&libraries=places";
+
+            require(['/js/lib/ext/star-rating.js', '/js/lib/modules/feed.js', placesApiUrl], function(starRating, Feed, placeApi) {
+
+                require([ '/js/lib/modules/address-autocomplete.js'], function(address) {
+                    // execute on doc ready to initialize addresses
+                    $(document).ready(function() {
+
+                        // initialize address fields
+                        address.addressManager.configureAddressLookups();
+
+                        // bind address fields to input elements
+                        address.addressManager.bindInputsToApi();
+
+                        // attach change event handler to address lookups
+                        address.addressManager.attachKeyUpHandlerToInputs();
+                    });
+                });
+
+                $(document).ready(function() {
+
+                    // attach filter open handler
+                    $('#feed-filter-container').click(function() {
+                        if ($('#advance-filter').hasClass('hide')) {
+                            Feed.filter.open();
+                        }
+                    });
+
+                    // attach filter type selector
+                    $('#feed-type-filter input').each(function(){
+                        $(this).on('click', Feed.filter.selectType);
+                    });
+
+                    // attach feed card click handler
+                    Feed.attachCardClickHandler();
+                    $('.feed-date-filter-btn').each(function(index, btn) {
+                        $(btn).on('click', Feed.filter.selectDate);
+                    });
+
+                    // select first item on page load
+                    if ($('.feed-card-container').filter('.selected-feed-item').length < 1) {
+
+                        $('.feed-card-container')[1].click();
+                    }
+
+                    // attach feed scroll handler
+                    $('#feed-item').on('scroll', Feed.scrollToEnd);
+
+                });
+
+                {% if selectedItem is defined and selectedItem is not empty and selectedItem is not null %}
+                    {# A selected feed item was provided with the response data #}
+                    {% set feed_type = selectedItem.type %}
+                    {% set guid = selectedItem.guid %}
+
+                    Feed.scrollToItem('{{ feed_type }}', '{{ guid }}');
+                    $('div[data-feed-type=' + '{{ feed_type }}' + '][data-feed-id=' + '{{ guid }}' + ']').parent().click();
+
+                {% endif %}
+
+            });
+        } catch (error) {
+            console.error(error);
+        }
+
+    </script>
+
+{% endblock %}

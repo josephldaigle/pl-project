@@ -1,0 +1,111 @@
+{# Twig template #}
+{% extends 'templates/accordion.html.twig' %}
+
+{# base accordion targets #}
+{% block containerId %}transaction-accordion-{{ loop.index }}{% endblock %}
+
+{% block parentId %}transaction-accordion-{{ loop.index }}{% endblock %}
+
+{% block hrefId %}transaction-details-{{ loop.index }}{% endblock %}
+
+{% block ariaControlsId %}transaction-details-{{ loop.index }}{% endblock %}
+
+{% block panelCollapseId %}transaction-details-{{ loop.index }}{% endblock %}
+
+{% block headingId %}transactionAccordion-{{ loop.index }}{% endblock %}
+
+{% block ariaId %}transactionAccordion-{{ loop.index }}{% endblock %}
+
+{% block collapseIn %}{% if loop.index == 1 %}in{% endif %}{% endblock %} {# collapse in block to open first accordion on page load #}
+
+
+{% block header %}
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-xs-6">
+
+                <p style="font-size: 14px;" class="link-primary clear-bottom-margin">
+
+                    {{ rowDate | date('F') }}
+
+                    {% if loop.index == 1 or (summary.getDate() | slice(4, 2)) == 12 %}
+                        {# print the year with the title #}
+                        {{ '(' ~ rowDate | date('Y') ~ ')' }}
+                    {% endif %}
+
+                </p>
+
+            </div>
+
+            <div class="col-xs-6">
+                <p style="font-size: 14px;" class="link-primary clear-bottom-margin pull-right">{{ 'Ending Balance: ' }}&#36;{{ summary.getEndBalance() }}</p>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12 clear-side-padding">
+
+                <table class="table cl clear-bottom-margin">
+                    <thead>
+                    <tr style="color: #fff; background-color: #bbb;">
+                        <th>Date</th>
+                        <th>Description</th>
+                        <th><span class="pull-right">Amount</span></th>
+                    </tr>
+                    </thead>
+
+                    <tfoot>
+                    <tr class="active">
+                        <td colspan="3">
+                            <p class="text-bold clear-bottom-margin pull-right">{{ 'Starting Balance: ' | raw }}{{ summary.getBegBalance() }}</p>
+                        </td>
+                    </tr>
+                    </tfoot>
+
+                    <tbody>
+
+                    {% if app.user.getBillingProfile().getTransactionList().findByDate(rowDate | date('Y-m-d'), rowDate | date('Y-m-t')).count() < 1 %}
+                    <td colspan="3">{{ 'No transactions for this period.' }}</td>
+                    {% else %}
+
+                        {% for item in app.user.getBillingProfile().getTransactionList().findByDate(rowDate | date('Y-m-d'), rowDate | date('Y-m-t')).sortByDate('DESC').all() %}
+
+
+                        {% if item.getType() == 'debit' %}
+
+                                <tr class="danger">
+                                    <td>{{ item.getTimeCreated() | date('M j, Y') }}</td>
+                                    <td>{{ item.getDescription() }}</td>
+                                    <td><span class="pull-right">&#45;{{ item.getAmount() }}</span></td>
+                                </tr>
+
+                            {% else %}
+
+                                <tr>
+                                    <td>{{ item.getTimeCreated() | date('M j, Y') }}</td>
+                                    <td>{{ item.getDescription() }}</td>
+                                    <td><span class="pull-right">{{ item.getAmount() }}</span></td>
+                                </tr>
+                            {% endif %}
+
+                        {% endfor %}
+                    {% endif %}
+
+                    </tbody>
+
+                </table>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

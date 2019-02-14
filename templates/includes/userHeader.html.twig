@@ -1,0 +1,98 @@
+{#
+|--------------------------------------------------------------------------
+| userHeader.html.twig
+|--------------------------------------------------------------------------
+|
+| This template contains header elements for user pages.
+|
+#}
+<nav class="navbar navbar-default clear-border-radius clear-bottom-margin clear-border secondary-background apply-shadow navigation-height">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Empty column -->
+            <div class="col-lg-2 col-md-1"></div>
+            <div class="col-lg-8 col-md-10 center-block">
+                <div class="col-xs-4">
+                    <div class="navbar-header">
+                        <div class="col-xs-1 spacing-inner-medium convert-inline-block clear-side-padding">
+                            <img src="{{ asset('media/papalocal.logo.png') }}" class="navbar-brand header-brand clickable" onclick="openCompanySelector()"/>
+                        </div>
+
+                        {% if  app.user.getCompanyList() is not null and app.user.getCompanyList().all()|length > 1 %}
+
+                            <div class="col-xs-1">
+                                <i style="color:#a4a4a4; top: 20px;" class="fa fa-caret-down push-down-large fa-lg search-company-caret clickable" onclick="openCompanySelector()"></i>
+                            </div>
+
+                            <div class="col-xs-3 push-down-medium">
+
+                                {# show company selector #}
+                                {% include 'fragments/companySearchSelector.html.twig' %}
+
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+                </div><!-- Close column for the header Logo -->
+                <div class="col-xs-8">
+                    <div class="nav navbar-nav navbar-right push-down-medium clear-side-margin clear-side-padding spacing-inner-medium">
+                        <ul class="list-inline text-right">
+
+                            <li class="spacing-outer-small">
+                                {#<button class="clear-background clear-border">#}
+                                    <a style="padding: 0 7px;" href="{{ path('feed') }}">
+                                        <img src="{{ asset('media/home.icon.blue.png') }}" class="custom-size-ico"/>
+                                    </a>
+                                {#</button>#}
+                            </li>
+
+                            <li class="spacing-outer-small">
+
+                                {# THIS FORM IS SUBMITTED WHEN THE NOTIFICATION ICON CLICK IS TRIGGERED. IT CREATES A SAVE POINT FOR THE NUMBER OF NOTIFICATIONS #}
+                                <form name="setNotificationsSavePoint" data-url="notification/createSavePoint" data-form-type="standard">
+                                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('notification') }}" />
+                                </form>
+                                <button id="notification-icon" class="dropdown-toggle clear-background clear-border" data-toggle="dropdown" href="#" onclick="$(this).prev('form').submit();">
+
+                                    <img src="{{ asset('media/notification-icon-blue.png') }}" class="custom-size-ico"/>
+
+                                    {# GET THE NOTIFICATION COUNT #}
+                                    {{ render(controller('PapaLocal\\Controller\\NotificationController::countUserUnreadNotifications')) }}
+
+                                </button>
+
+                                <ul id="notification-tray" class="notification-tray dropdown-menu clear-top-bottom-padding apply-auto-overflow scrollable-layout" role="menu">
+                                    {# GET THE NOTIFICATION LIST #}
+                                    {{ render(controller('PapaLocal\\Controller\\NotificationController::fetchUserNotifications')) }}
+                                </ul>
+
+
+
+                            </li>
+
+                            <li class="spacing-outer-small">
+                                <button id="account-icon" class="dropdown-toggle clear-background clear-border clear-text-decoration" data-toggle="dropdown" href="#">
+                                    <img src="{{ asset('media/profile-icon-blue.png') }}" class="custom-size-ico"/>
+                                    &nbsp;<i style="color:#00b5f1; position: absolute; top: 20px;" class="fa fa-caret-down fa-lg"></i>
+                                </button>
+                                <ul class="user-profile dropdown-menu clear-top-bottom-padding" role="menu">
+                                    <li><a href="{{ url('account_profile') }}">Account Profile</a></li>
+                                    {#<li><a href="#">Statements</a></li>#}
+                                    <li><a href="#serviceTerms" data-toggle="modal">Terms Of Service</a></li>
+                                    <li><a href="{{ path('logout') }}">Logout</a></li>
+                                </ul>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div><!-- Close column for the header right side icons -->
+            </div>
+            <!-- Empty column -->
+            <div class="col-lg-2 col-md-1"></div>
+        </div><!-- row -->
+    </div><!-- Close container-fluid -->
+</nav>
+
+
+

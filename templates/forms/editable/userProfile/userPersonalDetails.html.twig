@@ -1,0 +1,184 @@
+{# Twig template #}
+{% extends 'templates/accordion.html.twig' %}
+{% import 'templates/macros/formFields.html.twig' as fields %}
+
+{# base accordion targets #}
+{% block containerId %}accordion1{% endblock %}
+
+{% block parentId %}accordion1{% endblock %}
+
+{% block hrefId %}personal-details{% endblock %}
+
+{% block ariaControlsId %}personal-details{% endblock %}
+
+{% block panelCollapseId %}personal-details{% endblock %}
+
+{% block headindId %}userPersonalPanel{% endblock %}
+
+{% block ariaId %}userPersonalPanel{% endblock %}
+
+{# accordion content #}
+{% block header %}{{ 'Personal Details'| e }}{% endblock %}
+
+{% block caret %}<i class="caret-up-down fa fa-2x fa-caret-down"></i>{% endblock %}
+
+{% block content %}
+
+    {#  USER FIRST NAME  #}
+    <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+        <form name="accountProfileFirstName" class="view-mode form-group" data-url="user/first-name/update" data-form-type="inline">
+
+            <div class="col-sm-12">
+                {% include 'fragments/alerts/formAlert.html.twig' %}
+            </div>
+
+            <div class="form-label col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label push-down-xs">
+                {{ fields.label('firstName','First Name:') }}
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                {{ fields.input('firstName', app.user.getPerson().getFirstName(), 'text', null, {'required': true, 'disabled': true} ) }}
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 push-down-xs">
+                {{ fields.button() }}
+            </div>
+
+            <input type="hidden" name="userGuid" value="{{ app.user.guid.value }}" />
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('accountProfileFirstName') }}" />
+
+        </form>
+    </div><!-- end user first name panel -->
+
+    {#  USER LAST NAME  #}
+    <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+        <form name="accountProfileLastName" class="view-mode form-group" data-url="user/last-name/update" data-form-type="inline">
+
+            <div class="col-sm-12">
+                {% include 'fragments/alerts/formAlert.html.twig' %}
+            </div>
+
+            <div class="form-label col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label push-down-xs">
+                {{ fields.label('lastName','Last Name:') }}
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                {{ fields.input('lastName', app.user.getPerson().getLastName(), 'text', null, {'required': true, 'disabled': true} ) }}
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 push-down-xs">
+                {{ fields.button() }}
+            </div>
+
+            <input type="hidden" name="userGuid" value="{{ app.user.guid.value }}" />
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('accountProfileLastName') }}" />
+
+        </form>
+    </div><!-- end user last name panel -->
+
+    {#  USER EMAIL ADDRESS  #}
+    {#<div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">#}
+
+        {#<form name="accountProfileEmailAddress" class="view-mode form-group" data-url="user/email-address/update" data-form-type="inline">#}
+
+            {#<div class="col-sm-12">#}
+                {#{% include 'fragments/alerts/formAlert.html.twig' %}#}
+            {#</div>#}
+
+            {#<div class="form-label col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label push-down-xs">#}
+                {#{{ fields.label('emailAddress','Email:') }}#}
+            {#</div>#}
+
+            {#{% if app.user.getContactProfile().findEmailAddressBy('type', 'Primary') %}#}
+
+                {# use the username #}
+                {#<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">#}
+                    {#{{ fields.input('emailAddress', app.user.getContactProfile().findEmailAddressBy('type', 'Primary').getEmailAddress(), 'email', null, {'required': true, 'disabled': true} ) }}#}
+                {#</div>#}
+
+            {#{% else %}#}
+
+                {# use the primary email #}
+
+                {#<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">#}
+                    {#{{ fields.input('emailAddress', app.user.getUsername(), 'email', null, {'required': true, 'disabled': true} ) }}#}
+                {#</div>#}
+
+            {#{% endif %}#}
+
+            {#<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 push-down-xs">#}
+                {#{{ fields.button() }}#}
+            {#</div>#}
+
+            {#<input type="hidden" name="_csrf_token" value="{{ csrf_token('accountProfileEmailAddress') }}" />#}
+
+        {#</form>#}
+    {#</div><!-- end user email panel -->#}
+
+    <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+        <form name="accountProfilePhoneNumber" class="view-mode form-group" data-url="user/phone-number/update" data-form-type="inline">
+
+            <div class="col-sm-12">
+                {% include 'fragments/alerts/formAlert.html.twig' %}
+            </div>
+
+            <div class="form-label col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label push-down-xs">
+                {{ fields.label('phoneNumber','Phone:') }}
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+
+                {% if app.user.getContactProfile().findPhoneNumberBy('type', 'Main') %}
+
+                    {{ fields.input('phoneNumber', app.user.getContactProfile().findPhoneNumberBy('type', 'Main').getPhoneNumber(), 'tel', 'Enter a Phone Number', {'required': true, 'disabled': true} ) }}
+
+                {% else %}
+
+                    {{ fields.input('phoneNumber', null, 'tel', 'Enter a Phone Number', {'required': true, 'disabled': true} ) }}
+
+                {% endif %}
+
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 push-down-xs">
+                {{ fields.button() }}
+            </div>
+
+            <input type="hidden" name="userGuid" value="{{ app.user.guid.value }}" />
+            <input type="hidden" name="phoneType" value="{{ 'MAIN' }}" />
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('accountProfilePhoneNumber') }}" />
+
+        </form>
+    </div><!-- end account phone number panel -->
+
+    <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+        <form name="accountProfileAddress" class="view-mode form-group" data-url="user/address/save" data-form-type="inline">
+
+            <div class="col-sm-12">
+                {% include 'fragments/alerts/formAlert.html.twig' %}
+            </div>
+
+            <div class="form-label col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label push-down-xs">
+                {{ fields.label('selectAddress','Address:') }}
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                {% if (app.user.getContactProfile().getAddressList().findBy('type', 'Physical')) %}
+                    <input type="text" class="form-control clear-border-radius" name="selectAddress"
+                        value="{{ app.user.getContactProfile().getAddressList().findBy('type', 'Physical').toString() }}" disabled />
+                {% else %}
+                    <input type="text" class="form-control clear-border-radius" name="selectAddress" placeholder="Add an address"
+                           value="" disabled />
+                {% endif %}
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 push-down-xs">
+                {{ fields.button() }}
+            </div>
+
+            {# include address placeholder fields - required for google address autocomplete #}
+            {% include 'fragments/addressPlaceholder.html.twig' %}
+
+            <input type="hidden" name="guid" value="{{ app.user.guid.value }}" />
+            <input type="hidden" name="type" value="{{ 'Physical' }}" />
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('accountProfileAddress') }}" />
+
+        </form>
+    </div><!-- end user address panel -->
+
+{% endblock %}
+

@@ -1,0 +1,39 @@
+{#
+|--------------------------------------------------------------------------
+| Invitation to participate in a referral agreement.
+|--------------------------------------------------------------------------
+|
+#}
+
+{% extends 'templates/email.html.twig' %}
+
+{% block emailBody %}
+
+    <div class="row body-row">
+        <div class="col-lg-12">
+            <p>Hi {{ invitee.firstName }},</p>
+            <p>
+                {{ invitee.message }}
+            </p>
+            <p>
+                <strong>It's easy to get started, and payments are guaranteed and automatic.</strong> Use the link in this email to register, and you'll see my invitation in your feed when you log in.
+            </p>
+
+            <p class="text-center">
+                <a href="{{ url | raw }}" class="clear-text-decoration">
+                    <button class="button-primary">Yes, I'm interested!</button>
+                </a>
+            </p>
+
+            <p>If the button does not work, copy and paste this link into your browser's address bar: {{ url | raw }}.</p>
+
+            <p>Sincerely,</p>
+            <p>{{ owner.firstName }}&nbsp;{{ owner.lastName }}</p>
+
+
+            <small>This was an automatically generated email, and sent on behalf of signee.</small>
+
+        </div>
+    </div>
+
+{% endblock %}

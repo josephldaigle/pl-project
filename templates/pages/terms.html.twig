@@ -1,0 +1,26 @@
+{# twig template #}
+{% extends 'templates/public.html.twig' %}
+
+{#
+|-------------------------------------------
+| Terms of Service
+|-------------------------------------------
+#}
+
+{% block body %}
+
+    <div class="col-lg-2 col-md-2 col-sm-1"></div><!-- Empty column -->
+
+    <div class="col-lg-8 col-md-8 col-sm-10 col-xs-12 clear-side-padding service-terms-body">
+        <div class="container-fluid secondary-background apply-auto-overflow scrollable-layout apply-shadow">
+
+            <h1>Our Terms of Service</h1>
+
+            {% include 'fragments/publicServiceTerms.html.twig' %}
+
+        </div>
+    </div>
+
+    <div class="col-lg-2 col-md-2 col-sm-1"></div><!-- Empty column -->
+
+{% endblock %}

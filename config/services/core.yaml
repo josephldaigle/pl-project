@@ -1,0 +1,137 @@
+################################################################
+#
+# Core
+#
+# Central application services.
+#################################################################
+parameters:
+    # Sys Admin email address - linked to user profile in db
+    papalocal_admin_email: app@ewebify.com
+
+
+services:
+    ## Entities
+    PapaLocal\Entity\:
+        resource: '../../src/Entity/*'
+        exclude: '../../src/Entity/{Notification}'
+
+    ### Factory
+
+    PapaLocal\Core\Factory\GuidFactory:
+        class: PapaLocal\Core\Factory\GuidFactory
+
+    PapaLocal\Core\ValueObject\GuidGeneratorInterface:
+        alias: PapaLocal\Core\Factory\GuidFactory
+        public: true
+
+    PapaLocal\Core\Factory\VOFactory:
+        class: PapaLocal\Core\Factory\VOFactory
+
+    PapaLocal\Core\ValueObject\EmailAddressFactoryInterface:
+        alias: PapaLocal\Core\Factory\VOFactory
+        public: true
+
+    PapaLocal\Core\ValueObject\PhoneNumberFactoryInterface:
+        alias: PapaLocal\Core\Factory\VOFactory
+        public: true
+
+    ##### alias for service config injection
+    papalocal_core.guid_generator:
+        alias: PapaLocal\Core\ValueObject\GuidGeneratorInterface
+        public: true
+
+    PapaLocal\Entity\EntityFactory:
+        class: PapaLocal\Entity\EntityFactory
+        public: true
+    papalocal_core.entity_factory:
+        alias: PapaLocal\Entity\EntityFactory
+
+    ## Events
+    PapaLocal\Core\Event\:
+        resource: '../../src/Core/Event/*'
+        exclude: '../../src/Core/Event/{SystemUserLoader.php}'
+        autowire: true
+        tags:
+            - { name: kernel.event_subscriber }
+
+    PapaLocal\Core\Event\SystemUserLoader:
+        class: PapaLocal\Core\Event\SystemUserLoader
+        arguments:
+            $adminEmailAddress: '%papalocal_admin_email%'
+            $appBus: '@messenger.bus.application'
+            $iaMsgFactory: '@PapaLocal\IdentityAccess\Message\MessageFactory'
+            $voFactory: '@PapaLocal\Core\ValueObject\EmailAddressFactoryInterface'
+            $logger: '@monolog.logger.request'
+        tags:
+            - { name: kernel.event_subscriber }
+
+    ## Notification
+    PapaLocal\Core\Notification\EmailMessageBuilder:
+        class: PapaLocal\Core\Notification\EmailMessageBuilder
+        arguments:
+            $twig: '@twig'
+
+    PapaLocal\Core\Notification\EmailerInterface:
+        class: PapaLocal\Core\Notification\Emailer
+        arguments:
+            $emailBuilder: '@PapaLocal\Core\Notification\EmailMessageBuilder'
+            $swiftMailer: '@swiftmailer.mailer.default'
+            $logger: '@logger'
+
+    papalocal_core.emailer:
+        alias: PapaLocal\Core\Notification\EmailerInterface
+        public: true
+
+    ## Security
+    PapaLocal\Core\Security\Cryptographer:
+        class: PapaLocal\Core\Security\Cryptographer
+        public: true
+
+    PapaLocal\Core\Security\EmailSaltRepository:
+        class: PapaLocal\Core\Security\EmailSaltRepository
+        parent: PapaLocal\Core\Data\AbstractRepository
+        tags: ['papalocal_data.repository']
+
+    PapaLocal\Core\Security\Event\AuthenticationFailureListener:
+        class: PapaLocal\Core\Security\Event\AuthenticationFailureListener
+        arguments:
+            $flashBag: '@session.flash_bag'
+        tags:
+            - { name: kernel.event_subscriber }
+
+    ## Validation
+    PapaLocal\Core\Validation\DoesNotExistValidator:
+        class: PapaLocal\Core\Validation\DoesNotExistValidator
+        public: true
+        arguments:
+            $messageBus: '@messenger.bus.application'
+            $messageFactory: '@PapaLocal\ReferralAgreement\Message\MessageFactory'
+        tags: [ validator.constraint_validator ]
+
+    PapaLocal\Core\Validation\BeforeNowValidator:
+        class: PapaLocal\Core\Validation\BeforeNowValidator
+        public: true
+        tags: [ validator.constraint_validator ]
+
+    ## Console Commands
+    PapaLocal\Command\:
+        resource: '../../src/Command/*'
+        public: true
+        tags: [console.command]
+        exclude: '../../src/Command/{CreateGuid.php,Database/ExportDatabaseTables.php}'
+
+    PapaLocal\Command\CreateGuid:
+        class: PapaLocal\Command\CreateGuid
+        arguments:
+            $guidGenerator: '@papalocal_core.guid_generator'
+        tags: [console.command]
+
+    PapaLocal\Command\Database\ExportDatabaseTables:
+        class: PapaLocal\Command\Database\ExportDatabaseTables
+        public: true
+        arguments:
+            $dataService: '@PapaLocal\Data\DataService'
+            $commandFactory: '@PapaLocal\Data\Command\Factory\CommandFactory'
+            $serializer: '@serializer'
+            $schemaRepository: '@PapaLocal\Core\Data\SchemaRepository'
+        tags: [console.command]

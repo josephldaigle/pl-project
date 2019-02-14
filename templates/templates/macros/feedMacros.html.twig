@@ -1,0 +1,195 @@
+{# twig template #}
+
+{#
+ # Load the feed item's template. This macro knows which twig fragment to use to dispaly the feed item in the card list.
+ #}
+{% macro loadCardFragment(item, cardIndex) %}
+    {# choose and render the feed item fragment #}
+    {% if item.feedType == 'referral' %}
+
+        {% include 'fragments/feeds/column1/referralCard.html.twig' %}
+
+    {% elseif item.feedType == 'agreement' %}
+
+        {% if item.isOwner(app.user.guid.value) %}
+            {% include 'fragments/feeds/column1/referralAgreementCard.html.twig' %}
+        {% else %}
+            {% include 'fragments/feeds/column1/referralAgreementParticipantCard.html.twig' %}
+        {% endif %}
+
+    {% elseif item.feedType == 'transaction' %}
+
+        {% include 'fragments/feeds/column1/transactionCard.html.twig' %}
+
+    {% else %}
+
+        {% include 'fragments/feeds/column1/singleHeaderCard.html.twig' %}
+
+    {% endif %}
+
+{% endmacro %}
+
+{#
+ # Load the feed item's display template.
+ #}
+{% macro loadDetailFragment(item) %}
+    {# choose and render the feed item fragment #}
+    {% if item.feedType == 'referral' %}
+
+        {% include 'fragments/feeds/column2/referralCardDisplay.html.twig' %}
+
+    {% elseif item.feedType == 'agreement' %}
+
+        {% include 'fragments/feeds/column2/referralAgreementCardDisplay.html.twig' %}
+
+    {% elseif item.feedType== 'transaction' %}
+
+        {% include 'fragments/feeds/column2/transactionCardDisplay.html.twig' %}
+
+    {% else %}
+
+        {% include 'fragments/feeds/column2/singleHeaderCardDisplay.html.twig' %}
+
+    {% endif %}
+
+{% endmacro %}
+
+
+ {# Load the feed card #}
+{% macro fetchCardIcon(item) %}
+
+    {% if item.feedType == 'referral' %}
+
+        <span id="referral-icon" class="fa-stack fa-lg" data-toggle="tooltip" title="Referrals">
+            <i class="fa fa-circle fa-stack-2x" ></i>
+            <i style="color: #fff" class="fa fa-file-text-o fa-stack-1x"></i>
+        </span>
+
+    {% elseif item.feedType == 'agreement' %}
+
+        <span id="agreement-icon" class="fa-stack fa-lg" data-toggle="tooltip" title="Agreements">
+            <i class="fa fa-circle fa-stack-2x" ></i>
+            <i style="color: #fff" class="fa fa-handshake-o fa-stack-1x"></i>
+        </span>
+
+    {% elseif item.feedType == 'referralAgreementInvitee' %}
+
+        <span id="invitee-icon" class="fa-stack fa-lg" data-toggle="tooltip" title="Agreements">
+            <i class="fa fa-circle fa-stack-2x" ></i>
+            <i style="color: #fff" class="fa fa-user-plus fa-stack-1x"></i>
+        </span>
+
+    {% elseif item.feedType == 'referralAgreementParticipant' %}
+
+        <span id="participant-icon" class="fa-stack fa-lg" data-toggle="tooltip" title="Agreements">
+            <i class="fa fa-circle fa-stack-2x" ></i>
+            <i style="color: #fff" class="fa fa-users fa-stack-1x"></i>
+        </span>
+
+    {% elseif item.feedType == 'transaction' %}
+
+        <span id="dollar-icon" class="fa-stack fa-lg"  data-toggle="tooltip" title="Transactions">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i style="color: #fff" class="fa fa-usd fa-stack-1x"></i>
+        </span>
+
+    {% else %}
+
+        <span id="bell-icon" class="fa-stack fa-lg"  data-toggle="tooltip" title="Transactions">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i style="color: #fff" class="fa fa-bell fa-stack-1x"></i>
+        </span>
+
+    {% endif %}
+
+{% endmacro %}
+
+
+{#
+ # Create a label to display on the feed col_1 card for a referral agreement.
+ #}
+{% macro fetchReferralAgreementLabel(item) %}
+
+    {# display status label #}
+    {% if item.statusHistory.currentStatus.status.value == 'Unknown'
+        or item.statusHistory.currentStatus.reason.value == 'Created' %}
+
+        <span class="label label-warning">Unpublished</span>
+
+    {% elseif item.statusHistory.currentStatus.status.value == 'Inactive' %}
+
+        {% if (item.isOwner(app.user.guid.value)) %}
+            <span class="label label-warning">Paused</span>
+        {% else %}
+            <span class="label label-warning">Paused</span>
+        {% endif %}
+
+
+    {% elseif item.statusHistory.currentStatus.status.value == 'Active' %}
+
+        <span class="label label-success">Active</span>
+
+    {% endif %}
+
+
+    {# display inbound/outbound arrow #}
+    {#{% if (item.isParticipant(app.user.guid.value)) or (item.isInvitee(app.user.guid.value)) %}#}
+        {#<i class="fa fa-arrow-left fa-lg fa-rotate-minus45" style="color: #5cbf56;"></i>#}
+    {#{% elseif item.isOwner(app.user.guid.value) %}#}
+        {#<i class="fa fa-arrow-right fa-lg fa-rotate-minus45" style="color: #5cbf56;"></i>#}
+    {#{% endif %}#}
+
+{% endmacro %}
+
+
+{#
+ # Load an accordion alert for a referral agreement, using the agreement's status to determine which alert to show.
+ # This should only be displayed when the agreement is not active.
+ #}
+{% macro loadReferralAgreementAlert(item) %}
+    {# show alerts based on user's relationship to the agreeement and/or the agreement status. #}
+    {% set agreementStatus = item.statusHistory.currentStatus.status.value %}
+    {% set statusChangeReason = item.statusHistory.currentStatus.reason.value %}
+    {% set userIsOwner = item.isOwner(app.user.guid.value) %}
+    {% set userIsParticipant = item.isParticipant(app.user.guid.value) %}
+    {% set userIsInvitee = item.isInvitee(app.user.guid.value) %}
+
+
+    {% if (userIsInvitee) and (not userIsParticipant) and (agreementStatus == 'Active') %}
+        {# user is invited to an active agreement #}
+        {% include 'fragments/alerts/referralAgreementInvite.html.twig' %}
+
+    {% elseif (userIsParticipant) %}
+        {% if agreementStatus == 'Inactive' %}
+            {# participants agreement has been paused #}
+            {% include 'fragments/alerts/referralAgreementParticipant.html.twig' %}
+        {% endif %}
+
+    {% elseif (userIsOwner) %}
+
+        {% if (agreementStatus == 'Inactive') %}
+            {# owner's agreement has been paused #}
+            {% include 'fragments/alerts/referralAgreementOwner.html.twig' %}
+        {% endif %}
+
+    {% endif %}
+
+{% endmacro %}
+
+
+{# TODO: Add comment #}
+{% macro loadDisputeAlert(item) %}
+
+    {% if item.resolution is defined and item.resolution is not empty %}
+        {% if item.resolution == 'approved' %}
+            {% include 'fragments/alerts/dispute.html.twig' with {'alert': {'title': 'Approved', 'color': '#fff', 'backgroundColor': '#5cb85c', 'level': 'alert-success'}} %}
+        {% else %}
+            {% include 'fragments/alerts/dispute.html.twig' with {'alert': {'title': 'Denied', 'color': '#fff', 'backgroundColor': '#d9534f', 'level': 'alert-danger'}} %}
+        {% endif %}
+    {% else %}
+        {% if item.score < 3 %}
+            {% include 'fragments/alerts/dispute.html.twig' with {'alert': {'title': 'Pending', 'color': '#fff', 'backgroundColor': '#ffad17', 'level': 'alert-warning'}} %}
+        {% endif %}
+    {% endif %}
+
+{% endmacro %}

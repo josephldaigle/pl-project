@@ -1,0 +1,37 @@
+{% import 'templates/macros/formFields.html.twig' as fields %}
+
+
+
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+        {% for companyIndustry in company.getIndustryList().all() %}
+
+        <div class="form-label col-lg-4 col-md-4 col-sm-4 col-xs-12 control-label">
+            {{ fields.label('companyIndustryType','Type:') }}
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            {{ fields.select('companyServiceType', {'primary':'Primary', 'secondary':'Secondary'}, companyIndustry.getType(), {"id": "companyServiceType"}) }}
+        </div>
+
+    </div><!-- end service type field -->
+
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+        <div class="form-label col-lg-4 col-md-4 col-sm-4 col-xs-12 control-label">
+            {{ fields.label('companyIndustryName','Name:') }}
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            {{ fields.input('companyServiceName', companyIndustry.getName(), 'text', null, {'disabled':true}) }}
+        </div>
+
+    {% endfor %}
+
+    </div><!-- end service name field -->
+
+
+
+
+
+

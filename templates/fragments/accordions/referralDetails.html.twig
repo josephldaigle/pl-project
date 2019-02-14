@@ -1,0 +1,85 @@
+{# Twig template #}
+{% extends 'templates/accordion.html.twig' %}
+{% import 'templates/macros/formFields.html.twig' as fields %}
+
+{# base accordion targets #}
+{% block containerId %}referralDetails{% endblock %}
+
+{% block parentId %}referralDetails{% endblock %}
+
+{% block hrefId %}referral-details{% endblock %}
+
+{% block ariaControlsId %}referral-details{% endblock %}
+
+{% block panelCollapseId %}referral-details{% endblock %}
+
+
+{% block headingId %}rDetails{% endblock %}
+
+{% block ariaId %}rDetails{% endblock %}
+
+{% block collapseIn %}in{% endblock %}
+
+{# accordion content #}
+{% block header %}
+    {{ 'Referral Details'| e }}
+{% endblock %}
+
+
+{% block content %}
+
+    {% if item.agreementName is defined and item.agreementName is not empty %}
+
+        <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+            <div class="form-label col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label push-down-xs">
+                <b>{{ 'Price:' }}</b>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 push-down-xs">
+                {% if item.isProvider(app.user.guid.value) %}
+                    ${{ (item.agreementBid is defined and item.agreementBid is not empty) ? (item.agreementBid * item.transactionTier)|round(0, 'floor') : 0|round(0, 'floor') }}
+                {% else %}
+                    ${{ (item.agreementBid is defined and item.agreementBid is not empty) ? (item.agreementBid)|round(0, 'floor') : 0|round(0, 'floor') }}
+                {% endif %}
+                {#{{ fields.input('bid', (item.bid * constant('PapaLocal\\Billing\\ValueObject\\TransactionTier::TIER_ONE_USER')) | round(0, 'floor'), 'number', '30', {'required': true, disabled: true }, 'money-usd text-right spacing-inner-xsmall', {'border':'1px solid #ddd'}) }}#}
+            </div>
+        </div><!-- end referral agreement price per referral -->
+
+        <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+            <div class="form-label col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label push-down-xs">
+                <b>{{ 'Agreement:' }}</b>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 push-down-xs">
+                {{ (item.agreementName is defined and item.agreementName is not empty) ? item.agreementName : 'None available' }}
+            </div>
+        </div><!-- end referral agreement panel -->
+
+    {% endif %}
+
+    <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+        <div class="form-label col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label push-down-xs">
+            <b>{{ 'Date:' }}</b>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 push-down-xs">
+            {{ item.timeCreated | date('m/d/Y') }}
+        </div>
+    </div><!-- end referral date panel -->
+
+    <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+        <div class="form-label col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label push-down-xs">
+            <b>{{ 'Time:' }}</b>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 push-down-xs">
+            {{ item.timeCreated | date('h:i A', app.user.timezone) }}
+        </div>
+    </div><!-- end referral time panel -->
+
+    <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+        <div class="form-label col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label push-down-xs">
+            <b>{{ 'About:' }}</b>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 push-down-xs">
+            {{ item.about }}
+        </div>
+    </div><!-- end referral about panel -->
+
+{% endblock %}

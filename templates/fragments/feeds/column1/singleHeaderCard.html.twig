@@ -1,0 +1,25 @@
+{% extends 'templates/feedCard.html.twig' %}
+{% import 'templates/macros/feedMacros.html.twig' as feedHelper %}
+
+{#
+|--------------------------------------------------------------------------
+| Single Header Card Feed
+|--------------------------------------------------------------------------
+|
+|
+#}
+{% block cardName %}{{ item.feedType }}{{ item.guid.value }}{% endblock %}
+
+
+{% block feedCardHeader %}{{ item.guid.value }}{% endblock %}{# panel header target #}
+{% block feedCardBody %}{{ item.guid.value }}{% endblock %}
+
+
+{% block title %}&nbsp;{{ item.title }}{% endblock %}
+
+
+{% block feedBody %}
+
+    <div id="single-header-feed-card"></div>
+
+{% endblock %}

@@ -1,0 +1,246 @@
+{#
+ # TODO: Refactor macros.
+ # Everything below this line is a candidate for refactor. These macros are being used, so any refactoring should
+ # consider impact to existing templates.
+ #
+ # Once refactored, move the macro above this comment. When the last one is done, delete this comment.
+ #}
+
+
+
+{#
+ # Create an <input> element
+ #
+ # @param name string the html name attribute
+ # @param option_array string the values to use as <option>s
+ # @param selected_opt string the value of the selected <option>
+ # @param attributes array key, value attributes to assign to the <select> tag
+ #
+ #}
+{% macro input(name, value, type, placeholder, attributes, classes, styles) %}
+
+    <input type="{{ type }}" name="{{ name }}" value="{{ value }}" class="form-control clear-border-radius {{ classes }}" placeholder="{{ placeholder }}" {% for attr, val in attributes %}{{ attr }}="{{ val }}"{% endfor %} style="{% for attr, val in styles %}{{ attr }}:{{ val }};{% endfor %}"/>
+
+{% endmacro %}
+
+{#
+ # Create a bootstrap select-picker(plugin) element.
+ #
+ # @param name string the html name attribute
+ # @param option_array string the values to use as <option>s
+ # @param selected_opt string the value of the selected <option>
+ # @param attributes array key, value attributes to assign to the <select> tag
+ #
+ #}
+{% macro select(name, option_array, selected_opt, attributes, options = { multi_select: false, include_blank: false }) %}
+
+    <select name="{{ name }}" class="form-control clear-border-radius"
+        {% if attributes is not empty %}
+            {% for name, val in attributes %}
+                {{ name }}="{{ val }}"
+            {% endfor %}
+        {% endif %}
+
+        {% if options.multi_select %}multiple{% endif %}>
+
+        {# generate options list #}
+        {% if options.include_blank %}
+            {% if selected_opt %}
+                <option disabled ></option>
+            {% else %}
+                <option disabled selected></option>
+            {% endif %}
+        {% endif %}
+
+        {% for val, label in option_array %}
+            <option value="{{ val }}" {% if selected_opt == val %}selected{% endif %} >{{ label }}</option>
+        {% endfor %}
+
+    {# close select element #}
+    </select>
+
+{% endmacro %}
+
+{#
+ # Create a text area input element.
+#}
+{% macro textArea(name, value, placeholder, attributes) %}
+
+    <textarea name="{{ name }}" class="about-text form-control clear-border-radius" placeholder="{{ placeholder }}" {% for attr, val in attributes %}{{ attr }}="{{ val }}"{% endfor %}>{{ value|e }}</textarea>
+    <span class="help-block hide"></span>
+
+{% endmacro %}
+
+{#
+ #
+#}
+{% macro address(option_array, attributes) %}
+
+    <select name="selectAddress" class="selectpicker form-control clear-border-radius" data-live-search="true" data-live-search-style="contains"
+            data-live-search-placeholder="" data-hide-disabled="true" data-none-selected-text="Enter a location" {% for attr, value in attributes %}{{ attr }}="{{ value }}"{% endfor %}>
+
+        {% for val, label in option_array %}
+            <option value="{{ val }}">{{ label }}</option>
+        {% endfor %}
+
+            <option value="1" >4011 Magnolia Ln, Phoenix, AZ 82549</option>
+            <option value="2" >1600 Pennsylvania Ave, Washington, DC 22400</option>
+            <option value="3" >1 Park Ave, New York, NY 65254</option>
+    </select>
+
+{% endmacro %}
+
+
+{#
+ # Create a bootstrap select-picker(plugin) element with an address list.
+ #
+ # @param addressList
+ # @param attributes
+ #
+ #}
+{% macro selectAddress(addressList, attributes) %}
+    <select name="selectAddress" class="selectpicker form-control clear-border-radius" data-live-search="true" data-live-search-style="contains"
+        data-live-search-placeholder="" data-hide-disabled="true" data-none-selected-text="Enter a location" {% for attr, value in attributes %}{{ attr }}="{{ value }}"{% endfor %}>
+
+    {% for address in addressList.all() %}
+        <option value="{{ address.getId() }}">{{ address.toString() }}</option>
+    {% endfor %}
+
+    </select>
+
+{% endmacro %}
+
+{% macro button() %}
+
+    <button class="btn-edit button-primary">
+        <a class="button-primary clear-text-decoration" href="#">Edit</a>
+    </button>
+    <input type="submit" class="btn-save btn-success" value="Save"/>
+    <button class="btn-cancel btn-danger">Cancel</button>
+
+{% endmacro %}
+
+{% macro label(for,value) %}
+
+    <label for="{{ for }}">{{ value }}</label>
+
+{% endmacro %}
+
+{% macro addNewButton(attributes) %}
+    <button class="contour-outer-small clear-button add-new hide" {% for attr, value in attributes %}{{ attr }}="{{ value }}"{% endfor %}>
+        <i class="fa fa-plus-circle" aria-hidden="true"></i>
+        <span class="text-center secondary-color text-bold">Add New</span>
+    </button>
+{% endmacro %}
+
+{% macro removeButton() %}
+
+    <button class="clear-button removeButton"><i class="fa fa-times-circle fa-2x"></i></button>
+
+{% endmacro %}
+
+{# RATING MACROS #}
+
+{% macro rating(id, name, score) %}
+
+    <input id="{{ id }}" name="{{ name }}" type="number" value="{{ score }}">
+
+{% endmacro %}
+
+{# IMAGE AND VIDEO MACROS #}
+
+{% macro image() %}
+
+    {#
+        This is the container for the add photo icon.
+        It also contains an empty image container, for cloning.
+
+     #}
+    <p>Upload a picture below that you want attached to your offer. Ideally this is a picture of you, your business, or your business logo to help other businesses recognize you.</p>
+    <button id="upload_widget_opener" class="contour-outer-small clear-button" onclick="launchPhotoWidget(event);">
+        <i class="fa fa-plus-circle" aria-hidden="true"></i>
+            <span class="text-center secondary-color text-bold">Add New</span>
+    </button>
+
+    {#
+        Placeholder container for cloning.
+        Deleting this element will cause the ui to require page reload before
+            displaying images that have been uploaded.
+    #}
+    <div class="image-container" style="display: none;"><!-- TODO: this is a jquery selector - rename safely -->
+        <a href="">
+            <img src="" style="max-width: 150px; height: auto;" />
+        </a>
+        <span><i class="fa fa-times-circle"></i></span>
+    </div>
+
+    {% if photoUrls is defined and photoUrls is not empty %}
+        {% for link in photoUrls %}
+
+            {% include 'fragments/formFields/imageContainer.html.twig' %}
+
+        {% endfor %}
+    {% else %}
+
+    <p class="text-bold">No photos found.</p>
+
+    {% endif %}
+
+{% endmacro %}
+
+
+
+{# widget video macro #}
+{% macro video() %}
+
+    {#
+        This is the container for the add video icon.
+        It also contains an empty video container, for cloning.
+
+     #}
+    <p class="videoMessageDetails">Every referral agreement should contain a video message. They will help you get more referral partners.</p>
+    <button id="upload_widget_opener" class="conto?ur-outer-small clear-button" onclick="launchVideoWidget(event);">
+        <i class="fa fa-plus-circle" aria-hidden="true"></i>
+        <span class="text-center secondary-color text-bold">Add New</span>
+    </button>
+
+    {#
+        Placeholder container for cloning.
+        Deleting this element will cause the ui to require page reload before
+            displaying videos that have been uploaded.
+    #}
+
+    <div class="image-container" style="display:none;" ><!-- TODO: this is a jquery selector - rename safely -->
+        <a href="">
+            <img src="" style="max-width: 150px; height: auto;" />
+        </a>
+        <span><i class="fa fa-times-circle"></i></span>
+    </div>
+
+
+    {% if videoUrls is defined and videoUrls is not empty %}
+        {% for link in videoUrls %}
+
+            {% include 'fragments/formFields/videoContainer.html.twig' %}
+
+        {% endfor %}
+    {% else %}
+
+    <p class="text-bold">No videos found.</p>
+    <br />
+
+    {% endif %}
+
+{% endmacro %}
+
+
+{% macro radio(name,value) %}
+        <input type="radio" id="{{ name }}" name="{{ name }}"/>
+        <span>{{ value }}</span>
+{% endmacro %}
+
+{% macro checkbox(name,value) %}
+        <input type="checkbox" id="{{ name }}"/>
+        <span>{{ value }}</span>
+{% endmacro %}
+

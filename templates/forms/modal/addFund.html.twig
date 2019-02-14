@@ -1,0 +1,60 @@
+{% extends 'templates/modalContainer.html.twig' %}
+{% import 'templates/macros/formFields.html.twig' as fields %}
+
+
+{% block header %}Add Funds{% endblock %}
+
+{% block id %}funds{% endblock %}
+
+{% block content %}
+
+<form name="addFunds" class="form-group" data-url="billing/transaction/deposit" data-form-type="modal">
+
+    <div class="col-sm-12">
+        {% include 'fragments/alerts/formAlert.html.twig' %}
+    </div>
+
+    <div style="margin-right: 10px;" class="col-xs-12 push-up-small clear-side-padding">
+
+        <select name="accountId" class="form-control clear-border-radius">
+
+            {% if (app.user.billingProfile is defined and app.user.billingProfile is not empty)
+                and (app.user.billingProfile.paymentProfile is not null and app.user.billingProfile.paymentProfile.count > 0) %}
+
+                    {% set primaryCard = app.user.billingProfile.paymentProfile.defaultPayProfile %}
+                    <option value="{{ primaryCard.id }}">{{ primaryCard.cardType  ~ ' ending with ' ~ primaryCard.cardNumber }}</option>
+
+                    {% if app.user.billingProfile.paymentProfile.allSecondaryPayProfiles | length > 0 %}
+
+                        {% for card in app.user.billingProfile.paymentProfile.allSecondaryPayProfiles %}
+
+                            <option value="{{ card.id }}">{{ card.cardType ~ ' ending with ' ~ card.cardNumber }}</option>
+
+                        {% endfor %}
+
+                    {% endif %}
+
+            {% else %}
+                <option value="-1">None available</option>
+            {% endif %}
+
+        </select>
+
+    </div>
+
+    <div style="width: 160px" class="col-xs-6 col-sm-8 clear-side-padding">
+        <div class="input-group">
+            <div class="input-group-addon clear-border-radius">$</div>
+            {{ fields.input('amount', null, 'text', '300', {'required': true}, 'money-usd text-right spacing-inner-xsmall') }}
+            <div class="input-group-addon clear-border-radius">.00</div>
+        </div>
+    </div>
+
+    <div style="width: 88px;" class="col-xs-6 col-sm-4">
+        <input type="submit" value="Add Funds" class="clear-border-radius btn btn-block button-primary" style="width: 88px;"/>
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('addFunds') }}" />
+    </div>
+
+</form>
+
+{% endblock %}

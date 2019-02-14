@@ -1,0 +1,137 @@
+{# Twig template #}
+<div id="feed-filter-container" class="secondary-background text-center feed-card-container center-block apply-shadow push-up-small clickable">
+
+    <form id="feed-filter-form" name="feedFilter" method="POST" action="{{ path('feed') }}" data-form-type="standard">
+
+        <div class="col-sm-12 push-down-xs">
+            {% include 'fragments/alerts/formAlert.html.twig' %}
+        </div>
+
+        <div id="feed-type-filter" class="apply-border">
+
+            {# Feed Type Filter #}
+
+            {# 'all' feed filter icon #}
+            <label for="all-input" class="clickable">
+                <span id="all-icon" class="fa-stack fa-lg" data-toggle="tooltip" title="All">
+                    <i class="fa fa-circle fa-stack-2x {{ (feedFilter.types | length < 3) ? 'inactive-icon' : '' }}"></i>
+                    <i style="color: #fff" class="fa fa-check fa-stack-1x"></i>
+                </span>
+            </label>
+            <input id="all-input" type="checkbox" name="" value="all" {{ (feedFilter.types | length == 3) ? 'checked' : '' }} />
+
+            {# transaction feed filter icon #}
+            <label for="transaction-input" class="clickable">
+                <span id="transaction-icon" class="fa-stack fa-lg" data-toggle="tooltip" title="Transactions">
+                    <i class="fa fa-circle fa-stack-2x {{ ('transaction' in feedFilter.types) ?: 'inactive-icon' }}"></i>
+                    <i style="color: #fff" class="fa fa-usd fa-stack-1x"></i>
+                </span>
+            </label>
+            <input id="transaction-input" type="checkbox" name="types[]" value="transaction" {{ ('transaction' in feedFilter.types) ? 'checked' : '' }}  />
+
+            {# agreement feed filter icon #}
+            <label for="agreement-input" class="clickable">
+                <span id="agreement-icon"class="fa-stack fa-lg" data-toggle="tooltip" title="Agreements">
+                    <i class="fa fa-circle fa-stack-2x {{ ('agreement' in feedFilter.types) ?: 'inactive-icon' }}" ></i>
+                    <i style="color: #fff" class="fa fa-handshake-o fa-stack-1x"></i>
+                </span>
+            </label>
+            <input id="agreement-input" type="checkbox" name="types[]" value="agreement" {{ ('agreement' in feedFilter.types) ? 'checked' : '' }} />
+
+            {# referral feed filter icon #}
+            <label for="referral-input" class="clickable">
+                <span id="referral-icon" class="fa-stack fa-lg" data-toggle="tooltip" title="Referrals">
+                    <i class="fa fa-circle fa-stack-2x {{ ('referral' in feedFilter.types) ?: 'inactive-icon' }}" ></i>
+                    <i style="color: #fff" class="fa fa-file-text-o fa-stack-1x"></i>
+                </span>
+            </label>
+            <input id="referral-input" type="checkbox" name="types[]" value="referral" {{ ('referral' in feedFilter.types) ? 'checked' : '' }} />
+
+            <input id="notification-input" type="checkbox" style="display:none;" name="types[]" value="notification" {{ ( 'notification' in feedFilter.types) ? 'checked' : '' }} />
+
+        </div><!-- feed-type-filter -->
+
+        <div id="advance-filter" class="contour-inner-medium hide">
+            <div class="container-fluid clear-padding ">
+
+                <div class="row push-up-small">
+                    <div class='col-xs-6 clear-padding'>
+                        <label for="date-time-picker-start"></label>
+                        <input id="date-time-picker-start" name="startDate" type='text' class="filter-input" placeholder="Start Date" value="{{ feedFilter.startDate }}"/>
+                    </div>
+
+                    <div class='col-xs-6 clear-padding'>
+                        <label for="date-time-picker-end"></label>
+                        <input id="date-time-picker-end" name="endDate" type='text' class="filter-input" placeholder="End Date" value="{{ feedFilter.endDate }}"/>
+                    </div>
+                </div>
+
+                <div class="row push-up-small">
+                    <div class='col-xs-6 clear-padding'>
+                        <input id="today" type="button" class="filter-input feed-date-filter-btn" value="Today" />
+                    </div>
+
+                    <div class='col-xs-6 clear-padding'>
+                        <input id="yesterday" type="button" class="filter-input feed-date-filter-btn" value="Yesterday" />
+                    </div>
+                </div>
+
+                <div class="row push-up-small">
+                    <div class='col-xs-6 clear-padding'>
+                        <input id="last-7-days" type="button" class="filter-input feed-date-filter-btn" value="Last 7 Days" />
+                    </div>
+
+                    <div class='col-xs-6 clear-padding'>
+                        <input id="last-30-days" type="button" class="filter-input feed-date-filter-btn" value="Last 30 Days" />
+                    </div>
+                </div>
+
+                <div class="row push-up-small">
+                    <div class='col-xs-6 clear-padding'>
+                        <input id="last-month" type="button" class="filter-input feed-date-filter-btn" value="Last Month" />
+                    </div>
+
+                    <div class='col-xs-6 clear-padding'>
+                        <input id="this-month" type="button" class="filter-input feed-date-filter-btn" value="This Month" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class='col-xs-12 clear-padding'>
+                        <input id="all-time" type="button" class="filter-input feed-date-filter-btn" value="All Time" />
+                    </div>
+                </div>
+
+            </div><!-- container -->
+        </div><!-- advance-filter -->
+
+        <div id="sort-filter" class="contour-inner-medium apply-border text-left hide">
+            <p class="text-bold">Sort By:</p>
+
+            <div class="radio">
+                <label><input type="radio" name="sortOrder" value="NEWEST_FIRST" {{ (feedFilter.sortOrder == 'NEWEST_FIRST') ? 'checked' : '' }} >Newest First</label>
+            </div>
+
+            <div class="radio">
+                <label><input type="radio" name="sortOrder" value="LAST_UPDATED" {{ (feedFilter.sortOrder == 'LAST_UPDATED') ? 'checked' : '' }} >Last Updated</label>
+            </div>
+
+            <div class="radio">
+                <label><input type="radio" name="sortOrder" value="ALPHABETICAL" {{ (feedFilter.sortOrder == 'ALPHABETICAL') ? 'checked' : '' }} >Alphabetical</label>
+            </div>
+
+            <div class="radio">
+                <label><input type="radio" name="sortOrder" value="OLDEST_FIRST" {{ (feedFilter.sortOrder == 'OLDEST_FIRST') ? 'checked' : '' }} >Oldest First</label>
+            </div>
+
+        </div><!-- sort-filter -->
+
+        <div id="apply-filter" class="hide">
+            <input type="submit" name="submit" value="Apply" class="form-control button-primary clear-border-radius">
+        </div><!-- apply-filter -->
+
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('feed') }}" />
+
+    </form>
+
+</div><!-- feed-filter-container -->

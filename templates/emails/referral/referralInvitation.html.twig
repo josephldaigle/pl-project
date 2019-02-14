@@ -1,0 +1,39 @@
+{#
+|--------------------------------------------------------------------------
+| Invitation to receive a referral.
+|--------------------------------------------------------------------------
+|
+#}
+
+{% extends 'templates/email.html.twig' %}
+
+{% block emailBody %}
+
+    <div class="row body-row">
+        <div class="col-lg-12">
+            <p>Hi {{ recipient.firstName }},</p>
+            <p>
+                {{ provider.firstName }}&nbsp;{{ provider.lastName }} would like to invite you to join PapaLocal, and receive referrals for your business.
+            </p>
+            <p>
+                Use the link in this email to register, and collect the referral(s) {{ provider.firstName }} sent you.
+            </p>
+
+            <p class="text-center">
+                <a href="{{ url('login', [], true) }}" class="clear-text-decoration">
+                    <button class="button-primary">Yes, I'm interested!</button>
+                </a>
+            </p>
+
+            <p>If the button does not work, copy and paste this link into your browser's address bar: {{ url('login', [], true) }}</p>
+
+            <p>Sincerely,</p>
+            <p>PapaLocal</p>
+
+
+            <small>This was an automatically generated email, and sent on behalf of {{ provider.firstName }}&nbsp;{{ provider.lastName }}.</small>
+
+        </div>
+    </div>
+
+{% endblock %}

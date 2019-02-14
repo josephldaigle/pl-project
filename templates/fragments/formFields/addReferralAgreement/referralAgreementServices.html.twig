@@ -1,0 +1,89 @@
+{% extends 'templates/accordion.html.twig' %}
+{% import 'templates/macros/formFields.html.twig' as fields %}
+
+{#
+|--------------------------------------------------------------------------
+| Referral Agreement Services
+|--------------------------------------------------------------------------
+|
+| This file defines the accordion where a user can add referral agreement services on the modal form.
+|
+#}
+
+
+{# base accordion targets #}
+{% block containerId %}referralAgreementServices{% endblock %}
+
+{% block parentId %}referralAgreementServices{% endblock %}
+
+{% block hrefId %}agreement-services{% endblock %}
+
+{% block ariaControlsId %}agreement-services{% endblock %}
+
+{% block panelCollapseId %}agreement-services{% endblock %}
+
+
+{% block headingId %}agreementServices{% endblock %}
+
+{% block ariaId %}agreementServices{% endblock %}
+
+{# accordion content #}
+{% block header %}
+    {{ 'What Services Do You Want to Include or Exclude?'| e }}
+{% endblock %}
+
+{% block content %}
+
+    {# INCLUDED SERVICES #}
+    <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+        <div class="form-group">
+
+            {# INPUT LABEL #}
+            <div class="form-label col-sm-3 col-xs-12 control-label push-down-xs">
+                {{ fields.label('includeService','Included:') }}
+            </div>
+
+            {# PRIMARY INPUT #}
+            <div class="col-sm-7 col-xs-10">
+                {{ fields.input('includeService[]', null, 'text', 'Add a service', null, 'collection-input primary-collection-input') }}
+            </div>
+
+            {# ADD BUTTON #}
+            <div class="col-sm-2 col-xs-2 contour-inner-xsmall">
+                <i class="fa fa-2x fa-plus-circle clickable collection-input-add-btn"></i>
+            </div>
+
+            {# ADDED ITEMS TABLE #}
+            <div class="col-xs-12 collection-input-table-display clear-side-padding"></div>
+
+        </div>
+    </div><!-- end included agreement service -->
+
+    {# EXCLUDED SERVICES #}
+    <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+        <div class="form-group">
+
+            {# INPUT LABEL #}
+            <div class="form-label col-sm-3 col-xs-12 control-label push-down-xs">
+                {{ fields.label('excludeService','Excluded:') }}
+            </div>
+
+            {# PRIMARY INPUT #}
+            <div class="col-sm-7 col-xs-10">
+                {{ fields.input('excludeService[]', null, 'text', 'Add a service', null, 'collection-input primary-collection-input') }}
+            </div>
+
+            {# ADD BUTTON #}
+            <div class="col-sm-2 col-xs-2 contour-inner-xsmall">
+                <i class="fa fa-2x fa-plus-circle clickable collection-input-add-btn"></i>
+            </div>
+
+            {# ADDED ITEMS TABLE #}
+            <div class="col-xs-12 collection-input-table-display clear-side-padding"></div>
+
+        </div>
+
+        <div class="clearfix"></div>
+    </div><!-- end excluded agreement service -->
+
+{% endblock %}

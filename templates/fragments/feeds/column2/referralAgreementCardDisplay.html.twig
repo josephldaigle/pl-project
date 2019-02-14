@@ -1,0 +1,37 @@
+{% extends 'templates/feedDisplay.html.twig' %}
+{% import 'templates/macros/feedMacros.html.twig' as feedHelper %}
+
+{#
+|--------------------------------------------------------------------------
+| Referral Agreement Feed Display
+|--------------------------------------------------------------------------
+|
+| This fragment contains the referral agreement feed detail display.
+|
+#}
+
+
+{% block displayId %}{{ item.guid.value }}{% endblock %} {# display target when card is selected #}
+
+{% block faIcon %}{{ feedHelper.fetchCardIcon(item) }}{% endblock %}
+
+{% block title %}{{ item.title }}{% endblock %}
+
+{% block feedBody %}
+
+    {{ feedHelper.loadReferralAgreementAlert(item) }}
+
+    {# Build agreement display panel #}
+    {% include 'fragments/accordions/referralAgreementBasicDetail.html.twig' %}
+    {#{% include 'fragments/accordions/referralSummary.html.twig' %}#}
+    {% include 'fragments/accordions/referralAgreementLocations.html.twig' %}
+    {% include 'fragments/accordions/referralAgreementServices.html.twig' %}
+
+    {# Display participants for agreement owner #}
+    {% if item.isOwner(app.user.guid.value) %}
+        {% include 'fragments/accordions/referralParticipants.html.twig' %}
+    {% endif %}
+
+{% endblock %}
+
+

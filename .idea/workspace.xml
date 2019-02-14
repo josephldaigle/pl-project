@@ -1,0 +1,1151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="ca344ec0-9c5c-4e0b-961f-d32d66e96b2b" name="Default" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="papalocal-symfony-v4.0" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/js/lib/modules/app.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="6120">
+              <caret line="428" column="8" lean-forward="false" selection-start-line="428" selection-start-column="8" selection-end-line="428" selection-end-column="8" />
+              <folding>
+                <element signature="e#2764#4366#0" expanded="false" />
+                <element signature="e#4587#5825#0" expanded="false" />
+                <element signature="e#6091#6589#0" expanded="false" />
+                <element signature="e#6746#7211#0" expanded="false" />
+                <element signature="e#7341#7417#0" expanded="false" />
+                <marker date="1549675613708" expanded="true" signature="60323:60341" ph="..." />
+                <marker date="1549675613708" expanded="true" signature="62288:62295" ph="×" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RemoveInviteeForm.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/ReferralAgreement/Form/Invitee/RemoveInviteeForm.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="259">
+              <caret line="49" column="0" lean-forward="false" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="referralParticipants.html.twig" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/fragments/accordions/referralParticipants.html.twig">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2052">
+              <caret line="114" column="118" lean-forward="false" selection-start-line="114" selection-start-column="118" selection-end-line="114" selection-end-column="139" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="feed.html.twig" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/pages/feed.html.twig">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1728">
+              <caret line="96" column="19" lean-forward="false" selection-start-line="96" selection-start-column="19" selection-end-line="96" selection-end-column="19" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="feed.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/js/lib/modules/feed.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="612">
+              <caret line="321" column="0" lean-forward="false" selection-start-line="321" selection-start-column="0" selection-end-line="321" selection-end-column="0" />
+              <folding>
+                <element signature="e#241#7191#0" expanded="false" />
+                <element signature="e#1800#3284#0" expanded="false" />
+                <element signature="e#3515#7184#0" expanded="false" />
+                <element signature="e#7371#7629#0" expanded="false" />
+                <element signature="e#7748#10245#0" expanded="false" />
+                <element signature="e#10408#13479#0" expanded="false" />
+                <element signature="e#13614#13811#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ReferralAgreementController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Controller/Api/ReferralAgreementController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="7416">
+              <caret line="454" column="47" lean-forward="false" selection-start-line="454" selection-start-column="47" selection-end-line="454" selection-end-column="47" />
+              <folding>
+                <element signature="e#121#173#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RemoveTransitionSubscriber.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ReferralAgreement/Workflow/Invitee/RemoveTransitionSubscriber.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="792">
+              <caret line="51" column="33" lean-forward="false" selection-start-line="51" selection-start-column="33" selection-end-line="51" selection-end-column="33" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="InviteeService.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ReferralAgreement/InviteeService.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1332">
+              <caret line="86" column="5" lean-forward="false" selection-start-line="86" selection-start-column="5" selection-end-line="86" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RemoveInviteeHandler.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/ReferralAgreement/Message/Command/Invitee/RemoveInviteeHandler.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="900">
+              <caret line="57" column="41" lean-forward="false" selection-start-line="57" selection-start-column="41" selection-end-line="57" selection-end-column="41" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Twig Template" />
+        <option value="Yaml" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>MessageBu</find>
+      <find>Message Bus</find>
+      <find>GuidFac</find>
+      <find>dump</find>
+      <find>notifia</find>
+      <find>notification</find>
+      <find>data-notification</find>
+      <find>notification-card</find>
+      <find>n</find>
+      <find>notification-tray</find>
+      <find>.notification-card</find>
+      <find>attachEvent</find>
+      <find>.</find>
+      <find>.remove-participant</find>
+      <find>RemoveInviteeForm</find>
+      <find>removeInv</find>
+      <find>remove-participant</find>
+      <find>testDisputeReferralSendNotificationsSuccessfullyAndDoNotDispatchReferralDisputedWithContactRecipient</find>
+      <find>testFinalizeReferralSendNotificationsSuccessfullyAndDoNotDispatchDisputeResolvedWithContactRecipient</find>
+      <find>testCanAddUserInviteeToAgreementDuringAgreementCreation</find>
+      <find>btn-invite-participant</find>
+      <find>PAPALOCA</find>
+      <find>submit:</find>
+      <find>removParm</find>
+      <find>.btn-invite-participant</find>
+      <find>removeInvitee</find>
+      <find>r</find>
+      <find>remove</find>
+      <find>removeParticipant</find>
+      <find>attacheEven</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>update</replace>
+      <replace>$this-&gt;createQueryBuilder();</replace>
+      <replace>ReferralAgreement</replace>
+      <replace>new AdaptedTableGateway($connectionMock, $recordFactoryMock, $queryBuilderMock)</replace>
+      <replace>$connectionMock = $this-&gt;createMock(MySqlConnection::class);</replace>
+      <replace>getQueryBuilder</replace>
+      <replace>setOwnerGuid</replace>
+      <replace>getValue()</replace>
+      <replace>getValue</replace>
+      <replace>use PapaLocal\ReferralAgreement\Data\Command\Invitee\SaveAgreementInvitee;</replace>
+      <replace />
+      <replace>use PapaLocal\ReferralAgreement\ValueObject\Factory\ListBuilder;</replace>
+      <replace>CreateUserAccountForm</replace>
+      <replace>roleUserId</replace>
+      <replace>$this-&gt;logger-&gt;</replace>
+      <replace>item.statusHistory.currentStatus.status</replace>
+      <replace>item.statusHistory.currentStatus.status }}</replace>
+      <replace>$addressRecs-&gt;current()</replace>
+      <replace>$record</replace>
+      <replace>@return SaveCompanyAddressForm</replace>
+      <replace>feed-type-filter</replace>
+      <replace>feed-filter-container</replace>
+      <replace>-&gt;setSortOrder('LAST_UPDATED');</replace>
+      <replace>LAST_UPDATED</replace>
+      <replace>contactProfile</replace>
+      <replace>: CreateCompany</replace>
+      <replace>$this-&gt;serializer</replace>
+      <replace>use PapaLocal\Billing\ValueObject\RechargeSetting;</replace>
+      <replace>this</replace>
+      <replace>'\r\n'</replace>
+    </replaceStrings>
+    <dirStrings>
+      <dir>$PROJECT_DIR$/src/Event</dir>
+      <dir>$PROJECT_DIR$/src/AuthorizeDotNet</dir>
+      <dir>$PROJECT_DIR$/src/Controller/Api</dir>
+      <dir>$PROJECT_DIR$/src/templates</dir>
+      <dir>$PROJECT_DIR$/tests/Functional/Billing</dir>
+      <dir>$PROJECT_DIR$/tests/Functional/Data/Command/Company</dir>
+      <dir>$PROJECT_DIR$/tests/Functional/Data/Command/Person</dir>
+      <dir>$PROJECT_DIR$/tests/Functional/Data/Command/User</dir>
+      <dir>$PROJECT_DIR$/tests/Functional/Data</dir>
+      <dir>$PROJECT_DIR$/config/services</dir>
+      <dir>$PROJECT_DIR$/config/packages</dir>
+      <dir>$PROJECT_DIR$/src/Data</dir>
+      <dir>$PROJECT_DIR$/src/ReferralAgreement/Event</dir>
+      <dir>$PROJECT_DIR$/vendor</dir>
+      <dir>$PROJECT_DIR$/src/Core</dir>
+      <dir>$PROJECT_DIR$/tests/Functional</dir>
+      <dir>$PROJECT_DIR$/src/Controller</dir>
+      <dir>$PROJECT_DIR$/src/Billing</dir>
+      <dir>$PROJECT_DIR$/src</dir>
+      <dir>$PROJECT_DIR$</dir>
+      <dir>$PROJECT_DIR$/tests</dir>
+      <dir>$PROJECT_DIR$/tests/Unit/Referral</dir>
+      <dir>$PROJECT_DIR$/src/Notification</dir>
+      <dir>$PROJECT_DIR$/src/Data/Command</dir>
+      <dir>$PROJECT_DIR$/tests/Unit/ReferralAgreement</dir>
+      <dir>$PROJECT_DIR$/templates</dir>
+      <dir>$PROJECT_DIR$/src/Feed</dir>
+      <dir>$PROJECT_DIR$/config</dir>
+      <dir>$PROJECT_DIR$/templates/forms</dir>
+      <dir>$PROJECT_DIR$/src/</dir>
+    </dirStrings>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/ReferralAgreement/ValueObject/IncludeExcludeList.php" />
+        <option value="$PROJECT_DIR$/src/ReferralAgreement/Notification/NotificationFactory.php" />
+        <option value="$PROJECT_DIR$/src/ReferralAgreement/Notification/AgreementListUpdated.php" />
+        <option value="$PROJECT_DIR$/src/Billing/Data/BillingProfileRepository.php" />
+        <option value="$PROJECT_DIR$/src/ReferralAgreement/ValueObject/Agreement/ReferralSummary.php" />
+        <option value="$PROJECT_DIR$/src/Referral/Message/Query/FindByAgreementGuidHandler.php" />
+        <option value="$PROJECT_DIR$/src/Referral/Message/MessageFactory.php" />
+        <option value="$PROJECT_DIR$/config/services/referral.yaml" />
+        <option value="$PROJECT_DIR$/src/Referral/Event/ReferralCreatedEvent.php" />
+        <option value="$PROJECT_DIR$/src/Referral/Message/Query/FindByAgreementGuid.php" />
+        <option value="$PROJECT_DIR$/src/Core/ValueObject/SysAdminUser.php" />
+        <option value="$PROJECT_DIR$/src/IdentityAccess/ValueObject/SystemAdmin.php" />
+        <option value="$PROJECT_DIR$/src/Referral/Data/ReferralRepository.php" />
+        <option value="$PROJECT_DIR$/src/ReferralAgreement/Message/Query/Agreement/LoadFeedItemHandler.php" />
+        <option value="$PROJECT_DIR$/src/ReferralAgreement/Event/Subscriber/ReferralCreatedSubscriber.php" />
+        <option value="$PROJECT_DIR$/src/Referral/Workflow/ReferralGuardBlockCode.php" />
+        <option value="$PROJECT_DIR$/src/ReferralAgreement/Message/Query/Agreement/FindByGuidHandler.php" />
+        <option value="$PROJECT_DIR$/src/Referral/Workflow/GuardCreateSubscriber.php" />
+        <option value="$PROJECT_DIR$/src/Controller/Api/ReferralController.php" />
+        <option value="$PROJECT_DIR$/src/ReferralAgreement/Workflow/Agreement/PublishGuardSubscriber.php" />
+        <option value="$PROJECT_DIR$/src/ReferralAgreement/Workflow/Agreement/PublishGuardBlockCode.php" />
+        <option value="$PROJECT_DIR$/src/ReferralAgreement/ReferralAgreementService.php" />
+        <option value="$PROJECT_DIR$/templates/fragments/alerts/referralAgreementOwner.html.twig" />
+        <option value="$PROJECT_DIR$/tests/Unit/ReferralAgreement/Data/ReferralAgreementRepositoryTest.php" />
+        <option value="$PROJECT_DIR$/tests/Unit/ReferralAgreement/Message/Query/Agreement/FindByGuidHandlerTest.php" />
+        <option value="$PROJECT_DIR$/tests/Unit/Referral/Workflow/GuardCreateSubscriberTest.php" />
+        <option value="$PROJECT_DIR$/src/Referral/Workflow/EnteredAcquiredSubscriber.php" />
+        <option value="$PROJECT_DIR$/src/Billing/Message/Command/Transaction/ChargeAccount.php" />
+        <option value="$PROJECT_DIR$/src/Billing/Message/Command/Transaction/ChargeAccountHandler.php" />
+        <option value="$PROJECT_DIR$/src/ReferralAgreement/Data/ReferralAgreementRepository.php" />
+        <option value="$PROJECT_DIR$/src/ReferralAgreement/Workflow/Invitee/InviteTransitionSubscriber.php" />
+        <option value="$PROJECT_DIR$/src/ReferralAgreement/Workflow/Agreement/EnteredActiveSubscriber.php" />
+        <option value="$PROJECT_DIR$/src/ReferralAgreement/Entity/Factory/InviteeFactory.php" />
+        <option value="$PROJECT_DIR$/templates/templates/macros/feedMacros.html.twig" />
+        <option value="$PROJECT_DIR$/src/ReferralAgreement/Entity/ReferralAgreement.php" />
+        <option value="$PROJECT_DIR$/templates/forms/feed-filter.html.twig" />
+        <option value="$PROJECT_DIR$/src/Feed/Entity/Factory/FeedFilterFactory.php" />
+        <option value="$PROJECT_DIR$/src/ReferralAgreement/Message/Query/Agreement/LoadFeedHandler.php" />
+        <option value="$PROJECT_DIR$/config/services/referral_agreement.yaml" />
+        <option value="$PROJECT_DIR$/src/ReferralAgreement/Data/Command/Invitee/RemoveInviteeHandler.php" />
+        <option value="$PROJECT_DIR$/templates/templates/page.html.twig" />
+        <option value="$PROJECT_DIR$/tests/Functional/Controller/Api/ReferralAgreementControllerTest.php" />
+        <option value="$PROJECT_DIR$/src/ReferralAgreement/Workflow/Invitee/RemoveTransitionSubscriber.php" />
+        <option value="$PROJECT_DIR$/templates/fragments/accordions/referralParticipants.html.twig" />
+        <option value="$PROJECT_DIR$/src/ReferralAgreement/Form/Invitee/RemoveInviteeForm.php" />
+        <option value="$PROJECT_DIR$/src/ReferralAgreement/Message/Command/Invitee/RemoveInviteeHandler.php" />
+        <option value="$PROJECT_DIR$/src/Controller/FeedController.php" />
+        <option value="$PROJECT_DIR$/src/Controller/Api/ReferralAgreementController.php" />
+        <option value="$PROJECT_DIR$/src/ReferralAgreement/InviteeService.php" />
+        <option value="$PROJECT_DIR$/public/js/lib/modules/feed.js" />
+        <option value="$PROJECT_DIR$/public/js/lib/modules/app.js" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <annotation-enable>false</annotation-enable>
+    <other-services-enabled>true</other-services-enabled>
+  </component>
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
+  <component name="ProjectFrameBounds">
+    <option name="y" value="23" />
+    <option name="width" value="1440" />
+    <option name="height" value="799" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="papalocal-symfony-v4.0" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="papalocal-symfony-v4.0" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="papalocal-symfony-v4.0" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="papalocal-symfony-v4.0" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scratches" />
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="settings.editor.selected.configurable" value="watcher.settings" />
+    <property name="WebServerToolWindowFactoryState" value="true" />
+    <property name="php.override.implement.member.chooser.php.doc" value="INHERIT" />
+    <property name="JavaScriptPreferStrict" value="true" />
+    <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/config/packages" />
+      <recent name="$PROJECT_DIR$/templates/bundles/TwigBundle" />
+      <recent name="$PROJECT_DIR$/src" />
+      <recent name="$PROJECT_DIR$/public" />
+      <recent name="$PROJECT_DIR$/templates" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/ReferralAgreement/Form/Invitee" />
+      <recent name="$PROJECT_DIR$/public/js/lib/ext" />
+      <recent name="$PROJECT_DIR$/public/js/lib/modules" />
+      <recent name="$PROJECT_DIR$/config" />
+      <recent name="$PROJECT_DIR$/src/Billing/ValueObject" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="PHPUnit.Data">
+    <configuration default="false" name="Event" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner directory="$PROJECT_DIR$/src/ReferralAgreement/Event" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Invitee" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner directory="$PROJECT_DIR$/src/ReferralAgreement/Workflow/Invitee" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Data" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
+      <TestRunner directory="$PROJECT_DIR$/tests/Integration/ReferralAgreement/Data" />
+      <method />
+    </configuration>
+    <configuration default="true" type="BashConfigurationType" factoryName="Bash">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="INTERPRETER_PATH" value="/bin/bash" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="CodeceptionConfigurationType" factoryName="Codeception">
+      <PhpTestRunnerSettings />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerJest" factoryName="Jest">
+      <node-interpreter value="project" />
+      <working-dir value="" />
+      <envs />
+      <scope-kind value="ALL" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerProtractor" factoryName="Protractor">
+      <config-file value="" />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" working-dir="">
+      <method />
+    </configuration>
+    <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpBehatConfigurationType" factoryName="Behat">
+      <BehatRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpSpecConfigurationType" factoryName="PHPSpec">
+      <PhpTestRunnerSettings />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run" />
+      <scripts />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="mocha-javascript-test-runner" factoryName="Mocha">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory />
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui />
+      <extra-mocha-options />
+      <test-kind>DIRECTORY</test-kind>
+      <test-directory />
+      <recursive>false</recursive>
+      <method />
+    </configuration>
+    <list size="3">
+      <item index="0" class="java.lang.String" itemvalue="PHPUnit.Event" />
+      <item index="1" class="java.lang.String" itemvalue="PHPUnit.Invitee" />
+      <item index="2" class="java.lang.String" itemvalue="PHPUnit.Data" />
+    </list>
+    <recent_temporary>
+      <list size="3">
+        <item index="0" class="java.lang.String" itemvalue="PHPUnit.Data" />
+        <item index="1" class="java.lang.String" itemvalue="PHPUnit.Invitee" />
+        <item index="2" class="java.lang.String" itemvalue="PHPUnit.Event" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="StructureViewFactory">
+    <option name="ACTIVE_ACTIONS" value=",VISIBILITY_SORTER,ALPHA_COMPARATOR" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ca344ec0-9c5c-4e0b-961f-d32d66e96b2b" name="Default" comment="" />
+      <created>1534781963021</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1534781963021</updated>
+      <workItem from="1534781964576" duration="28426000" />
+      <workItem from="1534863451937" duration="26441000" />
+      <workItem from="1534945590817" duration="6808000" />
+      <workItem from="1534959773581" duration="14134000" />
+      <workItem from="1535018887500" duration="2802000" />
+      <workItem from="1535030506030" duration="14629000" />
+      <workItem from="1535058790163" duration="7116000" />
+      <workItem from="1535462283899" duration="2884000" />
+      <workItem from="1535474464097" duration="14740000" />
+      <workItem from="1535547358974" duration="3671000" />
+      <workItem from="1535558517526" duration="4378000" />
+      <workItem from="1535634744131" duration="8408000" />
+      <workItem from="1535708131621" duration="7892000" />
+      <workItem from="1535794346955" duration="12252000" />
+      <workItem from="1536156641531" duration="1241000" />
+      <workItem from="1536193855882" duration="2480000" />
+      <workItem from="1536252192189" duration="2171000" />
+      <workItem from="1536270587138" duration="9705000" />
+      <workItem from="1536328971392" duration="3207000" />
+      <workItem from="1536341859727" duration="68000" />
+      <workItem from="1536530721291" duration="9523000" />
+      <workItem from="1536592712375" duration="5880000" />
+      <workItem from="1536679920714" duration="1291000" />
+      <workItem from="1536690869332" duration="5281000" />
+      <workItem from="1536775031289" duration="1622000" />
+      <workItem from="1536849669942" duration="6582000" />
+      <workItem from="1536931604884" duration="2072000" />
+      <workItem from="1536939011196" duration="1479000" />
+      <workItem from="1536943349505" duration="3776000" />
+      <workItem from="1537183927735" duration="3178000" />
+      <workItem from="1537284769289" duration="1201000" />
+      <workItem from="1537306714086" duration="6874000" />
+      <workItem from="1537355196639" duration="4061000" />
+      <workItem from="1537449165714" duration="2583000" />
+      <workItem from="1537458022466" duration="2388000" />
+      <workItem from="1537471489713" duration="3143000" />
+      <workItem from="1537486536648" duration="774000" />
+      <workItem from="1537490481420" duration="13747000" />
+      <workItem from="1537572228916" duration="75074000" />
+      <workItem from="1537791058307" duration="697000" />
+      <workItem from="1537793447235" duration="5545000" />
+      <workItem from="1537809839852" duration="22009000" />
+      <workItem from="1537876653604" duration="4844000" />
+      <workItem from="1537969465092" duration="3398000" />
+      <workItem from="1537981163264" duration="18215000" />
+      <workItem from="1538053408833" duration="30783000" />
+      <workItem from="1538143555827" duration="3035000" />
+      <workItem from="1538155519095" duration="29119000" />
+      <workItem from="1538399788348" duration="7589000" />
+      <workItem from="1538415639186" duration="9899000" />
+      <workItem from="1538500064253" duration="4984000" />
+      <workItem from="1538524148995" duration="11855000" />
+      <workItem from="1538595841050" duration="11983000" />
+      <workItem from="1538671667422" duration="10136000" />
+      <workItem from="1538750600555" duration="13176000" />
+      <workItem from="1538839719153" duration="19648000" />
+      <workItem from="1538911386081" duration="20343000" />
+      <workItem from="1539010893110" duration="10781000" />
+      <workItem from="1539085422082" duration="1618000" />
+      <workItem from="1539094870779" duration="7614000" />
+      <workItem from="1539112564919" duration="9885000" />
+      <workItem from="1539180454417" duration="5790000" />
+      <workItem from="1539191106696" duration="11334000" />
+      <workItem from="1539213278090" duration="10291000" />
+      <workItem from="1539281416565" duration="603000" />
+      <workItem from="1539282217652" duration="15389000" />
+      <workItem from="1539364205733" duration="42623000" />
+      <workItem from="1539519903205" duration="21856000" />
+      <workItem from="1539602544812" duration="2026000" />
+      <workItem from="1539617817877" duration="4903000" />
+      <workItem from="1539628793367" duration="2036000" />
+      <workItem from="1539632783107" duration="6163000" />
+      <workItem from="1539703336950" duration="2980000" />
+      <workItem from="1539717249749" duration="10363000" />
+      <workItem from="1539773051738" duration="41226000" />
+      <workItem from="1539881897922" duration="21606000" />
+      <workItem from="1539963169536" duration="1858000" />
+      <workItem from="1539973317709" duration="58900000" />
+      <workItem from="1540224412831" duration="2835000" />
+      <workItem from="1540235019466" duration="1229000" />
+      <workItem from="1540237400351" duration="5671000" />
+      <workItem from="1540247266290" duration="495000" />
+      <workItem from="1540247784570" duration="3155000" />
+      <workItem from="1540295648911" duration="1013000" />
+      <workItem from="1540302681985" duration="1619000" />
+      <workItem from="1540328634855" duration="264000" />
+      <workItem from="1540479292520" duration="7550000" />
+      <workItem from="1540567556209" duration="7551000" />
+      <workItem from="1540923226846" duration="4849000" />
+      <workItem from="1540949833997" duration="14496000" />
+      <workItem from="1541084629002" duration="27320000" />
+      <workItem from="1541170163013" duration="2413000" />
+      <workItem from="1541184540619" duration="2886000" />
+      <workItem from="1541287889205" duration="6505000" />
+      <workItem from="1541334667927" duration="657000" />
+      <workItem from="1541349797702" duration="710000" />
+      <workItem from="1541433514503" duration="1509000" />
+      <workItem from="1541443270091" duration="2876000" />
+      <workItem from="1541499444611" duration="19747000" />
+      <workItem from="1541546815281" duration="15309000" />
+      <workItem from="1541697871848" duration="20528000" />
+      <workItem from="1541850040068" duration="11583000" />
+      <workItem from="1542019051841" duration="12248000" />
+      <workItem from="1542055523997" duration="349000" />
+      <workItem from="1542056518485" duration="735000" />
+      <workItem from="1542065901074" duration="2579000" />
+      <workItem from="1542108329444" duration="414000" />
+      <workItem from="1542229930480" duration="699000" />
+      <workItem from="1542283252257" duration="1557000" />
+      <workItem from="1542465669250" duration="9795000" />
+      <workItem from="1542503029714" duration="2538000" />
+      <workItem from="1542593809849" duration="4612000" />
+      <workItem from="1542634885951" duration="891000" />
+      <workItem from="1542642385408" duration="1443000" />
+      <workItem from="1542670021680" duration="12247000" />
+      <workItem from="1542817339588" duration="745000" />
+      <workItem from="1542844634271" duration="10221000" />
+      <workItem from="1542885696735" duration="905000" />
+      <workItem from="1542888197236" duration="8376000" />
+      <workItem from="1542901826743" duration="43980000" />
+      <workItem from="1543090126079" duration="427000" />
+      <workItem from="1543101179354" duration="630000" />
+      <workItem from="1543146083054" duration="9412000" />
+      <workItem from="1543234572937" duration="1893000" />
+      <workItem from="1543254624297" duration="7506000" />
+      <workItem from="1543278152392" duration="8548000" />
+      <workItem from="1543346001593" duration="334000" />
+      <workItem from="1543356785661" duration="580000" />
+      <workItem from="1543404172607" duration="14938000" />
+      <workItem from="1543492421639" duration="17004000" />
+      <workItem from="1543575933886" duration="3233000" />
+      <workItem from="1543589329693" duration="9499000" />
+      <workItem from="1543664645507" duration="24897000" />
+      <workItem from="1543860725794" duration="14601000" />
+      <workItem from="1543922246280" duration="17727000" />
+      <workItem from="1543955478987" duration="5762000" />
+      <workItem from="1543963414056" duration="3737000" />
+      <workItem from="1543971287249" duration="32681000" />
+      <workItem from="1544157423837" duration="367000" />
+      <workItem from="1544160280071" duration="12048000" />
+      <workItem from="1544358825192" duration="13039000" />
+      <workItem from="1544493419616" duration="22292000" />
+      <workItem from="1544626320552" duration="4433000" />
+      <workItem from="1544660183759" duration="22413000" />
+      <workItem from="1544796405203" duration="4036000" />
+      <workItem from="1544809306943" duration="2100000" />
+      <workItem from="1544821317849" duration="308000" />
+      <workItem from="1544962663916" duration="692000" />
+      <workItem from="1544967518344" duration="2956000" />
+      <workItem from="1545002796879" duration="15713000" />
+      <workItem from="1545161784662" duration="3553000" />
+      <workItem from="1545238240222" duration="2413000" />
+      <workItem from="1545323464060" duration="1184000" />
+      <workItem from="1545395010664" duration="709000" />
+      <workItem from="1545398314368" duration="7686000" />
+      <workItem from="1545443128087" duration="22124000" />
+      <workItem from="1545821292629" duration="4933000" />
+      <workItem from="1545862522579" duration="540000" />
+      <workItem from="1545864955992" duration="18881000" />
+      <workItem from="1546001413706" duration="15749000" />
+      <workItem from="1546085793724" duration="6296000" />
+      <workItem from="1546174661831" duration="5696000" />
+      <workItem from="1546193527101" duration="7511000" />
+      <workItem from="1546205620305" duration="5000" />
+      <workItem from="1546205629133" duration="1000" />
+      <workItem from="1546205683307" duration="7677000" />
+      <workItem from="1546222093917" duration="3817000" />
+      <workItem from="1546271409677" duration="1439000" />
+      <workItem from="1546278242399" duration="531000" />
+      <workItem from="1546285948458" duration="929000" />
+      <workItem from="1546348644868" duration="3871000" />
+      <workItem from="1546397752166" duration="4455000" />
+      <workItem from="1546459154627" duration="1975000" />
+      <workItem from="1546461154536" duration="1914000" />
+      <workItem from="1546481272092" duration="2197000" />
+      <workItem from="1546601123397" duration="3354000" />
+      <workItem from="1546654106221" duration="200000" />
+      <workItem from="1546687502078" duration="2096000" />
+      <workItem from="1546806285831" duration="12663000" />
+      <workItem from="1546949842157" duration="2393000" />
+      <workItem from="1546958430186" duration="1253000" />
+      <workItem from="1547044774685" duration="1193000" />
+      <workItem from="1547067026274" duration="201000" />
+      <workItem from="1547658548620" duration="832000" />
+      <workItem from="1548684973278" duration="1346000" />
+      <workItem from="1548778510562" duration="6473000" />
+      <workItem from="1548788683058" duration="1391000" />
+      <workItem from="1548792840393" duration="1432000" />
+      <workItem from="1548796215687" duration="2711000" />
+      <workItem from="1548889249736" duration="4988000" />
+      <workItem from="1549109252290" duration="2044000" />
+      <workItem from="1549203899778" duration="12962000" />
+      <workItem from="1549230246470" duration="17681000" />
+      <workItem from="1549286743523" duration="352000" />
+      <workItem from="1549482330952" duration="2209000" />
+      <workItem from="1549584773489" duration="10079000" />
+      <workItem from="1549648433161" duration="5657000" />
+      <workItem from="1549712990047" duration="587000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="1612178000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="23" width="1440" height="799" extended-state="6" />
+    <layout>
+      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297568" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29971388" sideWeight="0.4950495" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3281471" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23055163" sideWeight="0.5171674" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30758226" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4117647" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22532189" sideWeight="0.5049505" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Command Line Tools Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32956153" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="File Transfer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23055163" sideWeight="0.4828326" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Thumbnails" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32956153" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3281471" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="processedProjectFiles" value="true" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="49" />
+    </breakpoint-manager>
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/tests/Unit/ReferralAgreement/Data/ReferralAgreementRepositoryTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="17" column="43" lean-forward="true" selection-start-line="17" selection-start-column="43" selection-end-line="17" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Unit/ReferralAgreement/Message/Query/Agreement/FindByGuidHandlerTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="368">
+          <caret line="42" column="45" lean-forward="false" selection-start-line="42" selection-start-column="45" selection-end-line="42" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ReferralAgreement/Message/Query/Agreement/FindByGuidHandler.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="113">
+          <caret line="33" column="0" lean-forward="true" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Unit/Referral/Workflow/GuardCreateSubscriberTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="263">
+          <caret line="67" column="20" lean-forward="true" selection-start-line="67" selection-start-column="20" selection-end-line="67" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Billing/Service/BillingProfileManager.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3">
+          <caret line="214" column="23" lean-forward="false" selection-start-line="214" selection-start-column="23" selection-end-line="214" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Billing/Data/TransactionRepository.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="78" column="12" lean-forward="false" selection-start-line="78" selection-start-column="12" selection-end-line="78" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Referral/Entity/Referral.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="39" column="28" lean-forward="false" selection-start-line="39" selection-start-column="28" selection-end-line="39" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Referral/Workflow/EnteredAcquiredSubscriber.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="406">
+          <caret line="143" column="45" lean-forward="false" selection-start-line="143" selection-start-column="45" selection-end-line="143" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/fragments/alerts/referralAgreementOwner.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="148">
+          <caret line="72" column="0" lean-forward="true" selection-start-line="72" selection-start-column="0" selection-end-line="72" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/Api/Billing/PaymentMethodController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-554">
+          <caret line="67" column="7" lean-forward="true" selection-start-line="67" selection-start-column="7" selection-end-line="67" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Billing/Message/Command/Transaction/ChargeAccount.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="11" column="36" lean-forward="true" selection-start-line="11" selection-start-column="36" selection-end-line="11" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Billing/Message/Command/Transaction/ChargeAccountHandler.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="366">
+          <caret line="160" column="65" lean-forward="true" selection-start-line="160" selection-start-column="65" selection-end-line="160" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Billing/Event/ReferralCreatedSubscriber.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="49" column="5" lean-forward="true" selection-start-line="49" selection-start-column="5" selection-end-line="49" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Referral/Event/ReferralCreatedEvent.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="27" column="7" lean-forward="true" selection-start-line="27" selection-start-column="7" selection-end-line="27" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Referral/Workflow/GuardCreateSubscriber.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="47">
+          <caret line="80" column="47" lean-forward="false" selection-start-line="80" selection-start-column="47" selection-end-line="80" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ReferralAgreement/Workflow/Invitee/InviteTransitionSubscriber.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1769">
+          <caret line="12" column="4" lean-forward="false" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ReferralAgreement/Data/Command/Agreement/UpdateAgreementStatus.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-264">
+          <caret line="35" column="20" lean-forward="false" selection-start-line="35" selection-start-column="20" selection-end-line="35" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ReferralAgreement/Data/MessageFactory.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="145" column="34" lean-forward="true" selection-start-line="145" selection-start-column="34" selection-end-line="145" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ReferralAgreement/Entity/Factory/InviteeFactory.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="78">
+          <caret line="76" column="0" lean-forward="true" selection-start-line="76" selection-start-column="0" selection-end-line="76" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ReferralAgreement/Workflow/Agreement/PublishTransitionSubscriber.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="100" column="10" lean-forward="true" selection-start-line="98" selection-start-column="8" selection-end-line="100" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ReferralAgreement/Workflow/Agreement/EnteredActiveSubscriber.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="110" column="10" lean-forward="true" selection-start-line="108" selection-start-column="8" selection-end-line="110" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ReferralAgreement/Data/ReferralAgreementRepository.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="889">
+          <caret line="134" column="5" lean-forward="false" selection-start-line="134" selection-start-column="5" selection-end-line="134" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ReferralAgreement/Entity/ReferralAgreementInvitee.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-734">
+          <caret line="28" column="0" lean-forward="true" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/fragments/feeds/column1/referralAgreementParticipantCard.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-439">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ReferralAgreement/ReferralAgreementService.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="319">
+          <caret line="227" column="47" lean-forward="true" selection-start-line="227" selection-start-column="47" selection-end-line="227" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/fragments/feeds/column2/referralAgreementCardDisplay.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="21" column="39" lean-forward="false" selection-start-line="21" selection-start-column="39" selection-end-line="21" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ReferralAgreement/Entity/ReferralAgreement.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="664" column="7" lean-forward="true" selection-start-line="664" selection-start-column="7" selection-end-line="664" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/forms/feed-filter.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Feed/Form/FeedFilter.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="164">
+          <caret line="214" column="20" lean-forward="false" selection-start-line="214" selection-start-column="20" selection-end-line="214" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/Api/NotificationController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="385">
+          <caret line="205" column="110" lean-forward="true" selection-start-line="205" selection-start-column="110" selection-end-line="205" selection-end-column="110" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ReferralAgreement/Message/Query/Agreement/LoadFeedHandler.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1044">
+          <caret line="61" column="0" lean-forward="true" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/templates/macros/feedMacros.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2862">
+          <caret line="157" column="27" lean-forward="true" selection-start-line="157" selection-start-column="27" selection-end-line="157" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Unit/Referral/Workflow/EnteredDisputedSubscriberTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="178">
+          <caret line="219" column="0" lean-forward="true" selection-start-line="219" selection-start-column="0" selection-end-line="219" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Functional/Controller/Api/ReferralAgreementControllerTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="730">
+          <caret line="225" column="0" lean-forward="false" selection-start-line="225" selection-start-column="0" selection-end-line="225" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ReferralAgreement/Data/Command/Invitee/RemoveInviteeHandler.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="421">
+          <caret line="52" column="31" lean-forward="false" selection-start-line="52" selection-start-column="31" selection-end-line="52" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/services/referral_agreement.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="233" column="16" lean-forward="true" selection-start-line="233" selection-start-column="16" selection-end-line="233" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Feed/ParamConverter/FeedFilterParamConverter.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="37" column="20" lean-forward="false" selection-start-line="37" selection-start-column="20" selection-end-line="37" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Feed/Entity/Factory/FeedFilterFactory.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="227">
+          <caret line="25" column="20" lean-forward="false" selection-start-line="25" selection-start-column="20" selection-end-line="25" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/FeedController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-440">
+          <caret line="94" column="46" lean-forward="false" selection-start-line="94" selection-start-column="46" selection-end-line="94" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ReferralAgreement/Workflow/Invitee/RemoveTransitionSubscriber.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="792">
+          <caret line="51" column="33" lean-forward="false" selection-start-line="51" selection-start-column="33" selection-end-line="51" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ReferralAgreement/InviteeService.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1332">
+          <caret line="86" column="5" lean-forward="false" selection-start-line="86" selection-start-column="5" selection-end-line="86" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/fragments/accordions/referralParticipants.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2052">
+          <caret line="114" column="118" lean-forward="false" selection-start-line="114" selection-start-column="118" selection-end-line="114" selection-end-column="139" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Controller/Api/ReferralAgreementController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7416">
+          <caret line="454" column="47" lean-forward="false" selection-start-line="454" selection-start-column="47" selection-end-line="454" selection-end-column="47" />
+          <folding>
+            <element signature="e#121#173#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/lib/modules/feed.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="321" column="0" lean-forward="false" selection-start-line="321" selection-start-column="0" selection-end-line="321" selection-end-column="0" />
+          <folding>
+            <element signature="e#241#7191#0" expanded="false" />
+            <element signature="e#1800#3284#0" expanded="false" />
+            <element signature="e#3515#7184#0" expanded="false" />
+            <element signature="e#7371#7629#0" expanded="false" />
+            <element signature="e#7748#10245#0" expanded="false" />
+            <element signature="e#10408#13479#0" expanded="false" />
+            <element signature="e#13614#13811#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/pages/feed.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1728">
+          <caret line="96" column="19" lean-forward="false" selection-start-line="96" selection-start-column="19" selection-end-line="96" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/templates/page.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="505">
+          <caret line="470" column="30" lean-forward="false" selection-start-line="470" selection-start-column="30" selection-end-line="470" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/templates/user.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/fragments/alerts/referralAgreementParticipant.html.twig">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/js/lib/modules/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6120">
+          <caret line="428" column="8" lean-forward="false" selection-start-line="428" selection-start-column="8" selection-end-line="428" selection-end-column="8" />
+          <folding>
+            <element signature="e#2764#4366#0" expanded="false" />
+            <element signature="e#4587#5825#0" expanded="false" />
+            <element signature="e#6091#6589#0" expanded="false" />
+            <element signature="e#6746#7211#0" expanded="false" />
+            <element signature="e#7341#7417#0" expanded="false" />
+            <marker date="1549675613708" expanded="true" signature="60323:60341" ph="..." />
+            <marker date="1549675613708" expanded="true" signature="62288:62295" ph="×" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ReferralAgreement/Message/Command/Invitee/RemoveInviteeHandler.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="900">
+          <caret line="57" column="41" lean-forward="false" selection-start-line="57" selection-start-column="41" selection-end-line="57" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ReferralAgreement/Form/Invitee/RemoveInviteeForm.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="259">
+          <caret line="49" column="0" lean-forward="false" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

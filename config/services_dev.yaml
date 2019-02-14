@@ -1,0 +1,5 @@
+services:
+    PapaLocal\Test\Controller\:
+        resource: '../src/Test/Controller/'
+        public: true
+        tags: ['controller.service_arguments']

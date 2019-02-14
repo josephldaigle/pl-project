@@ -1,0 +1,15 @@
+id,agreementId,location,type
+1,1,"Peachtree City, GA",include
+2,1,"Tyrone, GA",include
+3,1,"Fayetteville, GA",include
+4,1,"Newnan, GA",exclude
+5,1,"Outside Fayette County",exclude
+7,3,"Newnan, GA",include
+8,4,"Somewhere, GA",include
+9,5,"Somewhere, ga",include
+10,6,"Atlanta,Ga",include
+11,6,"Macon, Ga",exclude
+12,7,"Alpharetta, Ga",include
+13,7,"Columbus,Ga",exclude
+14,7,"Americus,Ga",exclude
+15,8,"Smyrna, Ga",include

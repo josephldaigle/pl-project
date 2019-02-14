@@ -1,0 +1,49 @@
+{#
+|--------------------------------------------------------------------------
+| Add Menu modal.
+|--------------------------------------------------------------------------
+|
+| This fragment contains the add menu modal.
+|
+| This is where you can access the different form that will let you add a new user,
+| agreement, project or contact based on your access level.
+|
+#}
+
+<div id="addMenu" class="modal" role="dialog" data-keyboard="false" tabindex="-1" aria-labelledby="modalLabel">
+    <div class="navbar-fixed-bottom push-up-3x">
+        <div class="modal-dialog" role="document">
+            <ul class="list-inline text-center">
+
+                {# ADD REFERRAL #}
+                <li class="contour-outer-small">
+                    <a href="#" class="clear-text-decoration" data-toggle="modal" data-target="#addNewReferral" data-dismiss="modal">
+                        <img id="ico-referral" src="{{ asset('/media/referral.png') }}"  class="large-ico">
+                        <div class="primary-color">Referral</div>
+                    </a>
+                </li>
+
+                {# ADD COMPANY #}
+                {% if app.user.getCompanyList().all()|length < 1 %}
+                <li class="contour-outer-small">
+                    <a href="#" class="clear-text-decoration" data-toggle="modal" data-target="#addCompany" data-dismiss="modal">
+                        <img id="ico-agreement" src="{{ asset('/media/agreement-icon.png') }}" class="large-ico">
+                        <div class="primary-color">Company</div>
+                    </a>
+                </li>
+                {% endif %}
+
+                {# ADD AGREEMENT #}
+                {% if ('ROLE_COMPANY' in app.user.getRoles) or ('ROLE_ADMIN' in app.user.getRoles)  %}
+                    <li class="contour-outer-small">
+                        <a href="#" class="clear-text-decoration" data-toggle="modal" data-target="#referralAgreement" data-dismiss="modal">
+                            <img id="ico-agreement" src="{{ asset('/media/agreement-icon.png') }}" class="large-ico">
+                            <div class="primary-color">Agreement</div>
+                        </a>
+                    </li> <!-- Add agreement -->
+                {% endif %}
+
+            </ul>
+        </div><!-- modal-dialog -->
+    </div><!-- navbar-fixed-bottom -->
+</div><!-- modal -->

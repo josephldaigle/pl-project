@@ -1,0 +1,75 @@
+################################################################
+#
+# Feed
+#
+# Services related to the PapaLocal/Feed namespace.
+#################################################################
+services:
+    ## data layer
+    PapaLocal\Feed\FeedRepository:
+        class: PapaLocal\Feed\FeedRepository
+        parent: PapaLocal\Core\Data\AbstractRepository
+        arguments:
+            $repositoryRegistry: '@PapaLocal\Core\Data\RepositoryRegistry'
+            $referralAgreementRepository: '@PapaLocal\ReferralAgreement\Data\ReferralAgreementRepository'
+            $appBus: '@messenger.bus.application'
+            $raMessageFactory: '@PapaLocal\ReferralAgreement\Message\MessageFactory'
+        tags: ['papalocal_data.repository']
+
+    PapaLocal\Feed\UserFeedHydrator:
+        class: PapaLocal\Feed\UserFeedHydrator
+        parent: PapaLocal\Core\Data\AbstractHydrator
+        arguments:
+            $tableGateway: '@PapaLocal\Core\Data\TableGateway'
+            $entityFactory: '@PapaLocal\Entity\EntityFactory'
+            $serializer: '@serializer'
+            $repositoryRegistry: '@PapaLocal\Core\Data\RepositoryRegistry'
+            $referralAgreementRepository: '@PapaLocal\ReferralAgreement\Data\ReferralAgreementRepository'
+            $appBus: '@messenger.bus.application'
+            $raMessageFactory: '@PapaLocal\ReferralAgreement\Message\MessageFactory'
+        tags: ['papalocal_data.hydrator']
+
+    #------------------------------
+    # Plugin
+    #------------------------------
+    PapaLocal\Feed\Plugin\DateComparator:
+        class: PapaLocal\Feed\Plugin\DateComparator
+        arguments:
+            $serializer: '@serializer'
+
+    PapaLocal\Feed\Plugin\SortFeed:
+        class: PapaLocal\Feed\Plugin\SortFeed
+        arguments:
+            $serializer: '@serializer'
+
+    #------------------------------
+    # Param Converter
+    #------------------------------
+    PapaLocal\Feed\ParamConverter\FeedFilterParamConverter:
+        class: PapaLocal\Feed\ParamConverter\FeedFilterParamConverter
+        arguments:
+            $serializer: '@serializer'
+
+    #------------------------------
+    # Entity Factory
+    #------------------------------
+    PapaLocal\Feed\Entity\Factory\FeedFilterFactory:
+        class: PapaLocal\Feed\Entity\Factory\FeedFilterFactory
+
+    #------------------------------
+    # Application Bus Messages
+    #------------------------------
+    PapaLocal\Feed\Message\MessageFactory:
+        class: PapaLocal\Feed\Message\MessageFactory
+
+    #------------------------------
+    # AppBus Query Handlers
+    #------------------------------
+    PapaLocal\Feed\Message\Query\ApplyFilterHandler:
+        class: PapaLocal\Feed\Message\Query\ApplyFilterHandler
+        arguments:
+            $serializer: '@serializer'
+            $dateComparator: '@PapaLocal\Feed\Plugin\DateComparator'
+            $sortFeed: '@PapaLocal\Feed\Plugin\SortFeed'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\Feed\Message\Query\ApplyFilter', bus: 'messenger.bus.application' }

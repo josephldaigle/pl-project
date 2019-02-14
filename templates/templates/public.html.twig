@@ -1,0 +1,29 @@
+{% extends 'templates/page.html.twig' %}
+
+{#
+|--------------------------------------------------------------------------
+| Public page template
+|--------------------------------------------------------------------------
+|
+| This page template contains the 'public' header and footer elements.
+|
+#}
+
+{% block header %}
+    {% include 'includes/publicHeader.html.twig' %}
+{% endblock %}
+
+
+{% block body %}
+    {# insert layout and content here #}
+{% endblock %}
+
+{% block modals %}
+    {{ parent() }}
+    {% include 'fragments/passwordConstraints.html.twig' %}
+{% endblock %}
+
+
+{% block footer %}
+    {% include 'includes/publicFooter.html.twig' %}
+{% endblock %}

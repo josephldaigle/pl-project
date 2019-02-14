@@ -1,0 +1,30 @@
+security:
+    # use plaintext passwords for testing
+    encoders:
+        PapaLocal\Entity\User:
+            algorithm: bcrypt
+
+    providers:
+        chain_provider:
+            chain:
+                providers: [ in_memory, database]
+        in_memory:
+            id: papalocal_identity.in_memory_user_provider
+        database:
+            id: papalocal_identity.databse_user_provider
+
+    firewalls:
+        main:
+            pattern: ^/
+            http_basic:
+                provider: chain_provider
+            anonymous: ~
+
+    access_decision_manager:
+        strategy: unanimous
+        allow_if_all_abstain: true
+
+    access_control:
+        - { path: (^/login|register|forgot-password|reset-password|process-password-reset|terms-of-service$)|(agreement\/referral\/join), roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^(/api)(.)+$, roles: ROLE_USER }
+        - { path: ^/, roles: IS_AUTHENTICATED_FULLY }

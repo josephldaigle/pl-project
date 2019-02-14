@@ -1,0 +1,40 @@
+{# Twig template #}
+{% extends 'templates/accordion.html.twig' %}
+{% import 'templates/macros/editableFormFields.html.twig' as fields %}
+
+{# base accordion targets #}
+{% block type1 %}accordion3{% endblock %}
+
+{% block type2 %}accordion3{% endblock %}
+
+{% block target1 %}company-photos{% endblock %}
+
+{% block target2 %}company-photos{% endblock %}
+
+{% block target3 %}company-photos{% endblock %}
+
+
+{% block heading1 %}
+    companyPhotosPanel
+{% endblock %}
+
+{% block heading2 %}
+    companyPhotosPanel
+{% endblock %}
+
+
+{# accordion content #}
+{% block header %}
+    Photos:
+{% endblock %}
+
+
+{% block content %}
+
+<form class="view-mode contour-inner-large clear-side-padding">
+{{ fields.image() }}
+</form><!-- end company photos panel -->
+
+
+{% endblock %}
+

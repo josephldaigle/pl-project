@@ -1,0 +1,28 @@
+{# Provides a template for address inputs that depend on google api #}
+
+{# Google address hidden fields #}
+{% if app.user.getContactProfile().getAddressList().findBy('type', 'Physical') is defined and app.user.getContactProfile().getAddressList().findBy('type', 'Physical') is not null %}
+
+    {% set address = app.user.getContactProfile().getAddressList().findBy('type', 'Physical') %}
+
+    <div class="addressPlaceholder">
+        <input class="form-control hidden" name="street_number" disabled="true" value="{{ address.getStreetAddress() }}" />
+        <input class="form-control hidden" name="route" disabled="true" value="" />
+        <input class="form-control hidden" name="locality"  disabled="true" value="{{ address.getCity }}" />
+        <input class="form-control hidden" name="administrative_area_level_1" disabled="true" value="{{ address.getState }}"  />
+        <input class="form-control hidden" name="postal_code" disabled="true" value="{{ address.getPostalCode }}"  />
+        <input class="form-control hidden" name="country" disabled="true" value="{{ address.getCountry }}"  />
+    </div>
+
+    {% else %}
+
+    <div class="addressPlaceholder">
+        <input class="form-control hidden" name="street_number" disabled="true" />
+        <input class="form-control hidden" name="route" disabled="true" />
+        <input class="form-control hidden" name="locality"  disabled="true" />
+        <input class="form-control hidden" name="administrative_area_level_1" disabled="true" />
+        <input class="form-control hidden" name="postal_code" disabled="true" />
+        <input class="form-control hidden" name="country" disabled="true" />
+    </div>
+
+{% endif %}

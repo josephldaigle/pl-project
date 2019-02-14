@@ -1,0 +1,39 @@
+{% import 'templates/macros/formFields.html.twig' as fields %}
+<form name="rateReferral" class="view-mode form-group content" data-url="referral/rate" data-form-type="inline">
+
+    <div class="col-sm-12">
+        {% include 'fragments/alerts/formAlert.html.twig' %}
+    </div>
+
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+        <div class="form-label col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label push-down-medium">
+            {{ fields.label('referral-score','Score:') }}
+        </div>
+        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+            {{ fields.rating('referral-rate', 'referralRate', (item.score is defined and item.score is not empty) ? item.score : '') }}
+        </div>
+    </div>
+
+    <div class="referral-rating-button col-lg-4 col-md-4 col-sm-4 col-xs-12 push-down-medium">
+        {% if item.score is null %}
+            {{ fields.button() }}
+        {% endif %}
+    </div>
+
+
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+        <div class="referral-feedback {{ ((item.ratingNote is not null) ? '' : 'hide') }}">
+            <div class="form-label col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label push-down-xs">
+                {{ fields.label('referralDisputeFeedback','Feedback:') }}
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
+                {{ fields.textArea('referralFeedback', ((item.ratingNote is not null) ? item.ratingNote : ''), 'Provide a brief description of the referral.', {'rows': 5, 'maxlength': 255, 'disabled': true}) }}
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
+
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('rateReferral') }}" />
+    <input type="hidden" name="referralGuid" value="{{ item.guid.value }}" />
+    <input type="hidden" name="timeCreated" value="{{ item.timeCreated }}" />
+</form>

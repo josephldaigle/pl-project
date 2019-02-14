@@ -1,0 +1,187 @@
+{% extends 'templates/modalContainer.html.twig' %}
+{% import 'templates/macros/formFields.html.twig' as fields %}
+
+
+{% block header %}Add Bank Account{% endblock %}
+
+{% block id %}addBankAccount{% endblock %}
+
+{% block content %}
+
+    <form name="addBankAccount" data-url="billing/account/checking/add" data-form-type="modal">
+
+        <div class="col-xs-12">
+            {% include 'fragments/alerts/formAlert.html.twig' %}
+        </div>
+
+        <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+            <div class="form-group">
+
+                <div class="form-label col-lg-4 col-md-4 col-sm-4 col-xs-12 control-label push-down-xs">
+                    {{ fields.label('firstName','First Name:') }}
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                    {{ fields.input('firstName', app.user.getPerson().getFirstName(), 'text', null, { 'required': ''}) }}
+                </div>
+
+            </div><!-- end first name -->
+        </div>
+
+        <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+            <div class="form-group">
+                <div class="form-label col-lg-4 col-md-4 col-sm-4 col-xs-12 control-label push-down-xs">
+                    {{ fields.label('lastName','Last Name:') }}
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                    {{ fields.input('lastName', app.user.getPerson().getLastName(), 'text', null, { 'required': '' }) }}
+                </div>
+            </div><!-- end last name -->
+        </div>
+
+        {# address field#}
+        <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+            <div class="form-group">
+                {# Google Address Lookup #}
+                <div class="form-label col-lg-4 col-md-4 col-sm-4 col-xs-12 control-label push-down-xs">
+                    {{ fields.label('selectAddress','Address:') }}
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                    {#{{ fields.selectAddress(app.user.getContactProfile().getAddressList(), {}) }}#}
+                    <input type="text" class="form-control clear-border-radius" name="selectAddress" placeholder="Address" />
+                </div>
+            </div>
+        </div>
+
+        {# payment type #}
+        {#<div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">#}
+            {#<div class="form-group">#}
+                {#<div class="form-label col-lg-4 col-md-4 col-sm-4 col-xs-12 control-label push-down-xs">#}
+                    {#{{ fields.label('cardType','Payment Type:') }}#}
+                {#</div>#}
+                {#<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">#}
+                    {#<select class="form-control clear-border-radius" name="cardType">#}
+                        {#<option value="Visa">Visa</option>#}
+                        {#<option value="American Express">American Express</option>#}
+                        {#<option value="Discover">Discover</option>#}
+                        {#<option value="Master">Mastercard</option>#}
+                    {#</select>#}
+                {#</div>#}
+            {#</div>#}
+        {#</div>#}
+
+        {# Card Number #}
+        <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+            <div class="form-group">
+
+                <div class="form-label col-lg-4 col-md-4 col-sm-4 col-xs-12 control-label push-down-xs">
+                    {{ fields.label('accountNumber','Account #:') }}
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                    {{ fields.input('accountNumber', null, 'text', null, { 'required': ''}) }}
+                </div>
+
+            </div>
+        </div>
+
+        <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+            <div class="form-group">
+
+                <div class="form-label col-lg-4 col-md-4 col-sm-4 col-xs-12 control-label push-down-xs">
+                    {{ fields.label('routingNumber','Routing #:') }}
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                    {{ fields.input('routingNumber', null, 'text', null, { 'required': ''}) }}
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+            <div class="form-group">
+
+                <div class="form-label col-lg-4 col-md-4 col-sm-4 col-xs-12 control-label push-down-xs">
+                    {{ fields.label('ssn','Last 4 SSN:') }}
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                    {{ fields.input('ssn', null, 'text', null, { 'required': ''}) }}
+                </div>
+
+            </div>
+        </div>
+
+        {# Security Code #}
+        {#<div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">#}
+            {#<div class="form-group">#}
+                {#<div class="form-label col-lg-4 col-md-4 col-sm-4 col-xs-12 control-label push-down-xs">#}
+                    {#{{ fields.label('securityCode', 'Security Code:') }}#}
+                {#</div>#}
+                {#<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">#}
+                    {#{{ fields.input('securityCode', null, 'text', null, "maxlength=4 minlength=3", 'security-code') }}#}
+                {#</div>#}
+            {#</div>#}
+        {#</div>#}
+
+        {#<div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">#}
+            {#<div class="form-group">#}
+                {#<div class="form-label col-lg-4 col-md-4 col-sm-4 col-xs-12 control-label push-down-xs">#}
+                    {#{{ fields.label('expirationDate','Expiration Date:') }}#}
+                {#</div>#}
+                {#<div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">#}
+                    {#<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">#}
+                        {#<select class="form-control" name="expirationMonth" >#}
+                            {#<option value="01">01 - Jan</option>#}
+                            {#<option value="02">02 - Feb</option>#}
+                            {#<option value="03">03 - Mar</option>#}
+                            {#<option value="04">04 - Apr</option>#}
+                            {#<option value="05">05 - May</option>#}
+                            {#<option value="06">06 - Jun</option>#}
+                            {#<option value="07">07 - Jul</option>#}
+                            {#<option value="08">08 - Aug</option>#}
+                            {#<option value="09">09 - Sep</option>#}
+                            {#<option value="10">10 - Oct</option>#}
+                            {#<option value="11">11 - Nov</option>#}
+                            {#<option value="12">12 - Dec</option>#}
+                        {#</select>#}
+                    {#</div>#}
+                    {#<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">#}
+                        {#{{ fields.input('expirationYear', null, 'text', 'YY', "maxlength=4", 'exp-yr') }}#}
+                    {#</div>#}
+                {#</div>#}
+            {#</div>#}
+        {#</div>#}
+
+        <div class="panel-body clear-bottom-padding clear-top-padding">
+            <div class="row">
+                <div class="col-lg-1 col-xs-1 clear-side-padding"></div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 clear-side-padding">
+                    <div class="checkbox col-xs-12 clear-side-padding" >
+                        <label class="text-bold text-center">
+                            <input type="checkbox" value="1" name="terms" class="clickable" /> I understand and agree to abide by PapaLocal's <a class="link-primary" href="#serviceTerms" data-toggle="modal"> Terms and Conditions</a>, <strong>AND</strong> I understand and agree to abide by the <a class="link-primary" href="https://stripe.com/us/connect-account/legal" target="_blank">Stripe Connected Account Agreement</a>.
+                        </label>
+                    </div>
+                </div>
+                <div class="col-lg-1 col-xs-1 clear-side-padding"></div>
+            </div>
+        </div>
+
+        {# add submit button #}
+        <div class="panel-body">
+
+            <div class="row">
+                <div class="col-xs-12 clear-side-padding">
+                    <input type="submit" name="submit" value="Add Account" class="form-control button-primary push-down-small clear-border-radius" disabled />
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+
+        </div>
+
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('addBankAccount') }}" />
+
+    </form>
+
+{% endblock %}
+

@@ -1,0 +1,21 @@
+{% extends 'templates/user.html.twig' %}
+
+{% block body %}
+
+    <div class="container-fluid scrollable-layout">
+        <div>{{ dump(logs)}}</div>
+
+        {{ 'logs page' }}
+        {#{% for log in logs %}#}
+            {#<table>#}
+                {#{% for message in log.messages %}#}
+                    {#<tr>#}
+                        {#<td>{{ message.level }}</td>#}
+                        {#<td>{{ log.messages.message }}</td>#}
+                    {#</tr>#}
+                {#{% endfor %}#}
+            {#</table>#}
+        {#{% endfor %}#}
+    </div>
+
+{% endblock %}

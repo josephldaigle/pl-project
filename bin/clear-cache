@@ -1,0 +1,5 @@
+#!/bin/bash
+
+/var/app/current/bin/console cache:clear --no-warmup --env=dev
+/var/app/current/bin/console cache:clear --no-warmup --env=prod
+/var/app/current/bin/console cache:clear --no-warmup --env=test

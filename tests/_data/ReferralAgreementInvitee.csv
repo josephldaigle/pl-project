@@ -1,0 +1,7 @@
+id,guid,agreementId,firstName,lastName,message,emailAddress,phoneNumber,timeSent,timeCreated,accepted,declined,userGuid
+1,86ff310b-abee-413b-8b17-78b13773827c,5,Bob,Woodward,"Bob, sell me referrals.",bwoodward@papalocal.com,,,"2018-11-19 21:42:12",0,0,
+2,fb7f6635-148e-481c-987d-1b897a6f4603,5,Terry,Williamson,"I'll pay you for business leads.",twilliamson@papalocal.com,,,"2018-11-19 21:42:43",0,0,d6e2a905-0b43-427f-8ccc-8e7556b82f9f
+3,c792c8da-6e29-4ecc-8c6a-320050000cda,6,Kathie,Krebs,"Please send me referrals",kkrebs@papalocal.com,,"2018-12-10 20:44:00","2018-12-10 20:44:00",1,0,de80a7c4-7166-43a8-8f18-7f6be924bb90
+4,78ce939c-22c9-4d63-91a0-826273663c10,7,Lois,Groom,"Please send me referrals",lgroom@papalocal.com,,,"2018-12-10 21:00:19",0,0,0012be8b-7178-42ab-a5d3-b883430d2710
+5,059d118d-5a81-4c42-93ac-8ef8d79152b7,8,Louis,Groom,"Please send me referrals.",lgroom@papalocal.com,,"2018-12-10 21:21:55","2018-12-10 21:21:54",1,0,0012be8b-7178-42ab-a5d3-b883430d2710
+6,67fb3d6d-2137-4649-a4af-768cccb0ef58,6,Yacouba,Keita,"Send me referrals",yacouba@ewebify.com,,"2018-12-14 12:56:36","2018-12-14 12:56:36",1,0,b1b9adbc-ca43-4665-9b6e-66ce3c4a6606

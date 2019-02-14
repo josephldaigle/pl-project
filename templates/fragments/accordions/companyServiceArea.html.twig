@@ -1,0 +1,40 @@
+{# Twig template #}
+{% extends 'templates/accordion.html.twig' %}
+{% import 'templates/macros/formFields.html.twig' as fields %}
+
+
+{# base accordion targets #}
+{% block type1 %}accordion4{% endblock %}
+
+{% block type2 %}accordion4{% endblock %}
+
+{% block target1 %}company-service-areas{% endblock %}
+
+{% block target2 %}company-service-areas{% endblock %}
+
+{% block target3 %}company-service-areas{% endblock %}
+
+
+{% block heading1 %}
+    companyServiceAreaPanel
+{% endblock %}
+
+{% block heading2 %}
+    companyServiceAreaPanel
+{% endblock %}
+
+
+{# accordion content #}
+{% block header %}
+ Service Areas:
+{% endblock %}
+
+
+{% block content %}
+<form class="view-mode contour-inner-large clear-side-padding" data-form-type="inline">
+    {{ fields.label('companyServiceArea','Service Areas:') }}
+    {{ fields.address('companyServiceArea') }}
+    {{ fields.button() }}
+</form>
+{% endblock %}
+

@@ -1,0 +1,59 @@
+{% block feedCard %}
+
+    <div class="feed-card-container center-block apply-shadow">
+
+        <div class="panel-heading contour-inner-xsmall" data-feed-type="{{ item.feedType }}" data-feed-id="{{ item.guid.value }}" name="{% block cardName %}{% endblock %}" href="#{% block feedCardHeader %}{% endblock %}" data-toggle="collapse">
+
+            {% block feedHeader %}
+                <div class="row">
+                    <div class="col-xs-12 clear-side-padding">
+                        <div class="col-xs-2 push-right-small">
+
+                            {% block faIcon %}
+
+                                <img src="{% block icon %}{{ asset('media/papalocal.logo.png')}}{% endblock %}" class="panel-title {% block iconSize %}{{ 'logo-ico' | raw }}{% endblock %}"/>
+
+                            {% endblock %}
+
+                        </div>
+
+                        <div class="col-xs-6 contour-inner-small text-bold clickable truncate" {{ item.feedType == 'notification' or item.feedType == 'transaction' ? "style='width: 70%';" : "style='width: 43%';" }}>{% block title %}&nbsp;{{ 'title' }}{% endblock %}</div>
+
+                        {% if item.feedType != 'notification' %}
+                            <div class="col-xs-4 clear-side-padding">
+                                {% block tag %}{% endblock %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endblock %}
+
+        </div>
+
+        {% if item.feedType != 'notification' %}
+            <div class="panel-body" href="#{% block feedCardBody %}{% endblock %}" >
+                {% block feedBody %}
+
+                    {% block feedAlert %}
+
+                        {#{% if feed_alert is not empty %}#}
+
+                            {#{% include 'fragments/alerts/feedAlert.html.twig' with feed_alert %}#}
+
+                        {#{% endif %}#}
+
+                    {% endblock %}
+
+                {% endblock %}
+            </div>
+        {% endif %}
+
+        {% block feedFooter %}
+
+        {% endblock %}
+
+    </div><!-- feed-card-container -->
+
+
+{% endblock %}
+

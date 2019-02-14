@@ -1,0 +1,37 @@
+{# twig template #}
+{% extends 'templates/email.html.twig' %}
+
+
+{% block emailBody %}
+
+    <div class="row body-row">
+        <div class="col-lg-12">
+            <p>Greetings,</p>
+            <p>
+                A new credit card has been added to your profile:
+            </p>
+            <table>
+                <tr>
+                    <th>Account Number</th>
+                    <th>Name</th>
+                    <th>Expiry</th>
+                </tr>
+                <tr>
+                    <td>{{ accountNumber }}</td>
+                    <td>{{ cardholder }}</td>
+                    <td>{{ expirationDate }}</td>
+                </tr>
+            </table>
+
+            <p>If you are unaware of this change to your account, please <a href="mailto:{{ constant('CUST_SUPP_EMAIL', ewebify) }}">notify us</a> immediately.</p>
+
+            <p>Thank you,</p>
+            <p>The PapaLocal Team
+                <br/>
+                <a href="tel:{{ constant('CUST_SUPP_PHONE', ewebify) }}">{{ constant('CUST_SUPP_PHONE', ewebify) }}</a>
+            </p>
+
+        </div>
+    </div>
+
+{% endblock %}

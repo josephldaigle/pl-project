@@ -1,0 +1,41 @@
+{% extends 'templates/accordion.html.twig' %}
+{% import 'templates/macros/formFields.html.twig' as fields %}
+
+{# base accordion targets #}
+{% block containerId %}funds-withdrawal{% endblock %}
+
+{% block parentId %}funds-withdrawal{% endblock %}
+
+{% block hrefId %}withdrawal-details{% endblock %}
+
+{% block ariaControlsId %}withdrawal-details{% endblock %}
+
+{% block panelCollapseId %}withdrawal-details{% endblock %}
+
+{% block headingId %}withdrawalAccordion{% endblock %}
+
+{% block ariaId %}withdrawalAccordion{% endblock %}
+
+{% block collapseIn %}in{% endblock %} {# collapse in block to open first accordion on page load #}
+
+{% block header %}{{ 'Withdraw Funds'| e }}{% endblock %}
+
+{% block caret %}<i class="caret-up-down fa fa-2x fa-caret-down"></i>{% endblock %}
+
+{% block content %}
+
+    <div class="apply-border apply-auto-overflow clear-padding">
+
+        <div class="col-xs-12 apply-border contour-inner-medium">
+            <span style="font-size: 16px;" class="link-primary text-bold">Available Balance: </span>
+            <span style="font-size: 16px;" class="link-primary text-bold">&#36;{{ app.user.billingProfile.availableBalance }}</span>
+        </div>
+
+        <div class="col-xs-12">
+            {% include 'forms/withdraw.html.twig' %}
+        </div>
+
+    </div>
+
+
+{% endblock %}

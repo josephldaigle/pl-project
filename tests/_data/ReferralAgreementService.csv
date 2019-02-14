@@ -1,0 +1,18 @@
+id,agreementId,service,type
+9,1,"Floral Arrangements",include
+10,1,"Delivery/Rush Delivery",include
+11,1,Roses,include
+12,1,Stuffed/Animals,include
+13,1,"Custom card signatures",include
+14,1,"Candies/Arrangments including candy",exclude
+15,3,"Floral arrangements",include
+16,3,Bouquets,include
+17,3,Roses,include
+18,3,Delivery,include
+19,3,"Candy/Candied Arrangements",exclude
+20,4,"Some service",include
+21,5,"some service",include
+22,6,"Event planning",include
+23,6,Parties,exclude
+24,7,"Printing product",include
+25,8,"Product sales",include

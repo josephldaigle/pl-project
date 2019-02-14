@@ -1,0 +1,49 @@
+{% extends 'templates/accordion.html.twig' %}
+
+{# base accordion targets #}
+{% block containerId %}fund-accordion{% endblock %}
+
+{% block parentId %}fund-accordion{% endblock %}
+
+{% block hrefId %}fund-details{% endblock %}
+
+{% block ariaControlsId %}fund-details{% endblock %}
+
+{% block panelCollapseId %}fund-details{% endblock %}
+
+{% block headingId %}fundAccordion{% endblock %}
+
+{% block ariaId %}fundAccordion{% endblock %}
+
+{% block collapseIn %}in{% endblock %} {# collapse in block to open first accordion on page load #}
+
+{% block caret %}<i class="caret-up-down fa fa-2x fa-caret-down"></i>{% endblock %}
+
+{% block header %}{{ 'Add Funds'| e }}{% endblock %}
+
+{% block content %}
+
+    <div class="apply-border apply-auto-overflow clear-padding">
+
+        <div class="col-xs-12 apply-border contour-inner-medium">
+            <span style="font-size: 16px;" class="link-primary text-bold">Account Balance: </span>
+            <span style="font-size: 16px;" class="link-primary text-bold">&#36;{{ app.user.billingProfile.balance }}</span>
+            {#<p>Your next automatic payment will be when your balance falls below $100</p>#}
+        </div>
+
+        <div class="col-xs-12 apply-border contour-inner-medium">
+
+            {% include 'forms/addFund.html.twig' %}
+
+        </div>
+
+        <div class="col-xs-12 apply-border contour-inner-medium">
+
+            {% include 'forms/autoRecharge.html.twig' %}
+
+        </div>
+
+
+    </div>
+
+{% endblock %}

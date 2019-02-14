@@ -1,0 +1,8 @@
+id,guid,name,description,strategy,quantity,bid,companyGuid,ownerGuid,timeCreated
+1,fba0136a-3b48-496a-b47f-d7b6efc43ba0,"PTC Florist Weekly","Floral service referrals for Peachtree City.",weekly,10,15.00,2d41b9c5-e1bd-4921-843c-1aa0155fb60d,0012be8b-7178-42ab-a5d3-b883430d2710,"2018-06-27 18:00:53"
+3,88230588-bf0b-4521-848a-e135f59ea916,"Newnan Florist Monthly","Monthly referrals for floral services in Newnan.",monthly,5,25.00,2d41b9c5-e1bd-4921-843c-1aa0155fb60d,0012be8b-7178-42ab-a5d3-b883430d2710,"2018-06-27 18:18:50"
+4,17dd3d95-24e4-494c-a2a9-c1ec0b44c51f,"Fayetteville Service Agreement","short desc",weekly,10,50.00,2d41b9c5-e1bd-4921-843c-1aa0155fb60d,0012be8b-7178-42ab-a5d3-b883430d2710,"2018-11-15 19:43:21"
+5,e5076f70-15a6-4208-a3d0-b6cd0ede3aaa,"Tyrone Agreement","short desc",weekly,10,35.00,2d41b9c5-e1bd-4921-843c-1aa0155fb60d,0012be8b-7178-42ab-a5d3-b883430d2710,"2018-11-19 13:47:17"
+6,de546e18-d8e4-47ea-9294-6da584ed1f49,"Wedding planner","Organize wedding and events",weekly,10,45.00,2d41b9c5-e1bd-4921-843c-1aa0155fb60d,0012be8b-7178-42ab-a5d3-b883430d2710,"2018-12-10 20:42:29"
+7,fad12c94-0dcf-4366-bb64-d8ee5e427c53,"Print Shop","Print logo and promotional products",weekly,30,15.00,a2a46939-b373-49fa-bf92-2fb49f484ee6,de80a7c4-7166-43a8-8f18-7f6be924bb90,"2018-12-10 20:49:01"
+8,27903b09-f3c4-47e2-94ed-bfd91da33099,"Beauty Supply","selling hair and beauty supplies",weekly,25,15.00,a24ec15c-9f9d-4911-9719-024ed57493ee,eb86aa49-7c8e-4417-af15-6d80d3b4e7d1,"2018-12-10 21:21:01"

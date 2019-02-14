@@ -1,0 +1,14 @@
+
+<select id="company-select" class="search-company selectpicker" data-live-search="true" name="companySelect"
+        onchange="selectCompany(this.options[this.selectedIndex].value)" data-live-search-placeholder="" data-hide-disabled="true">
+
+    {# impl select picker #}
+    {% for company in app.user.getCompanyList().all() %}
+
+        <option class="text-center" value="{{ company.id() }}">{{ company.getName() }}</option>
+
+    {% endfor %}
+
+    <option class="text-center" value="0" selected="selected" >Choose A Company</option>
+</select>
+

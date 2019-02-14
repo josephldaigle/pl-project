@@ -1,0 +1,87 @@
+{% extends 'templates/feedCard.html.twig' %}
+{% import 'templates/macros/feedMacros.html.twig' as feedHelper %}
+
+{#
+|--------------------------------------------------------------------------
+| Agreement Card Feed
+|--------------------------------------------------------------------------
+|
+| This template displays an agreement in the feed card summary list (col 1).
+|
+#}
+{% block cardName %}{{ item.feedType }}{{ item.guid.value }}{% endblock %}
+
+
+{% block feedCardHeader %}{{ item.guid.value }}{% endblock %}{# panel header target #}
+{% block feedCardBody %}{{ item.guid.value }}{% endblock %}
+
+
+{% block faIcon %}
+   {{ feedHelper.fetchCardIcon(item) }}
+{% endblock %}
+
+{% block tag %}
+    <div class="push-down-small pull-right">
+        {{ feedHelper.fetchReferralAgreementLabel(item) }}
+    </div>
+{% endblock %}
+
+{% block title %}{{ item.title }}{% endblock %}
+
+{% block feedBody %}
+
+    <table id="outbound-referral-card-table" cellpadding="15">
+        <tbody>
+        <tr>
+            <td><b>Type:</b></td>
+            <td>&nbsp;&nbsp;&nbsp;Referral Agreement</td>
+        </tr>
+
+        <tr>
+            <td><b>Premium:</b></td>
+            <td>&nbsp;&nbsp;&nbsp;${{ item.bid|round(0, 'floor') }}</td>
+        </tr>
+
+        <tr>
+            <td><b>Invites:</b></td>
+            <td>&nbsp;&nbsp;&nbsp;{{ item.numberInvitees }}</td>
+        </tr>
+
+        <tr>
+            <td><b>Participants:</b></td>
+            <td>&nbsp;&nbsp;&nbsp;{{ item.numberParticipants }}</td>
+        </tr>
+
+        </tbody>
+    </table>
+
+{% endblock %}
+
+{#{% block feedFooter %}#}
+
+    {#<div class="panel-footer clear-side-padding secondary-background" id="agreement-card-button">#}
+        {#<div class="container-fluid">#}
+            {#<div class="row">#}
+
+                {#<form name="updateInvitation" data-url="agreement/referral/invitee/update" data-form-type="inline">#}
+                    {#<div class="col-sm-6 col-xs-12">#}
+                        {#<input type="hidden" name="_csrf_token" value="{{ csrf_token('invitationStatus') }}" />#}
+                        {#<input type="hidden" name="invitationStatus" value="accepted" />#}
+                        {#<input type="button" name="submit" class="form-control join-agreement-button clear-border-radius" value="Join">#}
+                    {#</div>#}
+                {#</form>#}
+
+                {#<form name="updateInvitation" data-url="agreement/referral/invitee/update" data-form-type="inline">#}
+                    {#<div class="col-sm-6 col-xs-12">#}
+                        {#<input type="hidden" name="_csrf_token" value="{{ csrf_token('invitationStatus') }}" />#}
+                        {#<input type="hidden" name="invitationStatus" value="declined" />#}
+                        {#<input type="button" name="submit" class="form-control decline-agreement-button clear-border-radius" value="Decline">#}
+                    {#</div>#}
+                {#</form>#}
+
+            {#</div>#}
+        {#</div>#}
+    {#</div>#}
+
+{#{% endblock %}#}
+

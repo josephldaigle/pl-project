@@ -1,0 +1,108 @@
+################################################################
+#
+# Notification
+#
+# Services related to the PapaLocal/Notification namespace.
+#################################################################
+services:
+    ## ENTITY
+    PapaLocal\Notification\Entity\UserNotificationFactory:
+        class: PapaLocal\Notification\Entity\UserNotificationFactory
+        arguments:
+            $serializer: '@serializer'
+
+
+
+    ## VALUE OBJECT
+    PapaLocal\Notification\ValueObject\FeedItemFactory:
+        class: PapaLocal\Notification\ValueObject\FeedItemFactory
+
+    ## DATA LAYER
+
+    #### REPOSITORY
+    PapaLocal\Notification\Data\NotificationRepository:
+        class: PapaLocal\Notification\Data\NotificationRepository
+        parent: PapaLocal\Core\Data\AbstractRepository
+        arguments:
+            $dataResourcePool: '@PapaLocal\Core\Data\DataResourcePool'
+            $mysqlMessageFactory: '@PapaLocal\Notification\Data\MessageFactory'
+            $mysqlBus: '@messenger.bus.mysql'
+            $userNotificationFactory: '@PapaLocal\Notification\Entity\UserNotificationFactory'
+        tags: ['papalocal_data.repository']
+
+    #### MYSQL BUS
+    PapaLocal\Notification\Data\MessageFactory:
+        class: PapaLocal\Notification\Data\MessageFactory
+
+    ###### COMMAND
+
+    ###### QUERY
+
+    PapaLocal\Notification\Data\PersonNotificationRepository:
+        class: PapaLocal\Notification\Data\PersonNotificationRepository
+        parent: PapaLocal\Core\Data\AbstractRepository
+        tags: ['papalocal_data.repository']
+
+    ## service layer
+    PapaLocal\Notification\Notifier:
+        class: PapaLocal\Notification\Notifier
+        public: true
+        arguments:
+            $mailer: '@swiftmailer.mailer.default'
+            $emailer: '@papalocal_core.emailer'
+            $notificationRepository: '@PapaLocal\Notification\Data\NotificationRepository'
+            $personNotificationRepository: '@PapaLocal\Notification\Data\PersonNotificationRepository'
+            $guidGenerator: '@papalocal_core.guid_generator'
+            $twig: '@twig'
+            $logger: '@logger'
+
+    ## APPLICATION BUS
+    PapaLocal\Notification\Message\MessageFactory:
+        class: PapaLocal\Notification\Message\MessageFactory
+
+    #### COMMAND
+    PapaLocal\Notification\Message\Command\MarkReadHandler:
+        class: PapaLocal\Notification\Message\Command\MarkReadHandler
+        arguments:
+            $notificationRepository: '@PapaLocal\Notification\Data\NotificationRepository'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\Notification\Message\Command\MarkRead', bus: 'messenger.bus.application' }
+
+    #### QUERY
+    PapaLocal\Notification\Message\Query\LoadFeedHandler:
+        class: PapaLocal\Notification\Message\Query\LoadFeedHandler
+        arguments:
+            $notificationRepository: '@PapaLocal\Notification\Data\NotificationRepository'
+            $feedItemFactory: '@PapaLocal\Notification\ValueObject\FeedItemFactory'
+            $securityService: '@security.helper'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\Feed\Message\Query\LoadFeed', bus: 'messenger.bus.application' }
+
+    PapaLocal\Notification\Message\Query\LoadFeedItemHandler:
+        class: PapaLocal\Notification\Message\Query\LoadFeedItemHandler
+        arguments:
+            $notificationRepository: '@PapaLocal\Notification\Data\NotificationRepository'
+            $feedItemFactory: '@PapaLocal\Notification\ValueObject\FeedItemFactory'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\Feed\Message\Query\LoadFeedItem', bus: 'messenger.bus.application' }
+
+    PapaLocal\Notification\Message\Query\FindByUserGuidHandler:
+        class: PapaLocal\Notification\Message\Query\FindByUserGuidHandler
+        arguments:
+            $notificationRepository: '@PapaLocal\Notification\Data\NotificationRepository'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\Notification\Message\Query\FindByUserGuid', bus: 'messenger.bus.application' }
+
+    ## NOTIFICATION BUS
+    PapaLocal\Notification\EmailHandler:
+        class: PapaLocal\Notification\EmailHandler
+        arguments:
+            $emailer: '@papalocal_core.emailer'
+            $logger: '@logger'
+        tags:
+            - { name: messenger.message_handler, bus: 'messenger.bus.notification' }
+
+    ## classes
+    PapaLocal\Notification\NotificationFactory:
+        class: PapaLocal\Notification\NotificationFactory
+        public: true

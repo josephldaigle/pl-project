@@ -1,0 +1,338 @@
+{# Twig template #}
+{% extends 'templates/accordion.html.twig' %}
+{% import 'templates/macros/formFields.html.twig' as fields %}
+
+{# base accordion targets #}
+{% block containerId %}accordion{% endblock %}
+
+{% block parentId %}accordion{% endblock %}
+
+{% block hrefId %}company-details{% endblock %}
+
+{% block ariaControlsId %}company-details{% endblock %}
+
+{% block panelCollapseId %}company-details{% endblock %}
+
+{% block headingId %}companyDetailsPanel{% endblock %}
+
+{% block ariaId %}companyDetailsPanel{% endblock %}
+
+{% block collapseIn %}in{% endblock %} {# collapse in block to open first accordion on page load #}
+
+{% block caret %}<i class="caret-up-down fa fa-2x fa-caret-down"></i>{% endblock %}
+
+{# accordion content #}
+{% block header %}
+   {{ 'Company Details'| e }}
+{% endblock %}
+
+
+{% block content %}
+
+    {#{{ dump(company) }}#}
+
+    <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+        <form name="accountProfileCompanyName" class="view-mode form-group" data-url="company/name/save" data-form-type="inline">
+
+            <div class="col-sm-12">
+                {% include 'fragments/alerts/formAlert.html.twig' %}
+            </div>
+
+            <div class="form-label col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label push-down-xs">
+                {{ fields.label('name','Company Name:') }}
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                {{ fields.input('name', company.name, 'text', null, {'required': true, 'disabled': true, 'maxlength': 100} ) }}
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 push-down-xs">
+                {{ fields.button() }}
+            </div>
+
+            <input type="hidden" name="guid" value="{{ company.guid.value }}" />
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('accountProfileCompanyName') }}" />
+
+        </form>
+    </div><!-- end company name panel -->
+
+{#{% if is_granted('ROLE_ADMIN') %}#}
+
+    {#<div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">#}
+        {#<form name="accountProfileStatus" class="view-mode form-group"  data-url="company/status/save" data-form-type="inline">#}
+            {#<div class="col-sm-12">#}
+                {#{% include 'fragments/alerts/formAlert.html.twig' %}#}
+            {#</div>#}
+
+            {#<div class="form-label col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label push-down-xs">#}
+                {#{{ fields.label('status','Status:') }}#}
+            {#</div>#}
+
+            {#<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">#}
+                {#<select class="form-control clear-border-radius" name="status" required disabled>#}
+
+                    {#{% for status in company.statuses %}#}
+                        {#<option value="{{ status }}" {% if company.status == status %}selected{% endif %}>{{ status }}</option>#}
+                    {#{% endfor %}#}
+
+                {#</select>#}
+            {#</div>#}
+
+            {#<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 push-down-xs">#}
+                {#{{ fields.button() }}#}
+            {#</div>#}
+
+            {#<input type="hidden" name="companyId" value="{{ company.id }}" />#}
+            {#<input type="hidden" name="_csrf_token" value="{{ csrf_token('accountProfileStatus') }}" />#}
+
+        {#</form>#}
+    {#</div><!-- end company status panel -->#}
+
+{#{% endif %}#}
+
+    {#<div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">#}
+        {#<form name="accountProfileCompanyIndustry" class="view-mode form-group" data-url="company/industry/save" data-form-type="inline">#}
+
+            {#<div class="col-sm-12">#}
+                {#{% include 'fragments/alerts/formAlert.html.twig' %}#}
+            {#</div>#}
+
+            {#<div class="form-label col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label push-down-xs">#}
+                {#{{ fields.label('companyIndustry','Industry:') }}#}
+
+            {#</div>#}
+            {#<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 push-up-large">#}
+                {#{{ fields.addNewButton() }}#}
+
+                {#{% include 'fragments/formFields/companyIndustry.html.twig' %}#}
+
+            {#</div>#}
+
+            {#<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 push-down-xs">#}
+                {#{{ fields.button() }}#}
+            {#</div>#}
+
+            {#<input type="hidden" name="id" value="{{ company.getId() }}" />#}
+            {#<input type="hidden" name="_csrf_token" value="{{ csrf_token('accountProfileCompanyIndustry') }}" />#}
+        {#</form>#}
+    {#</div><!-- end company industry panel -->#}
+
+    <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+        <form name="accountProfilePhoneNumber" class="view-mode form-group" data-url="company/phone-number/save" data-form-type="inline">
+
+            <div class="col-sm-12">
+                {% include 'fragments/alerts/formAlert.html.twig' %}
+            </div>
+
+            <div class="form-label col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label push-down-xs">
+                {{ fields.label('phoneNumber','Phone:') }}
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+
+                {% if ( (company.contactProfile is not null) and ( company.contactProfile.findPhoneNumberBy('type', 'Business') ) ) %}
+                    {{ fields.input( 'phoneNumber', company.contactProfile.findPhoneNumberBy('type', 'Business').phoneNumber,'tel', 'Enter a Phone Number', {'required': true, 'disabled': true, 'minlength': 10} ) }}
+                {% else %}
+                    {{ fields.input( 'phoneNumber', null,'tel', 'Enter a Phone Number', {'required': true, 'disabled': true, 'minlength': 10} ) }}
+                {% endif %}
+
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 push-down-xs">
+                {{ fields.button() }}
+            </div>
+
+            <input type="hidden" name="guid" value="{{ company.guid.value }}" />
+            <input type="hidden" name="type" value="{{ 'Business' }}" />
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('accountProfilePhoneNumber') }}" />
+        </form>
+    </div><!-- end company phone number panel -->
+
+    <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+        <form name="accountProfileEmail" class="view-mode form-group" data-url="company/email/save" data-form-type="inline">
+
+            <div class="col-sm-12">
+                {% include 'fragments/alerts/formAlert.html.twig' %}
+            </div>
+
+            <div class="form-label col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label push-down-xs">
+                {{ fields.label('companyEmail', 'Email:') }}
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+
+                {% if ( (company.contactProfile is not null) and ( company.contactProfile.findEmailAddressBy('type', 'Business') is not null) ) %}
+                    {{ fields.input( 'emailAddress', company.contactProfile.findEmailAddressBy('type', 'Business').emailAddress, 'email', 'Enter a Company Email', {'required': true, 'disabled': true} ) }}
+                {% else %}
+                    {{ fields.input( 'emailAddress', null, 'email', 'Enter a Company Email', {'required': true, 'disabled': true} ) }}
+                {% endif %}
+
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 push-down-xs">
+                {{ fields.button() }}
+            </div>
+
+            <input type="hidden" name="guid" value="{{ company.guid.value }}" />
+            <input type="hidden" name="type" value="{{ 'Business' }}" />
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('accountProfileEmail') }}" />
+        </form>
+    </div><!-- end company email panel -->
+
+    <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+        <form name="companyProfileAddress" class="view-mode form-group" data-url="company/address/save" data-form-type="inline">
+
+            <div class="col-sm-12">
+                {% include 'fragments/alerts/formAlert.html.twig' %}
+            </div>
+
+            <div class="form-label col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label push-down-xs">
+                {{ fields.label('selectAddress', 'Address:') }}
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+
+                {% if ( (company.contactProfile is not null) and (company.contactProfile.addressList.findBy('type', 'Physical') is not null) )%}
+                    <input type="text" class="form-control clear-border-radius" name="selectAddress"
+                           value="{{ company.contactProfile.addressList.findBy('type', 'Physical').__toString() }}" disabled />
+                {% else %}
+                    <input type="text" class="form-control clear-border-radius" name="selectAddress" placeholder="Add an address"
+                           value="" disabled/>
+                {% endif %}
+
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 push-down-xs">
+                {{ fields.button() }}
+            </div>
+
+            <input type="hidden" name="guid" value="{{ company.guid.value }}" />
+            <input type="hidden" name="type" value="{{ 'Physical' }}" />
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('companyProfileAddress') }}" />
+
+            {# include address placeholder fields - required for google address autocomplete #}
+            {% include 'fragments/addressPlaceholder.html.twig' %}
+        </form>
+    </div><!-- end company address panel -->
+
+    <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+        <form name="accountProfileWebsite" class="view-mode form-group" data-url="company/website/save" data-form-type="inline">
+
+            <div class="col-sm-12">
+                {% include 'fragments/alerts/formAlert.html.twig' %}
+            </div>
+
+            <div class="form-label col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label push-down-xs">
+                {{ fields.label('website','Website:') }}
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+
+                    {% if (company.getWebsite()) %}
+                        <div class="col-xs-3 clear-side-padding">
+                            <div class="input-group-prepend">
+                                <select class="form-control clear-border-radius" name="protocol" required disabled>
+                                    <option value="http://" {% if (company.website starts with 'http:') %}{{ 'selected'|raw }}{% endif %}>http://</option>
+                                    <option value="https://" {% if (company.website starts with 'https:') %}{{ 'selected'|raw }}{% endif %}>https://</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-9">
+                            {{ fields.input('website', company.website | replace({'http://': '', 'https://': ''}), 'text', 'www.yoursite.com', {
+                                'disabled':true,
+                                'required':true,
+                                'pattern': '^(www\.)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$',
+                                'aria-described-by': 'company-website-protocol'
+                            }) }}
+                        </div>
+                    {% else %}
+                        <div class="col-xs-3 clear-side-padding">
+                            <div class="input-group-prepend">
+                                <select class="form-control clear-border-radius" name="protocol" required disabled>
+                                    <option value="http://" selected >http://</option>
+                                    <option value="https://">https://</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-9">
+                            {{ fields.input('website', null, 'text', 'www.yoursite.com',
+                                {
+                                    'disabled':true,
+                                    'required':true,
+                                    'pattern': '^(www\.)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$',
+                                    'aria-described-by': 'company-website-protocol'
+                                }) }}
+                        </div>
+                    {% endif %}
+
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 push-down-xs">
+                {{ fields.button() }}
+            </div>
+
+            <input type="hidden" name="guid" value="{{ company.guid.value }}" />
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('accountProfileWebsite') }}" />
+        </form>
+    </div><!-- end company website panel -->
+
+    {#<div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">#}
+        {#<form name="accountProfileDateFounded" class="view-mode form-group" data-url="company/date-founded/save" data-form-type="inline">#}
+
+            {#<div class="col-sm-12">#}
+                {#{% include 'fragments/alerts/formAlert.html.twig' %}#}
+            {#</div>#}
+
+            {#<div class="form-label col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label push-down-xs">#}
+                {#{{ fields.label('dateFounded','Founded:') }}#}
+            {#</div>#}
+            {#<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">#}
+                {#{% if (company.dateFounded is not null) %}#}
+                    {#{{ fields.input('dateFounded', company.dateFounded, 'text', null, {'required': true, 'disabled': true, 'maxlength':'4'} ) }}#}
+                {#{% else %}#}
+                    {#{{ fields.input('dateFounded', null, 'text', "Add founding date", {'required': true, 'disabled': true, 'maxlength':'4'} ) }}#}
+                {#{% endif %}#}
+            {#</div>#}
+            {#<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 push-down-xs">#}
+                {#{{ fields.button() }}#}
+            {#</div>#}
+
+            {#<input type="hidden" name="companyId" value="{{ company.id }}" />#}
+            {#<input type="hidden" name="_csrf_token" value="{{ csrf_token('accountProfileDateFounded') }}" />#}
+        {#</form>#}
+    {#</div><!-- end company date founded panel -->#}
+
+    {#<div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">#}
+        {#<form name="accountProfileAbout" class="view-mode form-group" data-url="company/description/save" data-form-type="inline">#}
+
+            {#<div class="col-sm-12">#}
+                {#{% include 'fragments/alerts/formAlert.html.twig' %}#}
+            {#</div>#}
+
+            {#<div class="form-label col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label push-down-xs">#}
+                {#{{ fields.label('about','About:') }}#}
+            {#</div>#}
+
+            {#<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">#}
+
+                {#{% if (company.about is not null) %}#}
+                    {#{{ fields.textArea('about', company.about, 'Provide a description of your business, so we can help you grow it.', {'rows': 5, 'maxlength': 255, 'disabled': true}) }}#}
+                {#{% else %}#}
+                    {#{{ fields.textArea('about', null, 'Provide a description of your business, so we can help you grow it.', {'rows': 5, 'maxlength': 255, 'disabled': true}) }}#}
+                {#{% endif %}#}
+
+            {#</div>#}
+
+            {#<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 push-down-xs">#}
+                {#{{ fields.button() }}#}
+            {#</div>#}
+
+            {#<input type="hidden" name="companyId" value="{{ company.id }}" />#}
+            {#<input type="hidden" name="_csrf_token" value="{{ csrf_token('accountProfileAbout') }}" />#}
+        {#</form>#}
+    {#</div><!-- end company about panel -->#}
+
+{% endblock %}
+
+
+{% block footerResources %}
+    {{ parent() }}
+{% endblock %}

@@ -1,0 +1,98 @@
+{
+    "name": "ewebify/ewebify_app",
+    "type": "project",
+    "license": "proprietary",
+    "require": {
+        "php": "^7.1.3",
+        "ext-iconv": "*",
+        "authorizenet/authorizenet": "^1.9",
+        "friendsofsymfony/rest-bundle": "^2.3",
+        "guzzlehttp/guzzle": "^6.3",
+        "kartik-v/bootstrap-star-rating": "dev-master",
+        "myclabs/php-enum": "^1.6",
+        "nelmio/cors-bundle": "^1.5",
+        "ramsey/uuid-console": "^1.1",
+        "sensio/framework-extra-bundle": "^5.2",
+        "stripe/stripe-php": "^6.28",
+        "symfony/apache-pack": "^1.0",
+        "symfony/asset": "^4.1",
+        "symfony/console": "^4.1",
+        "symfony/expression-language": "^4.1",
+        "symfony/flex": "^1.0",
+        "symfony/form": "^4.1",
+        "symfony/framework-bundle": "^4.1",
+        "symfony/lts": "^4@dev",
+        "symfony/messenger": "^4.1",
+        "symfony/monolog-bundle": "^3.1",
+        "symfony/orm-pack": "*",
+        "symfony/process": "^4.1",
+        "symfony/security-bundle": "^4.1",
+        "symfony/serializer-pack": "*",
+        "symfony/swiftmailer-bundle": "^3.1",
+        "symfony/twig-bundle": "^4.1",
+        "symfony/validator": "^4.1",
+        "symfony/web-link": "^4.1",
+        "symfony/workflow": "^4.1",
+        "symfony/yaml": "^4.1"
+    },
+    "require-dev": {
+        "phploc/phploc": "^4.0",
+        "phpunit/dbunit": "^3.0",
+        "phpunit/php-invoker": "^1.1",
+        "phpunit/phpunit": "^6.5",
+        "ramunasd/symfony-container-mocks": "^0.6.0",
+        "symfony/browser-kit": "^4.1",
+        "symfony/css-selector": "^4.1",
+        "symfony/debug-pack": "*",
+        "symfony/dotenv": "^4.1",
+        "symfony/maker-bundle": "^1.0",
+        "symfony/profiler-pack": "*",
+        "symfony/test-pack": "^1.0",
+        "symfony/web-server-bundle": "^4.1"
+    },
+    "config": {
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "PapaLocal\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Test\\": "tests/"
+        },
+        "files": [
+            "vendor//symfony/var-dumper/Resources/functions/dump.php"
+        ]
+    },
+    "replace": {
+        "symfony/polyfill-iconv": "*",
+        "symfony/polyfill-php71": "*",
+        "symfony/polyfill-php70": "*",
+        "symfony/polyfill-php56": "*"
+    },
+    "scripts": {
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd",
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+        },
+        "post-install-cmd": [
+            "@auto-scripts"
+        ],
+        "post-update-cmd": [
+            "@auto-scripts"
+        ]
+    },
+    "conflict": {
+        "symfony/symfony": "*"
+    },
+    "extra": {
+        "symfony": {
+            "allow-contrib": false
+        }
+    }
+}

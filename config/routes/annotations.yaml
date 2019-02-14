@@ -1,0 +1,7 @@
+controllers_main:
+    resource: ../../src/Controller/
+    type: annotation
+
+controllers_dev:
+    resource: ../../src/Test/Controller/
+    type: annotation

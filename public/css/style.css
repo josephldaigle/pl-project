@@ -1,0 +1,748 @@
+/*
+|---------------------------------------------
+| Global
+|---------------------------------------------
+*/
+body {
+	background-color: #F2F2F3;
+	overflow: hidden;
+}
+
+/* For Firefox */
+input[type='number'] {
+	-moz-appearance:textfield;
+}
+/* Webkit browsers like Safari and Chrome */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+/*
+ |---------------------------------------------
+ | Element Sizes
+ |---------------------------------------------
+ */
+.full-height {
+	height: 100%;
+}
+.custom-size-ico {
+	width: 22.5px;
+	height: 22.5px;
+}
+
+.logo-ico {
+	width: 20px;
+	height: 30px;
+}
+
+.small-ico {
+	width: 20px;
+	height: 20px;
+}
+
+.medium-ico {
+	width: 30px;
+	height: 30px;
+}
+
+.referral-price {
+	font-size: 35px;
+	color: #5cbf56;
+}
+
+.large-ico {
+	width: 41px;
+	height: 41px;
+}
+
+.xLarge-ico {
+	width: 50px;
+	height: 50px;
+}
+
+.filter-input {
+	width: 115px;
+}
+
+/*
+ |---------------------------------------------
+ | Element styling
+ |---------------------------------------------
+ */
+
+.default-color {
+	 color:black;
+ }
+.primary-color {
+	color: #fff;
+}
+
+.secondary-color {
+	color: #00b5f1;
+}
+
+.third-color {
+	color: #d21d19;
+}
+
+.fourth-color {
+	color: #ddd;
+}
+
+.fifth-color {
+	color:#32CD32;
+}
+
+.primary-background {
+	background-color: #00b5f1;
+}
+
+.secondary-background {
+	background-color: #fff;
+}
+
+.third-background {
+	background-color: #f5f5f5;
+}
+.fourth-background {
+	background-color: #dfdfdf;
+}
+
+.match-panel-color {
+	background-color: #f5f5f5;
+}
+
+.is-read {
+	background-color: #fff;
+}
+
+.text-bold {
+	font-weight: bold;
+}
+
+.clear-bold{
+    font-weight: normal;
+}
+
+.small-font {
+	font-size: 12px;
+}
+
+.apply-shadow {
+	box-shadow: 0 1px 8px 0 #989898;
+}
+
+.apply-border {
+	border: 1px solid #e3e3e8;
+}
+.apply-auto-overflow {
+	overflow: auto;
+}
+
+.apply-hidden-overflow {
+ 	overflow: hidden;
+}
+
+.apply-visible-overflow {
+	overflow: visible;
+}
+
+.apply-inherit-overflow {
+ 	overflow: inherit;
+}
+
+.apply-custom-overflow {
+ 	overflow-x: auto;
+	overflow-y: inherit;
+}
+
+.clear-border {
+	border: none;
+}
+
+.clear-top-bottom-border {
+	border-top: none;
+    border-bottom: none;
+}
+
+.clear-border-radius {
+	border-radius: 0;
+}
+
+.clear-background {
+	background-color: transparent;
+}
+
+.clear-button {
+	background-color: transparent;
+	border: none;
+}
+
+.clear-text-decoration,
+.clear-text-decoration:hover,
+.clear-text-decoration:focus,
+.clear-text-decoration:active {
+	text-decoration: none;
+}
+
+.accordion-layout {
+	display: inline-block;
+	width: 100%;
+}
+
+.feed-diplay-height {
+	max-height: 91.5%;
+}
+
+.scrollable-layout {
+	max-height: 85%;
+}
+
+ul.notification-tray.scrollable-layout {
+	height: auto;
+	max-height: 400px;
+}
+
+.convert-block {
+	display: block;
+}
+
+.convert-inline-block{
+    display: inline-block;
+}
+
+.selected-feed-item {
+	border-bottom: 10px solid #00b5f1 !important;
+	background-color: #eaeaea !important;
+}
+
+/*
+ |---------------------------------------------
+ | Dynamic Element styling
+ |---------------------------------------------
+ */
+.navigation-height {
+	height: 50px;
+}
+
+.button-primary {
+	color: #fff;
+	background-color: #00b5f1;
+}
+
+.button-secondary {
+	 color: black;
+	 background-color: #ddd;
+ }
+
+.button-primary:hover {
+	background-color: #03a7ec;
+	text-decoration: none;
+}
+
+a.text-center.btn-all-companies {
+	color: #fff;
+	background-color: #00b5f1;
+}
+
+a.text-center.btn-all-companies:hover {
+	background-color: #03a7ec;
+	text-decoration: none;
+}
+
+.button-add-media {
+	height: 150px;
+	width: 150px;
+	border: 10px dashed #00b5f1;
+	background-color: transparent;
+}
+
+.link-primary {
+	color: #00b5f1;
+	text-decoration: solid;
+}
+
+.link-primary:hover {
+	color: #03a7ec;
+	text-decoration: none;
+}
+
+.notification-card:hover {
+	background-color: #ebebeb;
+}
+
+.clickable {
+	cursor: pointer;
+}
+
+/*
+ |---------------------------------------------
+ | User Header
+ |---------------------------------------------
+ */
+/* Company dropdown name */
+ .search-company>span.filter-option.pull-left  {
+	max-width: 86px;
+ }
+ .btn-group.bootstrap-select.search-company.push-down-small {
+	 max-width: 197px;
+ }
+/* Companies filter button > caret */
+.search-company>button.dropdown-toggle {
+	width: auto;
+	max-width: 200px;
+}
+
+/* Companies filter dropdown menu */
+.search-company>div.dropdown-menu {
+	width: 320px;
+	border-radius: 0;
+}
+
+/* Companies filter dropdown menu > list */
+.search-company>div.dropdown-menu>ul>li {
+	border-bottom: 1px solid #a4a4a4;
+}
+
+/* Company filter button */
+.search-company>button,
+.search-company>button:hover,
+.search-company>button:focus,
+.search-company>button:active,
+.search-company>button.active,
+.search-company>button.active.focus,
+.search-company>button.active:focus,
+.search-company>button.active:hover,
+.search-company>button:active,
+.search-company>button:active.focus,
+.search-company>button:active:focus,
+.search-company>button:active:hover,
+.open.search-company>.dropdown-toggle.btn-default,
+.open.search-company>.dropdown-toggle.btn-default.focus,
+.open.search-company>.dropdown-toggle.btn-default:focus,
+.open.search-company>.dropdown-toggle.btn-default:hover {
+	color: #00b5f1;
+	font-weight: bold;
+	background-color: transparent;
+	border: none;
+	box-shadow: none;
+}
+
+/* User profile and Notifications menu dropdowns > caret */
+.user-profile.dropdown-menu:after,
+.notification-tray.dropdown-menu:after{
+	content: '';
+	border-right: 6px solid transparent;
+	border-bottom: 6px solid #ffffff;
+	border-left: 6px solid transparent;
+}
+
+
+
+/* User header > Company filter button > caret */
+.bs-caret>span.caret {
+	border-top: 8px dashed;
+	border-right: 6px solid transparent;
+	border-left: 6px solid transparent;
+}
+ .bootstrap-select.btn-group .dropdown-toggle .caret{
+	 color:#00b5f1;
+ }
+
+ /* User header > User profile and notifications menu dropdowns */
+.navbar-nav .open .dropdown-menu {
+	background-color: #fff;
+	border-radius: 0;
+	box-shadow: 0 1px 8px 0 #989898;
+}
+
+/* User header > Notifications menu dropdowns > Notification */
+ul.notification-tray.dropdown-menu.clear-top-bottom-padding.scrollable-layout {
+	width: 310px;
+}
+
+/* User header > User profile menu dropdowns > User Profile */
+ul.user-profile.dropdown-menu.clear-top-bottom-padding {
+	width: 155px;
+}
+
+/* Change Notification card title font */
+.is-read>.panel-body>div.primary-color {
+	font-weight: normal;
+}
+
+/*
+ |---------------------------------------------
+ | Forms and Modals
+ |---------------------------------------------
+ */
+/* Form and modal container */
+.form-container,
+.modal-container{
+	border: none;
+	border-radius: 0;
+}
+
+/* Form and modal container header */
+.form-container>.panel-heading,
+.modal-container>.modal-header {
+	color: #fff;
+	background-color: #00b5f1;
+	border-color: #ddd;
+	border-radius: 0;
+    margin: -9px;
+    padding-top:10px;
+    padding-bottom: 19px;
+}
+
+/* Form and modal container body */
+.form-container>.panel-body,
+.modal-container>.modal-body,
+.modal-content.modal-container {
+	background-color: #fff;
+	border-radius: 0;
+    margin: -9px;
+}
+
+/* White cross on the modal header right side */
+.close {
+	color: #fff;
+	opacity: 1;
+}
+
+/* Overwrites modal body background color on Add User form */
+#register>.modal-dialog>.modal-container>.modal-body {
+	background-color: #fff;
+}
+
+/* Editable input form on view mode */
+.view-mode>div>.form-control,
+.view-mode>div.referral-feedback>div>.form-control,
+.view-mode>div>.btn-group.bootstrap-select.form-control>button,
+.view-mode>div>div>div>div.btn-group.bootstrap-select.form-control>button,
+.view-mode>div>div>div>.form-control {
+	background-color: #fff;
+	border: 0;
+	box-shadow: none;
+}
+
+textarea {
+	height: auto;
+}
+
+hr {
+     border: 0;
+     border-top: 1px solid #eee;
+     width: 100%;
+ }
+
+/*
+|---------------------------------------------
+| Feeds
+|---------------------------------------------
+*/
+/* Feed cards container */
+.feed-card-container, .payment-card-container {
+	width: 300px;
+	border-radius: 0;
+}
+
+/* Feed cards container header */
+.feed-card-container>.panel-heading,
+.payment-card-container>.panel-heading {
+	color: #00b5f1;
+	background-color: #fff;
+	border-color: #ddd;
+	border-radius: 0;
+}
+
+/* Feed display title bar */
+.feed-display>.panel-heading {
+	color: #fff;
+	background-color: #00b5f1;
+	border-color: #ddd;
+	border-radius: 0;
+}
+
+/* Feed cards and Feed display container body */
+.feed-card-container>.panel-body,
+.feed-display>.panel-body,
+.payment-card-container>.panel-body {
+	background-color: #fff;
+}
+
+/* Turn off feed col1 and col2 interaction animation */
+.feed-display.collapsing {
+	-webkit-transition: none;
+	transition: none;
+}
+
+/* Hide feed filter checkbox */
+ #feed-type-filter>input[type=checkbox] {
+	 display: none;
+ }
+
+/*
+ |---------------------------------------------
+ | Fragments
+ |---------------------------------------------
+ */
+/* Hide the save and cancel buttons on view mode */
+.view-mode>div>input.btn-save,
+.view-mode>div>button.btn-cancel {
+	display: none;
+}
+
+/* Edit pencil on view edit mode */
+.edit-mode>div>button.btn-edit {
+	display: none;
+}
+
+/* input style in view mode */
+.view-mode>div>input.form-control[disabled],
+.view-mode>div>div>input.form-control[disabled],
+.view-mode>div.form-group>div>.btn-group.bootstrap-select.disabled.form-control>button {
+	background-color: #fff;
+	border: none;
+	box-shadow: none;
+}
+
+ /*
+  |---------------------------------------------
+  | Tabs: Blue strip above tabs
+  |---------------------------------------------
+ */
+.nav-tabs>li {
+	border-top: 6px solid rgb(242, 242, 243);
+}
+
+.nav-tabs>li.active {
+	border-top: 6px solid #00b5f1;
+}
+
+/*
+ |---------------------------------------------
+ | Media - Font Awesome
+ |---------------------------------------------
+ */
+/*#ico-spinner {*/
+	/*width: 85px;*/
+	/*height: 85px;*/
+	/*content: url("../media/spinner.gif");*/
+/*}*/
+
+.fa {
+	color: #00b5f1;
+}
+
+.fa-times-circle,
+.fa-ban {
+	color: #d21d19;
+}
+
+.fa-check-circle {
+	color: #5fbd00;
+}
+
+.fa-plus-square-o {
+	color: #a2a2a2;
+	height: 20px;
+	background-color: #d8d8d8;
+	border-top-right-radius: 12px;
+	border-top-left-radius: 12px;
+}
+
+.fa.caret-up-down,
+.fa-pencil {
+	float: right;
+	color: #a2a2a2;
+}
+
+ span.fa-stack>.fa.inactive-icon{
+	 color: #ddd;
+ }
+
+#register .ctm-account ul.dropdown-menu li:first-of-type {
+	display: none;
+}
+
+.fa-rotate-minus45 {
+	-webkit-transform: rotate(-45deg);
+	-moz-transform: rotate(-45deg);
+	-ms-transform: rotate(-45deg);
+	-o-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+}
+
+.fa-rotate-135 {
+	-webkit-transform: rotate(135deg);
+	-moz-transform: rotate(135deg);
+	-ms-transform: rotate(135deg);
+	-o-transform: rotate(135deg);
+	transform: rotate(135deg);
+}
+
+/*---------------------------------------------------------------------------------*/
+
+/*
+ |---------------------------------------------
+ | accordions
+ |---------------------------------------------
+*/
+.panel-heading>.panel-title>a {
+	display: block;
+	text-decoration: none;
+}
+
+
+
+/*
+ |---------------------------------------------
+ | Feeds Display
+ |---------------------------------------------
+*/
+.feed-display-header-text {
+	color: #fff;
+}
+
+.truncate {
+	width: auto;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+/*
+ |---------------------------------------------
+ | Feeds - Call card
+ |---------------------------------------------
+*/
+#call-card-footer>.container-fluid>.row>.col-xs-4>a{
+	display: block;
+}
+
+#call-card-footer>.container-fluid>.row>.col-xs-4>a:hover,
+#call-card-footer>.container-fluid>.row>.col-xs-4>a:focus{
+	background-color: #d3d3d3;
+	text-decoration: none;
+}
+
+#call-card-footer>.container-fluid>.row>.col-xs-4>a>p{
+	text-decoration: none;
+	color: black;
+}
+
+ /*
+  |---------------------------------------------
+  | Feeds - Outbound Referral Card
+  |---------------------------------------------
+ */
+ #outbound-referral-card-footer>.container-fluid>.row>.col-xs-6>a{
+	 display: block;
+ }
+
+ #outbound-referral-card-footer>.container-fluid>.row>.col-xs-6>a:hover,
+ #outbound-referral-card-footer>.container-fluid>.row>.col-xs-6>a:focus{
+	 background-color: #d0d0d0;
+	 text-decoration: none;
+ }
+
+ #outbound-referral-card-footer>.container-fluid>.row>.col-xs-6>a>p{
+	 text-decoration: none;
+	 color: black;
+ }
+
+/*
+ |---------------------------------------------
+ | Feed Filter
+ |---------------------------------------------
+*/
+.feed-filter-container>.panel {
+	border: none;
+}
+
+.feed-filter-container>.panel>.panel-heading {
+	background-color: #00b5f1;
+	border: none;
+}
+
+.feed-filter-container>.panel>.panel-heading>.container-fluid>.row>.col-xs-1 {
+	background-color: #a2a2a2;
+}
+
+.feed-filter-container>.panel>.panel-heading>.container-fluid>.row>.col-xs-1:hover,
+.feed-filter-container>.panel>.panel-heading>.container-fluid>.row>.col-xs-1:focus {
+	text-decoration: none;
+	background-color: #000;
+}
+
+.feed-filter-container>.panel>.panel-heading>.container-fluid>.row>div>a {
+	color: #fff;
+	display: block;
+}
+
+.feed-filter-container>.panel>.panel-heading>.container-fluid>.row>div>a:hover,
+.feed-filter-container>.panel>.panel-heading>.container-fluid>.row>div>a:focus {
+	text-decoration: none;
+	background-color: #03a7ec;
+}
+
+#quick-form>ul>li>a>p {
+	font-size: 8px;
+}
+#quick-form>ul>li>a>img#ico-checkmark,
+#quick-form>ul>li>a>img#ico-phone,
+#quick-form>ul>li>a>img#ico-location,
+#quick-form>ul>li>a>img#ico-project,
+#quick-form>ul>li>a>img#ico-contact,
+#quick-form>ul>li>a>img#ico-agreement,
+#quick-form>ul>li>a>img#ico-dollar{
+	width: 25px;
+	height: 25px;
+}
+
+.input-group-btn:last-child>.btn,
+.input-group-btn:first-child>.btn,
+.input-group-btn:first-child>.dropdown-toggle {
+	border-radius: 0;
+}
+
+.btn>.caret {
+	color: #00b5f1;
+	border-top: 7px dashed;
+	border-right: 6px solid transparent;
+	border-left: 6px solid transparent;
+}
+
+
+.dropdown-menu>li>a>img#ico-location,
+.dropdown-menu>li>a>img#ico-phone,
+.dropdown-menu>li>a>img#ico-contact,
+.dropdown-menu>li>a>img#ico-project,
+.dropdown-menu>li>a>img#ico-agreement,
+.dropdown-menu>li>a>img#ico-dollar,
+.dropdown-menu>li>a>img#ico-location,
+.dropdown-menu>li>a>img#ico-dollar {
+	width: 20px;
+	height: 20px;
+}
+
+.feed-filter-container>.panel>.panel-heading>.container-fluid>.row>div>a {
+	color: #fff;
+	display: block;
+}
+
+#quick-form.row>div {
+	background-color: black;
+}
+
+/*
+	Google Address API
+ */
+ /* type-hint container for the addresses auto complete */
+.pac-container
+{
+	z-index: 1051 !important;
+}

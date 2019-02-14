@@ -1,0 +1,13 @@
+index:
+    path: /
+    controller: PapaLocal\Controller\DefaultController::index
+
+logout:
+    path: /logout
+
+api:
+    resource: '../src/Controller/Api/*'
+    type: annotation
+    defaults:
+        _format: json
+    prefix:   /

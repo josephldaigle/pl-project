@@ -1,0 +1,35 @@
+{#
+|--------------------------------------------------------------------------
+| userFooter.html.twig
+|--------------------------------------------------------------------------
+|
+| This template contains the 'user' header and footer elements.
+|
+#}
+<div {#style="z-index: 9999;"#} class="navbar-default navbar-fixed-bottom clear-border-radius clear-bottom-margin clear-border secondary-background apply-shadow navigation-height">
+
+    <button id="feed-back-button" href="#" class="dropdown-toggle clear-border clear-background pull-left push-right-small push-down-xs hide" onclick="">
+        <i class="fa fa-chevron-left fa-3x"></i>
+    </button>
+
+    {# Add menu (+) modal button#}
+    <a href="#" id="btn-add-menu" class="force-center set-absolute" data-toggle="modal" data-target="#addMenu">
+        <i class="fa fa-plus-circle fa-3x"></i>
+    </a>
+
+    <div class="dropup pull-right push-left-small">
+        {#<ul class="dropdown-menu clear-top-bottom-padding clear-border-radius" role="menu">#}
+            {#<li><a href="{{ path('create_user') }}">Home</a></li>#}
+            {#<li><a href="{{ path('cms') }}">CMS</a></li>#}
+            {#<li><a href="{{ path('billing') }}">Billing</a></li>#}
+            {#<li><a href="#">Agreements</a></li>#}
+            {#<li><a href="#">Disputes</a></li>#}
+            {#<li><a href="#" data-toggle="modal" data-target="#serviceTerms">Terms & Conditions</a></li>#}
+        {#</ul>#}
+
+        {#<button href="#" id="btn-burger-menu" class="dropdown-toggle clear-border clear-background" data-toggle="dropdown" onclick="hideModal()">#}
+            {#<i class="fa fa-bars fa-3x hide"></i>#}
+        {#</button>#}
+    </div>
+
+</div>

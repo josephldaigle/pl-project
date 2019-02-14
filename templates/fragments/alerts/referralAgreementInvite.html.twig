@@ -1,0 +1,27 @@
+{% extends 'templates/accordionAlert.html.twig' %}
+
+{% block headerAlertLevel %}
+    color: {{ '#fff' }};
+    background-color: {{ '#ffad17' }};
+{% endblock %}
+
+{% block accordion_alert_header %}
+
+    {% set agreementOwner = find_user_by_guid(item.ownerGuid.value) %}
+    {{ agreementOwner.firstName ~ ' ' ~ agreementOwner.lastName }}{{ ' has invited you to join a Referral Agreement.' }}
+
+{% endblock %}
+
+{% block contentAlertLevel %}{{ 'alert-warning' }}{% endblock %}
+
+{% block accordion_alert_content %}
+
+    <div class="join-agreement-container container-fluid contour-outer-small">
+        <p>By joining an agreement, you agree to furnish business leads to other users of PapaLocal.com, for which you will be paid the amount shown under 'Referral Price' on the agreement below this box (see Basic Info).</p>
+        <p>You may send as many or as few referrals as you like, up to the quantity requested for each period noted in the 'Strategy' field.</p>
+
+        {% include 'forms/referralAgreementInvitation.html.twig' %}
+
+    </div>
+
+{% endblock %}

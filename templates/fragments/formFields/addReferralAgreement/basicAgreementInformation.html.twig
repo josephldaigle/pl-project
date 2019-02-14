@@ -1,0 +1,56 @@
+{% extends 'templates/accordion.html.twig' %}
+{% import 'templates/macros/formFields.html.twig' as fields %}
+
+{# base accordion targets #}
+{% block containerId %}agreementAccordion{% endblock %}
+
+{% block parentId %}agreementAccordion{% endblock %}
+
+{% block hrefId %}basic-agreement-details{% endblock %}
+
+{% block ariaControlsId %}basic-agreement-details{% endblock %}
+
+{% block panelCollapseId %}basic-agreement-details{% endblock %}
+
+
+{% block headingId %}basicAgreementDetails{% endblock %}
+
+{% block ariaId %}basicAgreementDetails{% endblock %}
+
+{% block collapseIn %}in{% endblock %} {# collapse in block to open first accordion on page load #}
+
+
+
+{# accordion content #}
+{% block header %}
+    {{ 'Give Your Agreement A Name'| e }}
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+        <div class="form-group">
+            <div class="form-label col-lg-4 col-md-4 col-sm-4 col-xs-12 control-label push-down-xs">
+                {{ fields.label('name','Name:') }}
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                {{ fields.input('name', null,'text') }}
+            </div>
+        </div><!-- end referral agreement name -->
+    </div>
+
+    <div class="apply-border pply-auto-overflow contour-inner-large clear-side-padding">
+        <div class="form-group">
+            <div class="form-label col-lg-4 col-md-4 col-sm-4 col-xs-12 control-label push-down-xs">
+            {{ fields.label('description', 'Description:') }}
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+            {{ fields.textArea('description', null , 'Describe the agreement.', {'rows': 5, 'maxlength': 255}) }}
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div><!-- end referral agreement description -->
+
+{% endblock %}
+

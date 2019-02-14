@@ -1,0 +1,23 @@
+{#
+|--------------------------------------------------------------------------
+| Feed Alert
+|--------------------------------------------------------------------------
+|
+| This fragment contains the feed alert.
+|
+#}
+
+<div class="container-fluid clear-side-padding push-down-small">
+    <div class="row">
+
+            {% for alert in feed_alert %}
+
+                <div class="col-xs-6">
+                    <span class="contour-inner-small center-block label label-{{ alert.severity }}">{{ alert.message }}</span>
+                </div>
+
+            {% endfor %}
+
+    </div>
+</div>
+

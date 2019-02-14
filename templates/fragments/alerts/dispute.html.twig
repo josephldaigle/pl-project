@@ -1,0 +1,18 @@
+{% extends 'templates/accordionAlert.html.twig' %}
+{% import 'templates/macros/formFields.html.twig' as fields %}
+
+{% block headerAlertLevel %}
+    color: {{ alert.color }};
+    background-color: {{ alert.backgroundColor }};
+{% endblock %}
+
+{% block accordion_alert_header %}{{ 'Dispute' }}: {{ alert.title }}{% endblock %}
+
+{% block contentAlertLevel %}{{ alert.level }}{% endblock %}
+
+{% block accordion_alert_content %}
+    <div class="container-fluid">
+    {% include 'forms/dispute.html.twig' %}
+    </div>
+
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'templates/accordion.html.twig' %}
+{% import 'templates/macros/formFields.html.twig' as fields %}
+
+{# base accordion targets #}
+{% block containerId %}ReferralScore{% endblock %}
+
+{% block parentId %}ReferralScore{% endblock %}
+
+
+
+{% block hrefId %}referral-display{% endblock %}
+
+{% block ariaControlsId %}referral-display{% endblock %}
+
+{% block panelCollapseId %}referral-display{% endblock %}
+
+
+{% block headingId %}rScore{% endblock %}
+
+{% block ariaId %}rScore{% endblock %}
+
+
+
+{# accordion content #}
+{% block header %}
+
+    {{ 'Rate This Referral'| e }}
+
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+        {% include 'forms/editable/rateReferral.html.twig' %}
+    </div><!-- end included agreement location -->
+
+{% endblock %}

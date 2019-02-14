@@ -1,0 +1,19 @@
+{% block paymentMethodCard %}
+
+    <div class="payment-card-container apply-shadow">
+
+        <div style="{% block border %}{% endblock %}" class="panel-body clear-padding" href="#{% block paymentMethodDetails %}{% endblock %}">
+
+            {% block paymentMethodBody %}
+
+            {% endblock %}
+
+        </div>
+
+        {% block paymentMethodFooter %}
+
+        {% endblock %}
+
+    </div><!-- payment-card-container -->
+
+{% endblock %}

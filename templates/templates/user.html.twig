@@ -1,0 +1,44 @@
+{% extends 'templates/page.html.twig' %}
+
+{#
+|--------------------------------------------------------------------------
+| User page template
+|--------------------------------------------------------------------------
+|
+| This template contains the 'user' header and footer elements.
+|
+#}
+
+{% block headerResources %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" async>
+{% endblock %}
+
+{% block header %}
+    {% include 'includes/userHeader.html.twig' %}
+{% endblock %}
+
+
+{% block body %}
+    {# insert layout and content here #}
+{% endblock %}
+
+
+{% block footer %}
+    {% include 'includes/userFooter.html.twig' %}
+{% endblock %}
+
+{% block modals %}
+    {{ parent() }}
+    {% include 'fragments/addMenu.html.twig' %}
+    {% include 'forms/modal/addUser.html.twig' %}
+    {% include 'forms/modal/addReferral.html.twig' %}
+    {% include 'forms/modal/addCompany.html.twig' %}
+    {% include 'fragments/serviceTerms.html.twig' %}
+    {% include 'forms/modal/referralAgreement/personInvite.html.twig' %}
+    {% include 'forms/modal/referralAgreement/referralAgreement.html.twig' %}
+    {% include 'fragments/passwordConstraints.html.twig' %}
+    {% include 'forms/modal/addFund.html.twig' %}
+    {% include 'forms/modal/addPaymentAccount.html.twig' %}
+    {% include 'forms/modal/addCreditCard.html.twig' %}
+    {% include 'forms/modal/addBankAccount.html.twig' %}
+{% endblock %}

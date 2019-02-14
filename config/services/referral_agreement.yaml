@@ -1,0 +1,667 @@
+# Framework
+framework:
+    ## Workflows
+    workflows:
+        ### Referral Agreement
+        referral_agreement:
+            type: 'workflow'
+            audit_trail:
+                enabled: true
+            marking_store:
+                type: 'single_state'
+                arguments:
+                    - 'currentPlace'
+            initial_place: 'Initialized'
+            places:
+                - 'Initialized'
+                - 'Created'
+                - 'Inactive'
+                - 'Active'
+            supports:
+                - PapaLocal\ReferralAgreement\Entity\ReferralAgreement
+            transitions:
+                create:
+                    from: 'Initialized'
+                    to: 'Created'
+                publish:
+                    from: 'Created'
+                    to: 'Active'
+                pause:
+                    from: 'Active'
+                    to: 'Inactive'
+                activate:
+                    from: 'Inactive'
+                    to: 'Active'
+
+        ### Referral Agreement Invitee
+        agreement_invitee:
+            type: 'state_machine'
+            audit_trail:
+                enabled: true
+            marking_store:
+                type: 'single_state'
+                arguments:
+                    - 'currentPlace'
+            initial_place: 'Initialized'
+            places:
+                - 'Initialized'
+                - 'Created'
+                - 'Invited'
+                - 'Accepted'
+                - 'Declined'
+                - 'Removed'
+            supports:
+                - PapaLocal\ReferralAgreement\Entity\ReferralAgreementInvitee
+            transitions:
+                create:
+                    from: 'Initialized'
+                    to:   'Created'
+                invite:
+                    from: 'Created'
+                    to:   'Invited'
+                accept:
+                    from: 'Invited'
+                    to:   'Accepted'
+                decline:
+                    from: 'Invited'
+                    to:   'Declined'
+                remove:
+                    from: ['Created', 'Invited', 'Accepted', 'Declined']
+                    to: 'Removed'
+
+#------------------------------
+# Services
+#------------------------------
+services:
+    #------------------------------
+    # Entity
+    #------------------------------
+    PapaLocal\ReferralAgreement\Entity\Factory\ReferralAgreementFactory:
+        class: PapaLocal\ReferralAgreement\Entity\Factory\ReferralAgreementFactory
+        arguments:
+            $serializer: '@serializer'
+
+    PapaLocal\ReferralAgreement\Entity\Factory\InviteeFactory:
+        class: PapaLocal\ReferralAgreement\Entity\Factory\InviteeFactory
+        arguments:
+            $serializer: '@serializer'
+
+    ## Data Layer
+
+    ### Invitee
+    PapaLocal\ReferralAgreement\Data\InviteeRepository:
+        class: PapaLocal\ReferralAgreement\Data\InviteeRepository
+        arguments:
+            $mysqlBus: '@messenger.bus.mysql'
+            $mysqlMsgFactory: '@PapaLocal\ReferralAgreement\Data\MessageFactory'
+            $inviteeFactory: '@PapaLocal\ReferralAgreement\Entity\Factory\InviteeFactory'
+
+    ### Referral Agreement
+    PapaLocal\ReferralAgreement\Data\ReferralAgreementHydrator:
+        class: PapaLocal\ReferralAgreement\Data\ReferralAgreementHydrator
+        parent: PapaLocal\Core\Data\AbstractHydrator
+        tags: ['papalocal_data.hydrator']
+
+    PapaLocal\ReferralAgreement\Data\ReferralAgreementRepository:
+        class: PapaLocal\ReferralAgreement\Data\ReferralAgreementRepository
+        arguments:
+            $mysqlBus: '@messenger.bus.mysql'
+            $mysqlMsgFactory: '@PapaLocal\ReferralAgreement\Data\MessageFactory'
+            $agreementFactory: '@PapaLocal\ReferralAgreement\Entity\Factory\ReferralAgreementFactory'
+            $guidFactory: '@PapaLocal\Core\ValueObject\GuidGeneratorInterface'
+            $appBus: '@messenger.bus.application'
+            $referralMsgFactory: '@PapaLocal\Referral\Message\MessageFactory'
+
+    ## MySql Messenger Bus
+    PapaLocal\ReferralAgreement\Data\MessageFactory:
+        class: PapaLocal\ReferralAgreement\Data\MessageFactory
+
+    papalocal_message.referral_agreement.data_message_factory:
+        alias: PapaLocal\ReferralAgreement\Data\MessageFactory
+        public: true
+
+    ### Commands
+
+    #### Referral Agreement
+    PapaLocal\ReferralAgreement\Data\Command\Agreement\SaveAgreementHandler:
+        class: PapaLocal\ReferralAgreement\Data\Command\Agreement\SaveAgreementHandler
+        arguments:
+            $tableGateway: '@papalocal_data.adapted_table_gateway'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\ReferralAgreement\Data\Command\Agreement\SaveAgreement', bus: 'messenger.bus.mysql' }
+
+    PapaLocal\ReferralAgreement\Data\Command\Agreement\UpdateLocationsHandler:
+        class: PapaLocal\ReferralAgreement\Data\Command\Agreement\UpdateLocationsHandler
+        arguments:
+            $tableGateway: '@papalocal_data.adapted_table_gateway'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\ReferralAgreement\Data\Command\Agreement\UpdateLocations', bus: 'messenger.bus.mysql' }
+
+    PapaLocal\ReferralAgreement\Data\Command\Agreement\UpdateServicesHandler:
+        class: PapaLocal\ReferralAgreement\Data\Command\Agreement\UpdateServicesHandler
+        arguments:
+            $tableGateway: '@papalocal_data.adapted_table_gateway'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\ReferralAgreement\Data\Command\Agreement\UpdateServices', bus: 'messenger.bus.mysql' }
+
+    PapaLocal\ReferralAgreement\Data\Command\Agreement\UpdateAgreementStatusHandler:
+        class: PapaLocal\ReferralAgreement\Data\Command\Agreement\UpdateAgreementStatusHandler
+        arguments:
+            $tableGateway: '@papalocal_data.adapted_table_gateway'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\ReferralAgreement\Data\Command\Agreement\UpdateAgreementStatus', bus: 'messenger.bus.mysql' }
+
+    PapaLocal\ReferralAgreement\Data\Command\Agreement\UpdateAgreementNameHandler:
+        class: PapaLocal\ReferralAgreement\Data\Command\Agreement\UpdateAgreementNameHandler
+        arguments:
+            $tableGateway: '@papalocal_data.adapted_table_gateway'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\ReferralAgreement\Data\Command\Agreement\UpdateAgreementName', bus: 'messenger.bus.mysql' }
+
+    PapaLocal\ReferralAgreement\Data\Command\Agreement\UpdateDescriptionHandler:
+        class: PapaLocal\ReferralAgreement\Data\Command\Agreement\UpdateDescriptionHandler
+        arguments:
+            $tableGateway: '@papalocal_data.adapted_table_gateway'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\ReferralAgreement\Data\Command\Agreement\UpdateDescription', bus: 'messenger.bus.mysql' }
+
+    PapaLocal\ReferralAgreement\Data\Command\Agreement\UpdateQuantityHandler:
+        class: PapaLocal\ReferralAgreement\Data\Command\Agreement\UpdateQuantityHandler
+        arguments:
+            $tableGateway: '@papalocal_data.adapted_table_gateway'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\ReferralAgreement\Data\Command\Agreement\UpdateQuantity', bus: 'messenger.bus.mysql' }
+
+    PapaLocal\ReferralAgreement\Data\Command\Agreement\UpdateStrategyHandler:
+        class: PapaLocal\ReferralAgreement\Data\Command\Agreement\UpdateStrategyHandler
+        arguments:
+            $tableGateway: '@papalocal_data.adapted_table_gateway'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\ReferralAgreement\Data\Command\Agreement\UpdateStrategy', bus: 'messenger.bus.mysql' }
+
+    PapaLocal\ReferralAgreement\Data\Command\Agreement\UpdateReferralPriceHandler:
+        class: PapaLocal\ReferralAgreement\Data\Command\Agreement\UpdateReferralPriceHandler
+        arguments:
+            $tableGateway: '@papalocal_data.adapted_table_gateway'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\ReferralAgreement\Data\Command\Agreement\UpdateReferralPrice', bus: 'messenger.bus.mysql' }
+
+    #### Invitee
+    PapaLocal\ReferralAgreement\Data\Command\Invitee\SaveInviteeHandler:
+        class: PapaLocal\ReferralAgreement\Data\Command\Invitee\SaveInviteeHandler
+        arguments:
+            $tableGateway: '@papalocal_data.adapted_table_gateway'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\ReferralAgreement\Data\Command\Invitee\SaveInvitee', bus: 'messenger.bus.mysql' }
+
+    PapaLocal\ReferralAgreement\Data\Command\Invitee\MarkInvitationSentHandler:
+        class: PapaLocal\ReferralAgreement\Data\Command\Invitee\MarkInvitationSentHandler
+        arguments:
+            $tableGateway: '@papalocal_data.adapted_table_gateway'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\ReferralAgreement\Data\Command\Invitee\MarkInvitationSent', bus: 'messenger.bus.mysql' }
+
+    PapaLocal\ReferralAgreement\Data\Command\Invitee\AcceptInvitationHandler:
+        class: PapaLocal\ReferralAgreement\Data\Command\Invitee\AcceptInvitationHandler
+        arguments:
+            $tableGateway: '@papalocal_data.adapted_table_gateway'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\ReferralAgreement\Data\Command\Invitee\AcceptInvitation', bus: 'messenger.bus.mysql' }
+    
+    PapaLocal\ReferralAgreement\Data\Command\Invitee\DeclineInvitationHandler:
+        class: PapaLocal\ReferralAgreement\Data\Command\Invitee\DeclineInvitationHandler
+        arguments:
+            $tableGateway: '@papalocal_data.adapted_table_gateway'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\ReferralAgreement\Data\Command\Invitee\DeclineInvitation', bus: 'messenger.bus.mysql' }
+
+    PapaLocal\ReferralAgreement\Data\Command\Invitee\AssignUserGuidHandler:
+        class: PapaLocal\ReferralAgreement\Data\Command\Invitee\AssignUserGuidHandler
+        arguments:
+            $tableGateway: '@papalocal_data.adapted_table_gateway'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\ReferralAgreement\Data\Command\Invitee\AssignUserGuid', bus: 'messenger.bus.mysql' }
+
+    PapaLocal\ReferralAgreement\Data\Command\Invitee\RemoveInviteeHandler:
+        class: PapaLocal\ReferralAgreement\Data\Command\Invitee\RemoveInviteeHandler
+        arguments:
+            $tableGateway: '@papalocal_data.adapted_table_gateway'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\ReferralAgreement\Data\Command\Invitee\RemoveInvitee', bus: 'messenger.bus.mysql' }
+
+    ### Queries
+
+    #### Invitee
+
+    ### Services
+
+    ## Param Converters
+    PapaLocal\ReferralAgreement\Form\CreateAgreementConverter:
+        class: PapaLocal\ReferralAgreement\Form\CreateAgreementConverter
+        arguments:
+            $serializer: '@PapaLocal\Serializer\FosRestAdapter'
+            $groups: []
+            $version: null
+            $validator: '@fos_rest.validator'
+            $validationErrorsArgument: validationErrors
+        tags:
+            - { name: 'request.param_converter', priority: -52, converter: PapaLocal\ReferralAgreement\Form\CreateAgreementConverter }
+
+    PapaLocal\ReferralAgreement\Form\ReferralAgreementInviteeConverter:
+        class: PapaLocal\ReferralAgreement\Form\ReferralAgreementInviteeConverter
+        arguments:
+            $serializer: '@PapaLocal\Serializer\FosRestAdapter'
+            $groups: []
+            $version: null
+            $validator: '@fos_rest.validator'
+            $validationErrorsArgument: validationErrors
+        tags:
+            - { name: 'request.param_converter', priority: -52, converter: PapaLocal\ReferralAgreement\Form\ReferralAgreementInviteeConverter }
+
+    ## Notifications
+    PapaLocal\ReferralAgreement\Notification\NotificationFactory:
+        class: PapaLocal\ReferralAgreement\Notification\NotificationFactory
+
+    #------------------------------
+    # Events
+    #------------------------------
+
+    #------------------------------
+    # Domain
+    #------------------------------
+    PapaLocal\ReferralAgreement\Event\:
+        resource: '../../src/ReferralAgreement/Event/*'
+        # exclude events
+        exclude: '../../src/ReferralAgreement/Event/{*Event.php,UserBalanceSubscriber.php,UserRegisteredSubscriber.php}'
+        tags:
+            - { name: kernel.event_subscriber }
+
+    PapaLocal\ReferralAgreement\Event\UserBalanceSubscriber:
+        class: PapaLocal\ReferralAgreement\Event\UserBalanceSubscriber
+        arguments:
+            $agreementRepository: '@PapaLocal\ReferralAgreement\Data\ReferralAgreementRepository'
+            $requestStack: '@request_stack'
+            $logger: '@logger'
+        tags:
+            - { name: kernel.event_subscriber }
+
+    PapaLocal\ReferralAgreement\Event\UserRegisteredSubscriber:
+        class: PapaLocal\ReferralAgreement\Event\UserRegisteredSubscriber
+        arguments:
+            $inviteeRepository: '@PapaLocal\ReferralAgreement\Data\InviteeRepository'
+            $mysqlBus: '@messenger.bus.mysql'
+            $raMessageFactory: '@PapaLocal\ReferralAgreement\Data\MessageFactory'
+            $logger: '@monolog.logger.referral_agreement'
+        tags:
+            - { name: kernel.event_subscriber }
+
+    PapaLocal\ReferralAgreement\Event\Subscriber\ReferralCreatedSubscriber:
+        class: PapaLocal\ReferralAgreement\Event\Subscriber\ReferralCreatedSubscriber
+        arguments:
+            $agreementRepository: '@PapaLocal\ReferralAgreement\Data\ReferralAgreementRepository'
+            $agreementService: '@PapaLocal\ReferralAgreement\ReferralAgreementService'
+            $serializer: '@serializer'
+            $logger: '@logger'
+        tags:
+            - { name: kernel.event_subscriber }
+
+    #------------------------------
+    # Workflow
+    #------------------------------
+    
+    #------------------------------
+    # Referral Agreement
+    #------------------------------
+    PapaLocal\ReferralAgreement\Workflow\Agreement\CreateGuardSubscriber:
+        class: PapaLocal\ReferralAgreement\Workflow\Agreement\CreateGuardSubscriber
+        arguments:
+            $validator: '@validator'
+        tags:
+            - { name: kernel.event_subscriber }
+    
+    PapaLocal\ReferralAgreement\Workflow\Agreement\CreateTransitionSubscriber:
+        class: PapaLocal\ReferralAgreement\Workflow\Agreement\CreateTransitionSubscriber
+        arguments:
+            $mysqlBus: '@messenger.bus.mysql'
+            $messageFactory: '@PapaLocal\ReferralAgreement\Data\MessageFactory'
+        tags:
+            - { name: kernel.event_subscriber }
+                        
+    PapaLocal\ReferralAgreement\Workflow\Agreement\PublishGuardSubscriber:
+        class: PapaLocal\ReferralAgreement\Workflow\Agreement\PublishGuardSubscriber
+        arguments:
+            $messageBus: '@messenger.bus.application'
+            $messageFactory: '@PapaLocal\Billing\Message\MessageFactory'
+        tags:
+            - { name: kernel.event_subscriber }
+
+    PapaLocal\ReferralAgreement\Workflow\Agreement\PublishTransitionSubscriber:
+        class: PapaLocal\ReferralAgreement\Workflow\Agreement\PublishTransitionSubscriber
+        arguments:
+            $mysqlMsgFactory: '@PapaLocal\ReferralAgreement\Data\MessageFactory'
+            $mysqlBus: '@messenger.bus.mysql'
+            $tokenStorage: '@security.token_storage'
+            $serializer: '@serializer'
+        tags:
+            - { name: kernel.event_subscriber }
+
+    PapaLocal\ReferralAgreement\Workflow\Agreement\EnteredActiveSubscriber:
+        class: PapaLocal\ReferralAgreement\Workflow\Agreement\EnteredActiveSubscriber
+        arguments:
+            $workflowRegistry: '@Symfony\Component\Workflow\Registry'
+            $notifier: '@PapaLocal\Notification\Notifier'
+            $notificationFactory: '@PapaLocal\ReferralAgreement\Notification\NotificationFactory'
+            $logger: '@logger'
+        tags:
+            - { name: kernel.event_subscriber }
+
+    PapaLocal\ReferralAgreement\Workflow\Agreement\PauseTransitionSubscriber:
+        class: PapaLocal\ReferralAgreement\Workflow\Agreement\PauseTransitionSubscriber
+        arguments:
+            $mysqlBus: '@messenger.bus.mysql'
+            $mysqlMsgFactory: '@PapaLocal\ReferralAgreement\Data\MessageFactory'
+        tags:
+            - { name: kernel.event_subscriber }
+
+    PapaLocal\ReferralAgreement\Workflow\Agreement\ActivateTransitionSubscriber:
+        class: PapaLocal\ReferralAgreement\Workflow\Agreement\ActivateTransitionSubscriber
+        arguments:
+            $mysqlBus: '@messenger.bus.mysql'
+            $mysqlMsgFactory: '@PapaLocal\ReferralAgreement\Data\MessageFactory'
+        tags:
+            - { name: kernel.event_subscriber }
+
+    #------------------------------
+    # Invitee
+    #------------------------------
+    PapaLocal\ReferralAgreement\Workflow\Invitee\CreateGuardSubscriber:
+        class: PapaLocal\ReferralAgreement\Workflow\Invitee\CreateGuardSubscriber
+        arguments:
+            $validator: '@validator'
+            $inviteeRepository: '@PapaLocal\ReferralAgreement\Data\InviteeRepository'
+        tags:
+            - { name: kernel.event_subscriber }
+
+    PapaLocal\ReferralAgreement\Workflow\Invitee\CreateTransitionSubscriber:
+        class: PapaLocal\ReferralAgreement\Workflow\Invitee\CreateTransitionSubscriber
+        arguments:
+            $iaMessageFactory: '@PapaLocal\IdentityAccess\Message\MessageFactory'
+            $appBus: '@messenger.bus.application'
+            $raDataMsgFactory: '@PapaLocal\ReferralAgreement\Data\MessageFactory'
+            $mysqlBus: '@messenger.bus.mysql'
+        tags:
+            - { name: kernel.event_subscriber }
+
+    PapaLocal\ReferralAgreement\Workflow\Invitee\EnteredCreatedSubscriber:
+        class: PapaLocal\ReferralAgreement\Workflow\Invitee\EnteredCreatedSubscriber
+        arguments:
+            $referralAgreementRepository: '@PapaLocal\ReferralAgreement\Data\ReferralAgreementRepository'
+            $workflowRegistry: '@Symfony\Component\Workflow\Registry'
+        tags:
+            - { name: kernel.event_subscriber }
+
+    PapaLocal\ReferralAgreement\Workflow\Invitee\InviteTransitionSubscriber:
+        class: PapaLocal\ReferralAgreement\Workflow\Invitee\InviteTransitionSubscriber
+        arguments:
+            $emailer: '@papalocal_core.emailer'
+            $referralAgreementRepository: '@PapaLocal\ReferralAgreement\Data\ReferralAgreementRepository'
+            $inviteeService: '@PapaLocal\ReferralAgreement\InviteeService'
+            $inviteeRepository: '@PapaLocal\ReferralAgreement\Data\InviteeRepository'
+            $iaMessageFactory: '@PapaLocal\IdentityAccess\Message\MessageFactory'
+            $appBus: '@messenger.bus.application'
+            $notificationFactory: '@PapaLocal\ReferralAgreement\Notification\NotificationFactory'
+            $notifier: '@PapaLocal\Notification\Notifier'
+        tags:
+            - { name: kernel.event_subscriber }
+
+    PapaLocal\ReferralAgreement\Workflow\Invitee\AcceptTransitionSubscriber:
+        class: PapaLocal\ReferralAgreement\Workflow\Invitee\AcceptTransitionSubscriber
+        arguments:
+            $dataBus: '@messenger.bus.mysql'
+            $messageFactory: '@papalocal_message.referral_agreement.data_message_factory'
+        tags:
+            - { name: kernel.event_subscriber }
+
+    PapaLocal\ReferralAgreement\Workflow\Invitee\EnteredAcceptedSubscriber:
+        class: PapaLocal\ReferralAgreement\Workflow\Invitee\EnteredAcceptedSubscriber
+        arguments:
+            $referralAgreementRepository: '@PapaLocal\ReferralAgreement\Data\ReferralAgreementRepository'
+            $notifier: '@PapaLocal\Notification\Notifier'
+            $notificationFactory: '@PapaLocal\ReferralAgreement\Notification\NotificationFactory'
+            $logger: '@logger'
+        tags:
+            - { name: kernel.event_subscriber }
+
+    PapaLocal\ReferralAgreement\Workflow\Invitee\DeclineTransitionSubscriber:
+        class: PapaLocal\ReferralAgreement\Workflow\Invitee\DeclineTransitionSubscriber
+        arguments:
+            $mysqlBus: '@messenger.bus.mysql'
+            $messageFactory: '@PapaLocal\ReferralAgreement\Data\MessageFactory'
+        tags:
+            - { name: kernel.event_subscriber }
+
+    PapaLocal\ReferralAgreement\Workflow\Invitee\RemoveTransitionSubscriber:
+        class: PapaLocal\ReferralAgreement\Workflow\Invitee\RemoveTransitionSubscriber
+        arguments:
+            $mysqlBus: '@messenger.bus.mysql'
+            $messageFactory: '@PapaLocal\ReferralAgreement\Data\MessageFactory'
+        tags:
+            - { name: kernel.event_subscriber }
+
+    #------------------------------
+    # App Bus Messages
+    #------------------------------
+    PapaLocal\ReferralAgreement\Message\MessageFactory:
+        class: PapaLocal\ReferralAgreement\Message\MessageFactory
+
+    #------------------------------
+    # Services
+    #------------------------------
+    PapaLocal\ReferralAgreement\ReferralAgreementService:
+        class: PapaLocal\ReferralAgreement\ReferralAgreementService
+        public: true
+        arguments:
+            $workflowRegistry: '@Symfony\Component\Workflow\Registry'
+            $referralAgreementRepository: '@PapaLocal\ReferralAgreement\Data\ReferralAgreementRepository'
+            $inviteeRepository: '@PapaLocal\ReferralAgreement\Data\InviteeRepository'
+            $mysqlBus: '@messenger.bus.mysql'
+            $refAgmtMsgFactory: '@PapaLocal\ReferralAgreement\Data\MessageFactory'
+            $notifier: '@PapaLocal\Notification\Notifier'
+            $notificationFactory: '@PapaLocal\ReferralAgreement\Notification\NotificationFactory'
+            $logger: '@logger'
+
+    PapaLocal\ReferralAgreement\InviteeService:
+        class: PapaLocal\ReferralAgreement\InviteeService
+        public: true
+        arguments:
+            $inviteeRepository: '@PapaLocal\ReferralAgreement\Data\InviteeRepository'
+            $workflowRegistry: '@Symfony\Component\Workflow\Registry'
+            $mysqlBus: '@messenger.bus.mysql'
+            $mysqlMsgFactory: '@PapaLocal\ReferralAgreement\Data\MessageFactory'
+
+    #------------------------------
+    # Commands
+    #------------------------------
+    PapaLocal\ReferralAgreement\Message\Command\Agreement\CreateReferralAgreementHandler:
+        class: PapaLocal\ReferralAgreement\Message\Command\Agreement\CreateReferralAgreementHandler
+        arguments:
+            $referralAgreementService: '@PapaLocal\ReferralAgreement\ReferralAgreementService'
+            $serializer: '@serializer'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\ReferralAgreement\Message\Command\Agreement\CreateReferralAgreement', bus: 'messenger.bus.application' }
+
+    PapaLocal\ReferralAgreement\Message\Command\Agreement\PublishAgreementHandler:
+        class: PapaLocal\ReferralAgreement\Message\Command\Agreement\PublishAgreementHandler
+        arguments:
+            $referralAgreementService: '@PapaLocal\ReferralAgreement\ReferralAgreementService'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\ReferralAgreement\Message\Command\Agreement\PublishAgreement', bus: 'messenger.bus.application' }
+
+    PapaLocal\ReferralAgreement\Message\Command\Agreement\UpdateNameHandler:
+        class: PapaLocal\ReferralAgreement\Message\Command\Agreement\UpdateNameHandler
+        arguments:
+            $referralAgreementService: '@PapaLocal\ReferralAgreement\ReferralAgreementService'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\ReferralAgreement\Message\Command\Agreement\UpdateName', bus: 'messenger.bus.application' }
+
+    PapaLocal\ReferralAgreement\Message\Command\Agreement\UpdateDescriptionHandler:
+        class: PapaLocal\ReferralAgreement\Message\Command\Agreement\UpdateDescriptionHandler
+        arguments:
+            $referralAgreementService: '@PapaLocal\ReferralAgreement\ReferralAgreementService'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\ReferralAgreement\Message\Command\Agreement\UpdateDescription', bus: 'messenger.bus.application' }
+
+    PapaLocal\ReferralAgreement\Message\Command\Agreement\PauseAgreementHandler:
+        class: PapaLocal\ReferralAgreement\Message\Command\Agreement\PauseAgreementHandler
+        arguments:
+            $serializer: '@serializer'
+            $agreementService: '@PapaLocal\ReferralAgreement\ReferralAgreementService'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\ReferralAgreement\Message\Command\Agreement\PauseAgreement', bus: 'messenger.bus.application' }
+
+    PapaLocal\ReferralAgreement\Message\Command\Agreement\ActivateAgreementHandler:
+        class: PapaLocal\ReferralAgreement\Message\Command\Agreement\ActivateAgreementHandler
+        arguments:
+            $guidFactory: '@PapaLocal\Core\ValueObject\GuidGeneratorInterface'
+            $serializer: '@serializer'
+            $agreementService: '@PapaLocal\ReferralAgreement\ReferralAgreementService'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\ReferralAgreement\Message\Command\Agreement\ActivateAgreement', bus: 'messenger.bus.application' }
+
+    PapaLocal\ReferralAgreement\Message\Command\Agreement\UpdateQuantityHandler:
+        class: PapaLocal\ReferralAgreement\Message\Command\Agreement\UpdateQuantityHandler
+        arguments:
+            $guidFactory: '@PapaLocal\Core\ValueObject\GuidGeneratorInterface'
+            $agreementService: '@PapaLocal\ReferralAgreement\ReferralAgreementService'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\ReferralAgreement\Message\Command\Agreement\UpdateQuantity', bus: 'messenger.bus.application' }
+
+    PapaLocal\ReferralAgreement\Message\Command\Agreement\UpdateStrategyHandler:
+        class: PapaLocal\ReferralAgreement\Message\Command\Agreement\UpdateStrategyHandler
+        arguments:
+            $guidFactory: '@PapaLocal\Core\ValueObject\GuidGeneratorInterface'
+            $agreementService: '@PapaLocal\ReferralAgreement\ReferralAgreementService'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\ReferralAgreement\Message\Command\Agreement\UpdateStrategy', bus: 'messenger.bus.application' }
+
+    PapaLocal\ReferralAgreement\Message\Command\Agreement\UpdateReferralPriceHandler:
+        class: PapaLocal\ReferralAgreement\Message\Command\Agreement\UpdateReferralPriceHandler
+        arguments:
+            $guidFactory: '@PapaLocal\Core\ValueObject\GuidGeneratorInterface'
+            $agreementService: '@PapaLocal\ReferralAgreement\ReferralAgreementService'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\ReferralAgreement\Form\Agreement\UpdateReferralPriceForm', bus: 'messenger.bus.application' }
+
+    PapaLocal\ReferralAgreement\Message\Command\Agreement\UpdateLocationsHandler:
+        class: PapaLocal\ReferralAgreement\Message\Command\Agreement\UpdateLocationsHandler
+        arguments:
+            $guidFactory: '@PapaLocal\Core\ValueObject\GuidGeneratorInterface'
+            $agreementService: '@PapaLocal\ReferralAgreement\ReferralAgreementService'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\ReferralAgreement\Form\Agreement\UpdateLocationsForm', bus: 'messenger.bus.application' }
+
+    PapaLocal\ReferralAgreement\Message\Command\Agreement\RenewStrategyHandler:
+        class: PapaLocal\ReferralAgreement\Message\Command\Agreement\RenewStrategyHandler
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\ReferralAgreement\Message\Command\Agreement\RenewStrategy', bus: 'messenger.bus.application' }
+
+    #------------------------------
+    # Invitee
+    #------------------------------
+    PapaLocal\ReferralAgreement\Message\Command\Invitee\SaveAgreementInviteeHandler:
+        class: PapaLocal\ReferralAgreement\Message\Command\Invitee\SaveAgreementInviteeHandler
+        arguments:
+            $inviteeService: '@PapaLocal\ReferralAgreement\InviteeService'
+            $serializer: '@serializer'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\ReferralAgreement\Message\Command\Invitee\SaveAgreementInvitee', bus: 'messenger.bus.application' }
+
+    PapaLocal\ReferralAgreement\Message\Command\Invitee\AcceptInvitationHandler:
+        class: PapaLocal\ReferralAgreement\Message\Command\Invitee\AcceptInvitationHandler
+        arguments:
+            $inviteeService: '@PapaLocal\ReferralAgreement\InviteeService'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\ReferralAgreement\Message\Command\Invitee\AcceptInvitation', bus: 'messenger.bus.application' }
+
+    PapaLocal\ReferralAgreement\Message\Command\Invitee\DeclineInvitationHandler:
+        class: PapaLocal\ReferralAgreement\Message\Command\Invitee\DeclineInvitationHandler
+        arguments:
+            $inviteeService: '@PapaLocal\ReferralAgreement\InviteeService'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\ReferralAgreement\Message\Command\Invitee\DeclineInvitation', bus: 'messenger.bus.application' }
+
+    PapaLocal\ReferralAgreement\Message\Command\Invitee\RemoveInviteeHandler:
+        class: PapaLocal\ReferralAgreement\Message\Command\Invitee\RemoveInviteeHandler
+        arguments:
+            $inviteeService: '@PapaLocal\ReferralAgreement\InviteeService'
+            $guidFactory: '@PapaLocal\Core\ValueObject\GuidGeneratorInterface'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\ReferralAgreement\Form\Invitee\RemoveInviteeForm', bus: 'messenger.bus.application' }
+
+    #------------------------------
+    # Queries
+    #------------------------------
+
+    #------------------------------
+    # Feed
+    #------------------------------
+    PapaLocal\ReferralAgreement\Message\Query\Agreement\LoadFeedHandler:
+        class: PapaLocal\ReferralAgreement\Message\Query\Agreement\LoadFeedHandler
+        arguments:
+            $agreementRepository: '@PapaLocal\ReferralAgreement\Data\ReferralAgreementRepository'
+            $inviteeRepository: '@PapaLocal\ReferralAgreement\Data\InviteeRepository'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\Feed\Message\Query\LoadFeed', bus: 'messenger.bus.application' }
+
+    PapaLocal\ReferralAgreement\Message\Query\Agreement\LoadFeedItemHandler:
+        class: PapaLocal\ReferralAgreement\Message\Query\Agreement\LoadFeedItemHandler
+        arguments:
+            $agreementRepository: '@PapaLocal\ReferralAgreement\Data\ReferralAgreementRepository'
+            $inviteeRepository: '@PapaLocal\ReferralAgreement\Data\InviteeRepository'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\Feed\Message\Query\LoadFeedItem', bus: 'messenger.bus.application' }
+
+    ###### Referral Agreement
+    PapaLocal\ReferralAgreement\Message\Query\Agreement\FindByGuidHandler:
+        class: PapaLocal\ReferralAgreement\Message\Query\Agreement\FindByGuidHandler
+        arguments:
+            $referralAgreementRepository: '@PapaLocal\ReferralAgreement\Data\ReferralAgreementRepository'
+            $inviteeRepository: '@PapaLocal\ReferralAgreement\Data\InviteeRepository'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\ReferralAgreement\Message\Query\Agreement\FindByGuid', bus: 'messenger.bus.application' }
+
+    PapaLocal\ReferralAgreement\Message\Query\Agreement\LoadUserAgreementsHandler:
+        class: PapaLocal\ReferralAgreement\Message\Query\Agreement\LoadUserAgreementsHandler
+        arguments:
+            $referralAgreementRepository: '@PapaLocal\ReferralAgreement\Data\ReferralAgreementRepository'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\ReferralAgreement\Message\Query\Agreement\LoadUserAgreements', bus: 'messenger.bus.application' }
+
+    PapaLocal\ReferralAgreement\Message\Query\Agreement\LoadParticipantAgreementsHandler:
+        class: PapaLocal\ReferralAgreement\Message\Query\Agreement\LoadParticipantAgreementsHandler
+        arguments:
+            $referralAgreementRepository: '@PapaLocal\ReferralAgreement\Data\ReferralAgreementRepository'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\ReferralAgreement\Message\Query\Agreement\LoadParticipantAgreements', bus: 'messenger.bus.application' }
+
+    ###### Invitee
+    PapaLocal\ReferralAgreement\Message\Query\Invitee\FindByAgreementGuidHandler:
+        class: PapaLocal\ReferralAgreement\Message\Query\Invitee\FindByAgreementGuidHandler
+        arguments:
+            $inviteeRepository: '@PapaLocal\ReferralAgreement\Data\InviteeRepository'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\ReferralAgreement\Message\Query\Invitee\FindByAgreementGuid', bus: 'messenger.bus.application' }
+
+    PapaLocal\ReferralAgreement\Message\Query\Invitee\FindByUserGuidHandler:
+        class: PapaLocal\ReferralAgreement\Message\Query\Invitee\FindByUserGuidHandler
+        arguments:
+            $inviteeRepository: '@PapaLocal\ReferralAgreement\Data\InviteeRepository'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\ReferralAgreement\Message\Query\Invitee\FindByUserGuid', bus: 'messenger.bus.application' }
+
+    PapaLocal\ReferralAgreement\Message\Query\Invitee\FindByEmailAddressHandler:
+        class: PapaLocal\ReferralAgreement\Message\Query\Invitee\FindByEmailAddressHandler
+        arguments:
+            $inviteeRepository: '@PapaLocal\ReferralAgreement\Data\InviteeRepository'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\ReferralAgreement\Message\Query\Invitee\FindByEmailAddress', bus: 'messenger.bus.application' }

@@ -1,0 +1,266 @@
+################################################################
+#
+# Billing
+#
+# Services related to the PapaLocal/Billing namespace.
+#################################################################
+parameters:
+    # Authorize.NET Payment Gateway
+    authorize_net_environment: '%env(ANET_API_URL)%'
+    authorize_net_api_key: '%env(ANET_API_KEY)%'
+    authorize_net_api_password: '%env(ANET_API_PASS)%'
+
+services:
+    ## FACTORIES
+    PapaLocal\Billing\Notification\NotificationFactory:
+        class: PapaLocal\Billing\Notification\NotificationFactory
+
+    PapaLocal\Billing\ValueObject\VOFactory:
+        class: PapaLocal\Billing\ValueObject\VOFactory
+        arguments:
+            $guidFactory: '@PapaLocal\Core\ValueObject\GuidGeneratorInterface'
+
+    ## DATA LAYER
+    PapaLocal\Billing\Data\BillingProfileHydrator:
+        class: PapaLocal\Billing\Data\BillingProfileHydrator
+        parent: PapaLocal\Core\Data\AbstractHydrator
+        tags: ['papalocal_data.hydrator']
+
+    PapaLocal\Billing\Data\BillingProfileRepository:
+        class: PapaLocal\Billing\Data\BillingProfileRepository
+        parent: PapaLocal\Core\Data\AbstractRepository
+        public: true
+        arguments:
+            $billingUserContactDetailHydrator: '@PapaLocal\Billing\Data\BillingProfileHydrator'
+        tags: [papalocal_data.repository]
+
+    PapaLocal\Billing\Data\TransactionRepository:
+        class: PapaLocal\Billing\Data\TransactionRepository
+        parent: PapaLocal\Core\Data\AbstractRepository
+        public: true
+        arguments:
+            $voFactory: '@PapaLocal\Billing\ValueObject\VOFactory'
+            $guidFactory: '@PapaLocal\Core\ValueObject\GuidGeneratorInterface'
+        tags: [papalocal_data.repository]
+
+
+    ## MYSQL BUS
+    PapaLocal\Billing\Data\MessageFactory:
+        class: PapaLocal\Billing\Data\MessageFactory
+
+    ### COMMANDS
+    PapaLocal\Billing\Data\Command\UpdateRechargeSettingHandler:
+        class: PapaLocal\Billing\Data\Command\UpdateRechargeSettingHandler
+        arguments:
+            $tableGateway: '@papalocal_data.adapted_table_gateway'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\Billing\Data\Command\UpdateRechargeSetting', bus: 'messenger.bus.mysql' }
+
+
+    #####  TRANSACTIONS
+    PapaLocal\Billing\Data\Command\Transaction\SaveSuccessfulTransactionHandler:
+        class: PapaLocal\Billing\Data\Command\Transaction\SaveSuccessfulTransactionHandler
+        arguments:
+            $tableGateway: '@papalocal_data.adapted_table_gateway'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\Billing\Data\Command\Transaction\SaveSuccessfulTransaction', bus: 'messenger.bus.mysql' }
+
+    ### QUERIES
+    PapaLocal\Billing\Data\Query\FindByUserGuidHandler:
+        class: PapaLocal\Billing\Data\Query\FindByUserGuidHandler
+        arguments:
+            $billingProfileRepository: '@PapaLocal\Billing\Data\BillingProfileRepository'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\Billing\Data\Query\FindByUserGuid', bus: 'messenger.bus.mysql' }
+
+    ## AUTHORIZE.NET
+    net\authorize\api\contract\v1\MerchantAuthenticationType:
+        class: net\authorize\api\contract\v1\MerchantAuthenticationType
+        public: true
+        calls:
+          - method: setName
+            arguments:
+                - '%authorize_net_api_key%'
+          - method: setTransactionKey
+            arguments:
+                - '%authorize_net_api_password%'
+    papalocal_anet.authentication:
+        alias: net\authorize\api\contract\v1\MerchantAuthenticationType
+
+    PapaLocal\AuthorizeDotNet\:
+        resource: '../../src/AuthorizeDotNet'
+        exclude: '../../src/AuthorizeDotNet/{AuthorizeDotNet'
+
+    PapaLocal\AuthorizeDotNet\AuthorizeDotNet:
+        class: PapaLocal\AuthorizeDotNet\AuthorizeDotNet
+        public: true
+        arguments:
+            $environment: '%authorize_net_environment%'
+            $authentication: '@papalocal_anet.authentication'
+            $factory: '@PapaLocal\AuthorizeDotNet\AuthorizeDotNetFactory'
+            $logger: '@logger'
+    papalocal_anet.authorize_dot_net:
+        alias: PapaLocal\AuthorizeDotNet\AuthorizeDotNet
+
+
+    ## SERVICE LAYER
+    PapaLocal\Billing\Service\BillingProfileManager:
+        class: PapaLocal\Billing\Service\BillingProfileManager
+        public: true
+        arguments:
+            $billingProfileRepository: '@PapaLocal\Billing\Data\BillingProfileRepository'
+            $billingProfileHydrator: '@PapaLocal\Billing\Data\BillingProfileHydrator'
+            $authorizeNet: '@papalocal_anet.authorize_dot_net'
+            $serializer: '@serializer'
+            $logger: '@logger'
+    papalocal_billing.profile_manager:
+        alias: PapaLocal\Billing\Service\BillingProfileManager
+
+    PapaLocal\Billing\Service\TransactionManager:
+        class: PapaLocal\Billing\Service\TransactionManager
+        public: true
+        arguments:
+            $transactionRepository: '@PapaLocal\Billing\Data\TransactionRepository'
+            $authorizeDotNet: '@papalocal_anet.authorize_dot_net'
+            $billingProfileRepository: '@PapaLocal\Billing\Data\BillingProfileRepository'
+            $serializer: '@serializer'
+            $logger: '@logger'
+
+
+    ## APPLICATION BUS
+    PapaLocal\Billing\Message\MessageFactory:
+        class: PapaLocal\Billing\Message\MessageFactory
+
+    ### COMMANDS
+    PapaLocal\Billing\Message\Command\UpdateRechargeSettingHandler:
+        class: PapaLocal\Billing\Message\Command\UpdateRechargeSettingHandler
+        arguments:
+            $messageFactory: '@PapaLocal\Billing\Data\MessageFactory'
+            $mysqlBus: '@messenger.bus.mysql'
+            $serializer: '@serializer'
+            $notifier: '@PapaLocal\Notification\Notifier'
+            $logger: '@logger'
+            $tokenStorage: '@security.token_storage'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\Billing\Message\Command\UpdateRechargeSetting', bus: 'messenger.bus.application' }
+
+    PapaLocal\Billing\Message\Command\Transaction\PayoutHandler:
+        class: PapaLocal\Billing\Message\Command\Transaction\PayoutHandler
+        arguments:
+            $guidFactory: '@PapaLocal\Core\ValueObject\GuidGeneratorInterface'
+            $transactionRepository: '@PapaLocal\Billing\Data\TransactionRepository'
+            $messageFactory: '@PapaLocal\Billing\Data\MessageFactory'
+            $mysqlBus: '@messenger.bus.mysql'
+            $serializer: '@serializer'
+            $notificationFactory: '@PapaLocal\Billing\Notification\NotificationFactory'
+            $notifier: '@PapaLocal\Notification\Notifier'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\Billing\Message\Command\Transaction\Payout', bus: 'messenger.bus.application' }
+
+    ### QUERIES
+    PapaLocal\Billing\Message\Query\Transaction\LoadFeedHandler:
+        class: PapaLocal\Billing\Message\Query\Transaction\LoadFeedHandler
+        arguments:
+            $transactionRepository: '@PapaLocal\Billing\Data\TransactionRepository'
+            $voFactory: '@PapaLocal\Billing\ValueObject\VOFactory'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\Feed\Message\Query\LoadFeed', bus: 'messenger.bus.application' }
+
+    PapaLocal\Billing\Message\Query\Transaction\LoadFeedItemHandler:
+        class: PapaLocal\Billing\Message\Query\Transaction\LoadFeedItemHandler
+        arguments:
+            $transactionRepository: '@PapaLocal\Billing\Data\TransactionRepository'
+            $voFactory: '@PapaLocal\Billing\ValueObject\VOFactory'
+            $guidFactory: '@PapaLocal\Core\ValueObject\GuidGeneratorInterface'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\Feed\Message\Query\LoadFeedItem', bus: 'messenger.bus.application' }
+
+    PapaLocal\Billing\Message\Command\Transaction\ChargeAccountHandler:
+        class: PapaLocal\Billing\Message\Command\Transaction\ChargeAccountHandler
+        arguments:
+            $guidFactory: '@PapaLocal\Core\ValueObject\GuidGeneratorInterface'
+            $transactionRepository: '@PapaLocal\Billing\Data\TransactionRepository'
+            $messageFactory: '@PapaLocal\Billing\Data\MessageFactory'
+            $aMessageFactory: '@PapaLocal\ReferralAgreement\Message\MessageFactory'
+            $rMessageFactory: '@PapaLocal\Referral\Message\MessageFactory'
+            $iMessageFactory: '@PapaLocal\IdentityAccess\Message\MessageFactory'
+            $appBus: '@messenger.bus.application'
+            $mysqlBus: '@messenger.bus.mysql'
+            $serializer: '@serializer'
+            $notificationFactory: '@PapaLocal\Billing\Notification\NotificationFactory'
+            $notifier: '@PapaLocal\Notification\Notifier'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\Billing\Message\Command\Transaction\ChargeAccount', bus: 'messenger.bus.application' }
+
+    PapaLocal\Billing\Message\Command\Transaction\RefundAccountHandler:
+        class: PapaLocal\Billing\Message\Command\Transaction\RefundAccountHandler
+        arguments:
+            $guidFactory: '@PapaLocal\Core\ValueObject\GuidGeneratorInterface'
+            $transactionRepository: '@PapaLocal\Billing\Data\TransactionRepository'
+            $messageFactory: '@PapaLocal\Billing\Data\MessageFactory'
+            $aMessageFactory: '@PapaLocal\ReferralAgreement\Message\MessageFactory'
+            $rMessageFactory: '@PapaLocal\Referral\Message\MessageFactory'
+            $iMessageFactory: '@PapaLocal\IdentityAccess\Message\MessageFactory'
+            $appBus: '@messenger.bus.application'
+            $mysqlBus: '@messenger.bus.mysql'
+            $serializer: '@serializer'
+            $notificationFactory: '@PapaLocal\Billing\Notification\NotificationFactory'
+            $notifier: '@PapaLocal\Notification\Notifier'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\Billing\Message\Command\Transaction\RefundAccount', bus: 'messenger.bus.application' }
+
+    PapaLocal\Billing\Message\Query\LoadProfileForUserHandler:
+        class: PapaLocal\Billing\Message\Query\LoadProfileForUserHandler
+        arguments:
+            $billingProfileRepository: '@PapaLocal\Billing\Data\BillingProfileRepository'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\Billing\Message\Query\LoadProfileForUser', bus: 'messenger.bus.application' }
+
+    ## FORMS
+    PapaLocal\Billing\Form\DepositFunds:
+        autowire: false
+        autoconfigure: false
+        class: PapaLocal\Billing\Form\DepositFunds
+        public: true
+
+    ### FORM CONVERTERS
+    PapaLocal\Billing\Form\ParamConverter\DepositFundsParamConverter:
+        class: PapaLocal\Billing\Form\ParamConverter\DepositFundsParamConverter
+        public: false
+        arguments:
+            $serializer: '@PapaLocal\Serializer\FosRestAdapter'
+            $groups: []
+            $version: null
+            $validator: '@fos_rest.validator'
+            $validationErrorsArgument: validationErrors
+        tags:
+            - { name: 'request.param_converter', priority: -51, converter: PapaLocal\Billing\Form\ParamConverter\DepositFundsParamConverter }
+
+    ## EVENTS
+    PapaLocal\Billing\Event\DepositCompletedSubscriber:
+        class: PapaLocal\Billing\Event\DepositCompletedSubscriber
+        arguments:
+            $notifier: '@PapaLocal\Notification\Notifier'
+            $notificationFactory: '@PapaLocal\Notification\NotificationFactory'
+        tags:
+            - { name: kernel.event_subscriber }
+
+    PapaLocal\Billing\Event\ReferralCreatedSubscriber:
+        class: PapaLocal\Billing\Event\ReferralCreatedSubscriber
+        arguments:
+            $messageFactory: '@PapaLocal\Billing\Message\MessageFactory'
+            $appBus: '@messenger.bus.application'
+        tags:
+            - { name: 'kernel.event_subscriber' }
+
+    PapaLocal\Billing\Event\DisputeResolvedSubscriber:
+        class: PapaLocal\Billing\Event\DisputeResolvedSubscriber
+        arguments:
+            $messageFactory: '@PapaLocal\Billing\Message\MessageFactory'
+            $appBus: '@messenger.bus.application'
+        tags:
+            - { name: 'kernel.event_subscriber' }
+
+    PapaLocal\Billing\Event\:
+        resource: '../../src/Billing/Event/*'
+        exclude: '../../src/Billing/Event/{*Subscriber.php}'

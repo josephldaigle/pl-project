@@ -1,0 +1,42 @@
+{% extends 'templates/modalContainer.html.twig' %}
+{#
+|--------------------------------------------------------------------------
+| Create Agreement Form
+|--------------------------------------------------------------------------
+|
+| This file defines the form a user's submits to create a new referral agreement.
+|
+#}
+
+
+{% block header %}New Referral Agreement{% endblock %}
+
+{% block id %}referralAgreement{% endblock %}
+
+{% block content %}
+
+    <form name="createReferralAgreement" data-url="agreement/add" data-form-type="modal" >
+
+        {% include 'fragments/alerts/formAlert.html.twig' %}
+        {% include 'fragments/formFields/addReferralAgreement/basicAgreementInformation.html.twig' %}
+        {% include 'fragments/formFields/addReferralAgreement/referralAgreementStrategy.html.twig' %}
+        {% include 'fragments/formFields/addReferralAgreement/referralAgreementLocation.html.twig' %}
+        {% include 'fragments/formFields/addReferralAgreement/referralAgreementServices.html.twig' %}
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <input type="submit" name="submit" value="Save and Continue" class="form-control button-primary clear-border-radius">
+                <div class="noteBlock pull-left push-down-medium">
+                    <p><strong>NOTE:</strong> By clicking "Save and Continue" you are saving all the information that you have input so far. This does not mean that you are done with this agreement. The next page will continue the process to complete your agreement.</p>
+                </div>
+            </div>
+        </div>
+
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('createReferralAgreement') }}" />
+        {# TODO: When implementing company selector, this value shoule be the current selection - get from value from session, not ui #}
+
+    </form> <!--end form-->
+
+
+{% endblock %}
+

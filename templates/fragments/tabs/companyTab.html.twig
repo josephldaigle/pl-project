@@ -1,0 +1,37 @@
+{% if company is not empty %}
+
+    <div id="companyPanel" role="tabpanel" class="apply-border clear-top-bottom-border tab-pane contour-inner-small secondary-background active">
+
+        {% include 'forms/editable/companyBasicDetail.html.twig' %}
+
+    </div>
+
+{% elseif company is empty or company is null%}
+
+    <div id="companyPanel" role="tabpanel" class="apply-border clear-top-bottom-border tab-pane contour-inner-small secondary-background active">
+        {# show link #}
+        <p class="push-down-small clear-margin">
+            <a href="#" data-toggle="modal" class="clear-text-decoration" data-target="#addCompany" data-dismiss="modal">
+                <button class="contour-outer-small clear-button addCompanyIcon">
+                    <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                    <span class="text-center secondary-color text-bold">Add New Company</span>
+                </button>
+            </a>
+        </p>
+    </div>
+
+{% else %}
+    {# user owns multiple companies - they should select 1 #}
+    {#<div id="companyPanel" role="tabpanel" class="apply-border clear-top-bottom-border tab-pane contour-inner-small secondary-background active">#}
+         {#<a href="#" onclick="openCompanySelector();">#}
+             {#<button class="contour-outer-small clear-button addCompanyIcon">#}
+                 {#<i class="fa fa-building-o" aria-hidden="true"></i>#}
+                 {#<span class="text-center secondary-color text-bold">Choose A Company</span>#}
+             {#</button>#}
+         {#</a>#}
+    {#</div>#}
+
+{% endif %}
+
+
+

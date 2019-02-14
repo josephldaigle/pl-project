@@ -1,0 +1,29 @@
+{# twig template fragment #}
+
+{#
+|--------------------------------------------------------------------------
+| Flash Message Container
+|--------------------------------------------------------------------------
+|
+| Used to inject flash messages into an html element.
+|
+#}
+
+<div class="col-sm-12 flash-container">
+
+
+    {% if flashMessage is defined and flashMessage is not empty %}
+
+        <div class="alert alert-{{ flashMessage.getContext() }}">
+
+            <button class="close" data-dismiss="alert">&times;</button>
+
+            <strong> {{ flashMessage.getTitle() }}</strong>
+
+            <p>{{ flashMessage.message() | raw }}</p>
+
+        </div>
+
+    {% endif %}
+
+</div>

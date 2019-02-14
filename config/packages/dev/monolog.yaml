@@ -1,0 +1,60 @@
+monolog:
+#    handlers:
+#        main:
+#            type: stream
+#            path: "%kernel.logs_dir%/%kernel.environment%.log"
+#            level: debug
+#            channels: ["!event"]
+#        # uncomment to get logging in your browser
+#        # you may have to allow bigger header sizes in your Web server configuration
+#        #firephp:
+#        #    type: firephp
+#        #    level: info
+#        #chromephp:
+#        #    type: chromephp
+#        #    level: info
+#        console:
+#            type: console
+#            process_psr_3_messages: false
+#            channels: ["!event", "!doctrine", "!console"]
+
+    handlers:
+         # uncomment to test db logging in dev env
+#        finger_crossed:
+#            type: fingers_crossed
+#            action_level: warning
+#            # 500 errors are logged at the critical level
+#            buffer_size: 30
+#            # to also log 400 level errors (but not 404's):
+#            excluded_404s:
+#                - ^/(.)+
+#            handler: mysql
+#            channels: ['!event', '!console', '!doctrine']
+#        mysql:
+#            type: service
+#            id: monolog.handler.database
+#            level: debug
+        main:
+            type: stream
+            path: '%kernel.logs_dir%/%kernel.environment%.log'
+            level: debug
+            channels: ['!event']
+        console:
+            type: console
+            process_psr_3_messages: false
+#            channels: ['!event', '!doctrine', '!console']
+            channels: ['!doctrine', '!console']
+        # To follow logs in real time, execute the following command:
+        # `bin/console server:log -vv`
+        server_log:
+            type: server_log
+            process_psr_3_messages: false
+            host: 127.0.0.1:9911
+        # uncomment to get logging in your browser
+        # you may have to allow bigger header sizes in your Web server configuration
+        #firephp:
+        #    type: firephp
+        #    level: info
+        #chromephp:
+        #    type: chromephp
+        #    level: info

@@ -1,0 +1,50 @@
+{% import 'templates/macros/formFields.html.twig' as fields %}
+
+<form name="accountProfileRecharge" data-url="billing/account/recharge-setting" data-form-type="standard">
+
+    <div class="col-sm-12">
+        {% include 'fragments/alerts/formAlert.html.twig' %}
+    </div>
+
+    <div class="col-lg-8 col-md-9 col-sm-10 col-xs-12 push-down-small">
+        <span>When my balance falls below </span>
+
+        <select name="minBalance">
+
+            {% for i in range(50, 1000, 25) %}
+
+                {% if (i|number_format(2, '.') == app.user.getBillingProfile().getMinBalance()) %}
+                    <option value="{{ i | number_format(2, '.') }}" selected>${{ i|number_format(0, '.', ',') }}</option>
+                {% else %}
+                    <option value="{{ i | number_format(2, '.') }}">${{ i | number_format(0, '.', ',') }}</option>
+                {% endif %}
+
+            {% endfor %}
+
+        </select>
+
+        <span> recharge it back up to </span>
+
+        <select name="maxBalance">
+
+            {% for i in range(250, 5000, 25) %}
+
+                {% if (i|number_format(2, '.') == app.user.getBillingProfile().getMaxBalance()) %}
+                    <option value="{{ i | number_format(2, '.') }}" selected>${{ i | number_format(0, '.', ',') }}</option>
+                {% else %}
+                    <option value="{{ i | number_format(2, '.') }}">${{ i | number_format(0, '.', ',') }}</option>
+                {% endif %}
+
+            {% endfor %}
+
+        </select>
+
+    </div>
+
+    <div class="col-lg-4 col-md-3 col-sm-2 col-xs-12">
+        <input type="submit" value="Apply" class="clear-border-radius btn btn-block button-primary" style="width: 88px;"/>
+    </div>
+
+    <input type="hidden" name="userGuid" value="{{ app.user.guid.value }}" />
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('accountProfileRecharge') }}" />
+</form>

@@ -1,0 +1,66 @@
+{% if app.user.getBillingProfile().getPaymentProfile() is not null
+    and app.user.getBillingProfile().getPaymentProfile().getAllSecondaryPayProfiles()|length > 0 %}
+
+    <div style="max-width: 950px;" class="clear-side-padding">
+
+        <table id="creditCardTable" class="table table-bordered push-down-small">
+            <thead>
+                <tr>
+                    <th data-field="cardType">Card Type</th>
+                    <th data-field="cardNumber">Card Number (last 4)</th>
+                    <th data-field="expirationDate">Expiration</th>
+                    {#<th>Action</th>#}
+                </tr>
+            </thead>
+
+            <tbody>
+
+            {% for card in app.user.getBillingProfile().getPaymentProfile().all() %}
+
+                {% if card.isDefaultPayMethod() == false %}
+                    <tr>
+
+                        <td>
+                            {{ card.getCardType() }}
+                        </td>
+
+                        <td>
+                            {{ '**** **** **** ' ~ card.getCardNumber() }}
+                        </td>
+                        <td>
+                            {{ card.getExpirationMonth() ~ '/' ~ card.getExpirationYear() }}
+                        </td>
+
+                        <td style="width: 169px; border-color: #fff;">
+                            <div style="width: 74px; margin-right: 2px;" class="clear-side-padding col-xs-12 col-sm-6">
+                                <form name="primaryPay" data-url="billing/account/credit/primary" data-form-type="standard">
+                                    <input type="hidden" name="id" value="{{ card.getId() }}" >
+                                    <input type="hidden" name="customerId" value="{{ card.getCustomerId() }}" >
+                                    <input type="submit" name="submit" value="Primary" class="clear-border-radius btn btn-block button-primary" style="max-width: 48em; margin: 1px;" />
+                                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('primaryPayMethod') }}" />
+                                </form>
+                            </div>
+
+                            <div style="width: 74px" class="clear-side-padding col-xs-12 col-sm-6">
+                                <form name="deletePaymentMethod" data-url="billing/account/credit/delete" data-form-type="standard">
+                                    <input type="hidden" name="id" value="{{ card.getId() }}" >
+                                    <input type="hidden" name="customerId" value="{{ card.getCustomerId() }}" >
+                                    <input type="submit" name="submit" value="Delete" class="clear-border-radius btn btn-block btn-danger" style="max-width: 48em; margin: 1px;" />
+                                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('deletePaymentMethod') }}" />
+                                </form>
+                            </div>
+                        </td>
+
+                    </tr>
+
+                {% endif %}
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+</div>
+
+{% endif %}

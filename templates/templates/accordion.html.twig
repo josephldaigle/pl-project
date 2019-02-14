@@ -1,0 +1,28 @@
+<div id="{% block containerId %}{% endblock %}" class="panel-group accordion-layout" role="tablist" aria-multiline="true">
+    <div class="panel panel-default">
+
+        <div id="{% block headingId %}{% endblock %}" class="panel-heading" role="tab">
+            <h4 class="panel-title">
+                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#{% block parentId %}{% endblock %}" href="#{% block hrefId %}{% endblock %}" aria-expanded="true" aria-controls="{% block ariaControlsId %}{% endblock %}">
+
+                    {% block header %}
+                    {% endblock %}
+
+                    {% block caret %}
+                    {% endblock %}
+
+                </a>
+            </h4>
+        </div>
+
+        <div id="{% block panelCollapseId %}{% endblock %}" class="panel-collapse collapse {% block collapseIn %}{{ 'in' | raw }}{% endblock %}" role="tabpanel" aria-labelledby="{% block ariaId %}{% endblock %}">
+            <div class="panel-body clear-padding">
+
+                {% block content %}
+                {% endblock %}
+
+            </div>
+        </div>
+
+    </div>
+</div>

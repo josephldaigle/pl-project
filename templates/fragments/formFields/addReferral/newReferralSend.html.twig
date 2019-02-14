@@ -1,0 +1,132 @@
+{% extends 'templates/accordion.html.twig' %}
+{% import 'templates/macros/formFields.html.twig' as fields %}
+
+{# base accordion targets #}
+{% block containerId %}referralSend{% endblock %}
+
+{% block parentId %}referralSent{% endblock %}
+
+{% block hrefId %}send-referral{% endblock %}
+
+{% block ariaControlsId %}send-referral{% endblock %}
+
+{% block panelCollapseId %}send-referral{% endblock %}
+
+
+{% block headingId %}sendTo{% endblock %}
+
+{% block ariaId %}sendTo{% endblock %}
+
+{# accordion content #}
+{% block header %}
+    {{ 'Send To'| e }}
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+        <div class="form-group">
+            <div class="col-xs-12 col-sm-4 form-label control-label push-down-xs">
+
+                {{ fields.label('referralDestination','Recipient:') }}
+
+            </div>
+
+            <div class="col-xs-12 col-sm-8">
+
+                {{ fields.select('referralDestination',  {'agreement':'Agreement', 'contact': 'Contact'} ) }}
+
+            </div>
+        </div>
+    </div><!-- end send to option -->
+
+    <div id="sendToAgreement" class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+        <div class="form-group">
+            <div class="col-xs-12 col-sm-4 form-label control-label push-down-xs">
+
+                {{ fields.label('selectAgreement', 'Agreements:') }}
+
+            </div>
+
+            <div class="col-xs-12 col-sm-8">
+
+                {# Select is empty by default. When the modal form is opened, an ajax call will load the options. #}
+                {{ fields.select('selectAgreement', {'-1': 'None Available'}) }}
+
+            </div>
+        </div>
+    </div><!-- end pick referral agreement for contact -->
+
+    <div id="sendToContact" class="apply-border apply-auto-overflow contour-inner-large clear-side-padding clear-bottom-padding">
+        <div class="form-group">
+            <div class="col-xs-12 form-label control-label">
+
+                {{ fields.label('addContact','Contact:') }}
+
+            </div>
+
+            <div class="col-xs-12 contour-inner-xsmall">
+                <div class="col-xs-12 col-sm-4 form-label control-label push-down-xs">
+
+                    {{ 'First Name:'| e }}
+
+                </div>
+
+                <div class="col-xs-12 col-sm-8">
+
+                    {{ fields.input('recipientFirstName', null, 'text', null, {'required': true, 'maxlength': 100}) }}
+
+                </div>
+            </div><!-- end referral contact first name -->
+
+            <div class="col-xs-12 contour-inner-xsmall">
+                <div class="col-xs-12 col-sm-4 form-label control-label push-down-xs">
+
+                   {{ 'Last Name:'| e }}
+
+                </div>
+
+                <div class="col-xs-12 col-sm-8">
+
+                    {{ fields.input('recipientLastName', null, 'text', null, {'required': true, 'maxlength': 100} ) }}
+
+                </div>
+            </div><!-- end referral contact last name -->
+
+            <div class="col-xs-12 contour-inner-xsmall">
+                <div class="col-xs-12 col-sm-4 form-label control-label push-down-xs">
+
+                    {{ 'Cell Phone:'| e }}
+
+                </div>
+
+                <div class="col-xs-12 col-sm-8">
+
+                    {{ fields.input('recipientPhoneNumber', null, 'tel', null, {'required': true, 'minlength': 10} ) }}
+
+                </div>
+            </div><!-- end referral contact phone number -->
+
+            <div style="padding-bottom: 10px;" class="col-xs-12 contour-inner-xsmall">
+                <div class="col-xs-12 col-sm-4 form-label control-label push-down-xs">
+
+                    {{ 'Email:'| e }}
+
+                </div>
+
+                <div class="col-xs-12 col-sm-8">
+
+                    {{ fields.input('recipientEmail', null, 'email') }}
+
+                </div>
+            </div><!-- end referral contact email address -->
+
+        </div><!-- form group-->
+    </div><!-- end contact referral email -->
+
+    <div class="clearfix"></div>
+
+{% endblock %}
+
+

@@ -1,0 +1,106 @@
+{% extends 'templates/modalContainer.html.twig' %}
+
+{% block header %}Register{% endblock %}
+
+{% block id %}register{% endblock %}
+
+{% block content %}
+
+    <form name="userRegistration" data-url="register" data-form-type="modal">
+
+        {% include 'fragments/alerts/formAlert.html.twig' %}
+
+        {# FORM ELEMENTS  #}
+        <div class="form-row">
+            <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <input type="text" class="form-control clear-border-radius" id="firstName" name="firstName" placeholder="First Name" maxlength="100" required/>
+            </div>
+
+            <div class="form-group col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <input type="text" class="form-control clear-border-radius" id="lastName" name="lastName" placeholder="Last Name" maxlength="100"  required/>
+            </div>
+        </div>
+
+        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <input type="email" class="form-control clear-border-radius" name="email" value="{{ (emailAddress is defined) ? emailAddress : '' }}" placeholder="Email" required/>
+        </div>
+
+        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <input type="tel" class="tel-mask form-control clear-border-radius" name="phoneNumber" placeholder="Mobile Number" maxlength="10" minlength="10"
+                   autocomplete="tel" required />
+        </div>
+
+        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <input type="password" class="form-control clear-border-radius" name="password" id="password" placeholder="Password" minlength="8" maxlength="150"
+                   autocomplete="new-password" required/>
+        </div>
+
+        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12 clear-bottom-margin">
+            <input type="password" class="form-control clear-border-radius" name="passwordConfirm" id="passwordConfirm" data-match="#password" data-match-error="Must match password." placeholder="Confirm Password"
+                   autocomplete="confirm-password" required/>
+            <div class="help-block with-errors"></div>
+        </div>
+
+        {# PASSWORD REQUIREMENTS #}
+        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="text-left">
+                <a class="link-primary" href="#password-rules" data-toggle="modal" data-keyboard="true"><strong>Password Requirements</strong></a>
+            </div>
+        </div><!-- end password constraints modal -->
+
+        {# DO YOU OWN A COMPANY CHECKBOX#}
+        <div class="checkbox col-lg-12 col-md-12 col-sm-12 col-xs-12" data-target="#companyOwnerForm">
+            <label class="text-bold text-center">
+                <input type="checkbox" value="businessOwner" name="businessOwner" class="clickable"/> Do You Own a Business?
+            </label>
+        </div>
+
+        {# COMPANY FORM FIELD THAT DISPLAYS WHEN CHECKBOX IS CHECKED #}
+        <div class="clear-side-padding col-lg-12 col-md-12 col-sm-12 col-xs-12 hidden" id="companyOwnerForm">
+
+            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <input type="text" class="form-control clear-border-radius" name="companyName" placeholder="Company Name"/>
+            </div>
+
+            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <input type="email" class="form-control clear-border-radius" name="companyEmailAddress" placeholder="Company Email" >
+            </div>
+
+            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <input type="tel" class="tel-mask form-control clear-border-radius" name="companyPhoneNumber" placeholder="Company Phone Number"/>
+            </div>
+
+            <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <input type="text" class="form-control clear-border-radius" name="selectAddress" placeholder="Company Address"/>
+            </div>
+
+        </div><!-- end add company form fields -->
+
+        {# SUBMIT BUTTON #}
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="form-group">
+                <input type="submit" class="form-control button-primary push-down-small clear-border-radius" value="Register"/>
+            </div>
+        </div><!-- end registration submit button -->
+
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('userRegistration') }}" />
+
+        <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="panel-footer secondary-background">
+                <div class="text-center">
+                    <p class="text-bold text-center push-down-medium">By clicking Register you agree to the <a class="link-primary" href="#serviceTerms" data-toggle="modal">Terms of Service </a>set out by {{ constant('BUSINESS_NAME', ewebify) }}</p>
+                    <label class="custom-control radio">Already have an account?
+                        <a class="link-primary" href="#login" data-dismiss="modal">Login</a>
+                    </label>
+                </div>
+            </div>
+        </div><!-- ends registration modal footer -->
+
+        <div class="clearfix"></div>
+
+        {% include 'fragments/addressPlaceholder.html.twig' %}
+
+    </form>
+
+{% endblock %}
+

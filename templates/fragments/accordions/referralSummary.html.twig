@@ -1,0 +1,87 @@
+{# Twig template #}
+{% extends 'templates/accordion.html.twig' %}
+{% import 'templates/macros/formFields.html.twig' as fields %}
+
+{#
+|--------------------------------------------------------------------------
+| Referral Participants (Feed Display)
+|--------------------------------------------------------------------------
+|
+| This fragment contains the referral participants for the feed detail display.
+|
+#}
+
+{# base accordion targets #}
+{% block containerId %}referralSummary{% endblock %}
+
+{% block parentId %}referralSummary{% endblock %}
+
+{% block hrefId %}referral-summary{% endblock %}
+
+{% block ariaControlsId %}referral-summary{% endblock %}
+
+{% block panelCollapseId %}referral-summary{% endblock %}
+
+
+{% block headingId %}referralSummaryHeading{% endblock %}
+
+{% block ariaId %}referralSummaryHeading{% endblock %}
+
+
+{# accordion content #}
+{% block header %}
+    {{ 'Referrals'| e }}
+{% endblock %}
+
+
+{% block content %}
+    <div class="view-mode">
+
+        <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+
+            <div class="form-label col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label push-down-xs">
+                {{ fields.label('allReferrals','All Referrals:') }}
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                {# item.referralSummary.total #}
+                {{ fields.input('allReferrals', 0, 'number', null, {'disabled' : true, 'required': true} ) }}
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 push-down-xs"></div>
+
+        </div>
+
+        <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+
+            <div class="form-label col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label push-down-xs">
+                {{ fields.label('last30Days','Last 30 Days:') }}
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                {# item.referralSummary.pastMonth #}
+                {{ fields.input('last30Days', 0, 'number', null, {'disabled' : true, 'required': true} ) }}
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 push-down-xs"></div>
+
+        </div>
+
+        <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+
+            <div class="form-label col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label push-down-xs">
+                {{ fields.label('monthlyAverage','Monthly Average:') }}
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                {# item.referralSummary.monthlyAverage #}
+                {{ fields.input('monthlyAverage', 0, 'number', null, {'disabled' : true, 'required': true} ) }}
+            </div>
+
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 push-down-xs"></div>
+
+        </div>
+
+    </div>
+
+{% endblock %}

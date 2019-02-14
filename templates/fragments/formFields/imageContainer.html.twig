@@ -1,0 +1,8 @@
+{# Twig template #}
+
+<div class="image-container"><!-- TODO: this is a jquery selector - rename safely -->
+    <a href="{% if link is not empty %}{{ link }}{% endif %}">
+        <img src="{% if link is not empty %}{{ link }}{% endif %}" style="max-width: 150px; height: auto;" />
+    </a>
+    <span><i class="fa fa-times-circle" ></i></span>
+</div>

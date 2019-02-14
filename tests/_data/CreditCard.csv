@@ -1,0 +1,6 @@
+id,customerId,cardTypeId,accountNumber,expirationDate,addressId,firstName,lastName,defaultPayMethod
+1,123451234512345,1,4576,1120,4,Lois,Groom,0
+2,543215432112345,2,7869,1017,5,Mariel,Babcock,1
+3,123123123123123,3,3245,0817,3,Kathie,Krebs,1
+4,321321321321321,4,5200,0220,2,David,Stevens,1
+5,123451234512345,3,6644,0519,4,Lois,Groom,1

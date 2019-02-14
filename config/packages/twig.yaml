@@ -1,0 +1,10 @@
+twig:
+    paths: ['%kernel.project_dir%/templates']
+    debug: '%kernel.debug%'
+    strict_variables: '%kernel.debug%'
+    form_themes: ['bootstrap_3_layout.html.twig']
+    globals:
+        ewebify: '@PapaLocal\Data\Ewebify'
+        keys:
+            google:
+                places_api: AIzaSyC34IGgVWs0-Azuxr4VlTCK15_w0R-SIBY

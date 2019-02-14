@@ -1,0 +1,1 @@
+The files in src/Command are Syfmony console commands.

@@ -1,0 +1,43 @@
+{% import 'templates/macros/formFields.html.twig' as fields %}
+
+<form name="addFunds" class="form-group" data-url="billing/transaction/deposit" data-form-type="standard">
+
+    <div class="col-sm-12">
+        {% include 'fragments/alerts/formAlert.html.twig' %}
+    </div>
+
+    <div style="margin-right: 10px;" class="col-xs-12 col-sm-4 push-up-small clear-side-padding">
+
+        <select name="accountId" class="form-control clear-border-radius">
+
+            {% set primaryCard = app.user.getBillingProfile().getPaymentProfile().getDefaultPayProfile() %}
+            <option value="{{ primaryCard.getId() }}">{{ primaryCard.getCardType()  ~ ' ending with ' ~ primaryCard.getCardNumber() }}</option>
+
+            {% if app.user.getBillingProfile().getPaymentProfile().getAllSecondaryPayProfiles() | length > 0 %}
+
+                {% for card in app.user.getBillingProfile().getPaymentProfile().getAllSecondaryPayProfiles() %}
+
+                    <option value="{{ card.id }}">{{ card.getCardType() ~ ' ending with ' ~ card.getCardNumber() }}</option>
+
+                {% endfor %}
+
+            {% endif %}
+
+        </select>
+
+    </div>
+
+    <div style="width: 160px" class="col-xs-6 col-sm-4 clear-side-padding">
+        <div class="input-group">
+            <div class="input-group-addon clear-border-radius">$</div>
+            {{ fields.input('amount', null, 'text', '300', {'required': true}, 'money-usd text-right spacing-inner-xsmall') }}
+            <div class="input-group-addon clear-border-radius">.00</div>
+        </div>
+    </div>
+
+    <div style="width: 88px;" class="col-xs-6 col-sm-4">
+        <input type="submit" value="Add Funds" class="clear-border-radius btn btn-block button-primary" style="width: 88px;"/>
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('addFunds') }}" />
+    </div>
+
+</form>

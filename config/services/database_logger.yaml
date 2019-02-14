@@ -1,0 +1,22 @@
+################################################################
+# Database Logger
+#
+# Service configuration for a database logger that runs in prod.
+# Can be executed in dev by uncommenting the framework.yaml.
+#################################################################
+services:
+    PapaLocal\Core\Logging\LogRepository:
+        class: PapaLocal\Core\Logging\LogRepository
+        parent: PapaLocal\Core\Data\AbstractRepository
+#        arguments:
+#            $dataResourcePool: '@PapaLocal\Core\Data\DataResourcePool'
+        tags: ['papalocal_data.repository']
+
+    PapaLocal\Core\Logging\DatabaseHandler:
+        class: PapaLocal\Core\Logging\DatabaseHandler
+        calls:
+          - [ setRepository, ['@PapaLocal\Core\Logging\LogRepository']]
+          - [ setGuidGenerator, ['@papalocal_core.guid_generator']]
+
+    monolog.handler.database:
+        alias: PapaLocal\Core\Logging\DatabaseHandler

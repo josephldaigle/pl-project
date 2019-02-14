@@ -1,0 +1,18 @@
+{% extends 'templates/paymentMethodCard.html.twig' %}
+
+{% block border %}border: dashed #a7a6a6;{% endblock %}
+
+{% block paymentMethodBody %}
+
+    <div class="col-xs-12 secondary-background">
+
+        <div class="text-center">
+            <div data-toggle="modal" data-target="#addPaymentAccount" class="top-bottom-padding-62px clear-text-decoration secondary-color text-bold clickable">
+                <i class="fa fa-plus-circle fa-lg"></i>
+                <span>{{ 'Add Payment Method' }}</span>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

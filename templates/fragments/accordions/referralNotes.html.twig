@@ -1,0 +1,57 @@
+{% extends 'templates/accordion.html.twig' %}
+{% import 'templates/macros/formFields.html.twig' as fields %}
+
+{# base accordion targets #}
+{% block containerId %}referralNotes{% endblock %}
+
+{% block parentId %}referralNotes{% endblock %}
+
+{% block hrefId %}referral-notes{% endblock %}
+
+{% block ariaControlsId %}referral-notes{% endblock %}
+
+{% block panelCollapseId %}referral-notes{% endblock %}
+
+
+{% block headingId %}rNotes{% endblock %}
+
+{% block ariaId %}rNotes{% endblock %}
+
+{# accordion content #}
+{% block header %}
+    {{ 'Notes'| e }}
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+
+        <form name="referralNote" class="view-mode form-group" data-url="referral/note/update" data-form-type="inline">
+
+            <div class="col-sm-12">
+                {% include 'fragments/alerts/formAlert.html.twig' %}
+            </div>
+
+            <div class="form-label col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label push-down-xs">
+                {{ fields.label('referralNote','Referral Note:') }}
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                {{ fields.textArea('referralNote', item.note, 'Note about referral', {'rows': 5, 'maxlength': 255, 'required': false} ) }}
+            </div>
+
+            {#<div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 push-down-xs">#}
+                {#{% if item.isProvider(app.user.guid.value) %}#}
+                    {#{{ fields.button() }}#}
+                {#{% endif %}#}
+            {#</div>#}
+
+            {#<input type="hidden" name="_csrf_token" value="{{ csrf_token('referralNote') }}" />#}
+            {#<input type="hidden" name="id" value="{{ item.guid.value }}" />#}
+
+        </form>
+
+    </div> <!-- End Note Panel -->
+
+{% endblock %}

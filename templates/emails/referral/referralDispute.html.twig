@@ -1,0 +1,21 @@
+{#
+|--------------------------------------------------------------------------
+| Referral disputed.
+|--------------------------------------------------------------------------
+|
+#}
+
+{% extends 'templates/email.html.twig' %}
+
+{% block emailBody %}
+
+    <div class="row body-row">
+        <div class="col-lg-12">
+            <p>Hi {{ provider.firstName }},</p>
+            <p>
+                {{ recipient.firstName }}&nbsp;{{ recipient.lastName }} has disputed your referral(s).
+            </p>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,56 @@
+{#
+|--------------------------------------------------------------------------
+| Form Alert
+|--------------------------------------------------------------------------
+|
+| Creates an alert container. To be used within a form generally, as this
+| template considers whether validation errors exist in the data.
+|
+| If flash messages have been added to the current request, they are parsed
+| into the alert container.
+#}
+
+
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 clear-side-padding">
+
+    {% set flashMessages = app.flashes %}
+
+    {% if validationErrors is defined and validationErrors is not empty %}
+
+        {# Validation Errors #}
+
+        <div id="alert-container" class="alert alert-danger">
+
+            {% for error in validationErrors %}
+
+                <p>{{ error.message | e }}</p>
+
+            {% endfor %}
+
+        </div>
+
+    {% elseif flashMessages is not empty %}
+
+        {# Flash messages #}
+
+        {% for type, messages in flashMessages %}
+
+            <div id="alert-container" class="alert alert-{{ type }}">
+
+                {% for message in messages %}
+
+                    <p class="text-center">{{ message | e }}</p>
+
+                {% endfor %}
+
+            </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <div id="alert-container" class=""></div>
+
+    {% endif %}
+
+</div>

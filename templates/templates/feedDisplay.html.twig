@@ -1,0 +1,43 @@
+{# Twig template #}
+{% block feedDisplay %}
+
+    <div id="{% block displayId %}{% endblock %}" class="feed-display">
+
+        <div class="panel-heading apply-shadow clear-padding">
+
+            {% block feedHeader %}
+
+            <div class="push-right-small convert-inline-block">
+
+                {% block faIcon %}
+
+                    <img src="{% block icon %}{{ asset('media/papalocal.logo.png')}}{% endblock %}" class="panel-title {% block iconSize %}{{ 'logo-ico' | raw }}{% endblock %}"/>
+
+                {% endblock %}
+
+            </div>
+
+            <div class="contour-inner-small convert-inline-block text-bold">{% block title %}&nbsp;{{ 'title' }}{% endblock %}</div>
+
+            <div class="pull-right convert-inline-block">
+
+                {% block tag %}{% endblock %}
+
+            </div>
+
+            {% endblock %}
+
+        </div>
+        <br>
+
+        <div class="panel-body apply-shadow">
+
+            {% block feedBody %}
+
+            {% endblock %}
+
+        </div>
+
+    </div><!-- feed-card-container -->
+
+{% endblock %}

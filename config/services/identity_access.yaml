@@ -1,0 +1,403 @@
+################################################################
+#
+# Identity & Access
+#
+# Components that make up the Identity and Access module.
+#################################################################
+framework:
+    workflows:
+        user_account:
+            type: 'workflow'
+            audit_trail:
+                enabled: true
+            marking_store:
+                type: 'single_state'
+                arguments:
+                    - 'currentPlace'
+            initial_place: 'Initialized'
+            places:
+                - 'Initialized'
+                - 'Active'
+                - 'Inactive'
+            supports:
+                - PapaLocal\IdentityAccess\Entity\UserAccount
+            transitions:
+                create:
+                    from: 'Initialized'
+                    to: 'Active'
+                activate:
+                    from: 'Inactive'
+                    to: 'Active'
+                deactivate:
+                    from: 'Active'
+                    to: 'Inactive'
+
+services:
+    ## Entity
+    PapaLocal\IdentityAccess\Entity\Factory\UserFactory:
+        class: PapaLocal\IdentityAccess\Entity\Factory\UserFactory
+        arguments:
+            $serializer: '@serializer'
+    papalocal_identity.user_factory:
+        alias: PapaLocal\IdentityAccess\Entity\Factory\UserFactory
+
+    ## ValueObjects
+    PapaLocal\IdentityAccess\ValueObject\UserViewFactory:
+        class: PapaLocal\IdentityAccess\ValueObject\UserViewFactory
+
+    ## Data Layer
+
+    ### MySql Messenger Bus
+    PapaLocal\IdentityAccess\Data\MessageFactory:
+        class: PapaLocal\IdentityAccess\Data\MessageFactory
+
+    #### Commands
+    PapaLocal\IdentityAccess\Data\Command\Company\UpdateCompanyNameHandler:
+        class: PapaLocal\IdentityAccess\Data\Command\Company\UpdateCompanyNameHandler
+        arguments:
+            $tableGateway: '@papalocal_data.adapted_table_gateway'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\IdentityAccess\Data\Command\Company\UpdateCompanyName', bus: 'messenger.bus.mysql' }
+
+    ###### User
+    PapaLocal\IdentityAccess\Data\Command\User\CreateUserHandler:
+        class: PapaLocal\IdentityAccess\Data\Command\User\CreateUserHandler
+        arguments:
+            $tableGateway: '@papalocal_data.adapted_table_gateway'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\IdentityAccess\Data\Command\User\CreateUser', bus: 'messenger.bus.mysql' }
+
+    PapaLocal\IdentityAccess\Data\Command\User\UpdateUsernameHandler:
+        class: PapaLocal\IdentityAccess\Data\Command\User\UpdateUsernameHandler
+        arguments:
+            $tableGateway: '@papalocal_data.adapted_table_gateway'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\IdentityAccess\Data\Command\User\UpdateUsername', bus: 'messenger.bus.mysql' }
+
+    PapaLocal\IdentityAccess\Data\Command\User\UpdateFirstNameHandler:
+        class: PapaLocal\IdentityAccess\Data\Command\User\UpdateFirstNameHandler
+        arguments:
+            $tableGateway: '@papalocal_data.adapted_table_gateway'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\IdentityAccess\Data\Command\User\UpdateFirstName', bus: 'messenger.bus.mysql' }
+
+    PapaLocal\IdentityAccess\Data\Command\User\UpdateLastNameHandler:
+        class: PapaLocal\IdentityAccess\Data\Command\User\UpdateLastNameHandler
+        arguments:
+            $tableGateway: '@papalocal_data.adapted_table_gateway'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\IdentityAccess\Data\Command\User\UpdateLastName', bus: 'messenger.bus.mysql' }
+
+    PapaLocal\IdentityAccess\Data\Command\User\UpdateUserRolesHandler:
+        class: PapaLocal\IdentityAccess\Data\Command\User\UpdateUserRolesHandler
+        arguments:
+            $tableGateway: '@papalocal_data.adapted_table_gateway'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\IdentityAccess\Data\Command\User\UpdateUserRoles', bus: 'messenger.bus.mysql' }
+
+    PapaLocal\IdentityAccess\Data\Command\User\UpdatePasswordHandler:
+        class: PapaLocal\IdentityAccess\Data\Command\User\UpdatePasswordHandler
+        arguments:
+            $tableGateway: '@papalocal_data.adapted_table_gateway'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\IdentityAccess\Data\Command\User\UpdatePassword', bus: 'messenger.bus.mysql' }
+
+    PapaLocal\IdentityAccess\Data\Command\User\UpdatePhoneNumberHandler:
+        class: PapaLocal\IdentityAccess\Data\Command\User\UpdatePhoneNumberHandler
+        arguments:
+            $tableGateway: '@papalocal_data.adapted_table_gateway'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\IdentityAccess\Data\Command\User\UpdatePhoneNumber', bus: 'messenger.bus.mysql' }
+
+    PapaLocal\IdentityAccess\Data\Command\User\UpdateAddressHandler:
+        class: PapaLocal\IdentityAccess\Data\Command\User\UpdateAddressHandler
+        arguments:
+            $tableGateway: '@papalocal_data.adapted_table_gateway'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\IdentityAccess\Data\Command\User\UpdateAddress', bus: 'messenger.bus.mysql' }
+
+    ###### Company
+    PapaLocal\IdentityAccess\Data\Command\Company\SaveCompanyHandler:
+        class: PapaLocal\IdentityAccess\Data\Command\Company\SaveCompanyHandler
+        arguments:
+            $tableGateway: '@papalocal_data.adapted_table_gateway'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\IdentityAccess\Data\Command\Company\SaveCompany', bus: 'messenger.bus.mysql' }
+
+    PapaLocal\IdentityAccess\Data\Command\Company\UpdateCompanyPhoneHandler:
+        class: PapaLocal\IdentityAccess\Data\Command\Company\UpdateCompanyPhoneHandler
+        arguments:
+            $tableGateway: '@papalocal_data.adapted_table_gateway'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\IdentityAccess\Data\Command\Company\UpdateCompanyPhone', bus: 'messenger.bus.mysql' }
+
+    PapaLocal\IdentityAccess\Data\Command\Company\UpdateCompanyEmailHandler:
+        class: PapaLocal\IdentityAccess\Data\Command\Company\UpdateCompanyEmailHandler
+        arguments:
+            $tableGateway: '@papalocal_data.adapted_table_gateway'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\IdentityAccess\Data\Command\Company\UpdateCompanyEmail', bus: 'messenger.bus.mysql' }
+
+    PapaLocal\IdentityAccess\Data\Command\Company\UpdateCompanyAddressHandler:
+        class: PapaLocal\IdentityAccess\Data\Command\Company\UpdateCompanyAddressHandler
+        arguments:
+            $tableGateway: '@papalocal_data.adapted_table_gateway'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\IdentityAccess\Data\Command\Company\UpdateCompanyAddress', bus: 'messenger.bus.mysql' }
+
+    PapaLocal\IdentityAccess\Data\Command\Company\UpdateCompanyWebsiteHandler:
+        class: PapaLocal\IdentityAccess\Data\Command\Company\UpdateCompanyWebsiteHandler
+        arguments:
+            $tableGateway: '@papalocal_data.adapted_table_gateway'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\IdentityAccess\Data\Command\Company\UpdateCompanyWebsite', bus: 'messenger.bus.mysql' }
+
+    #### Queries
+    ###### Company
+    PapaLocal\IdentityAccess\Data\Query\Company\FindByUserGuidHandler:
+        class: PapaLocal\IdentityAccess\Data\Query\Company\FindByUserGuidHandler
+        arguments:
+            $tableGateway: '@papalocal_data.adapted_table_gateway'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\IdentityAccess\Data\Query\Company\FindByUserGuid', bus: 'messenger.bus.mysql' }
+
+    ### Repositories and Hydrators
+    PapaLocal\IdentityAccess\Data\UserContactDetailHydrator:
+        class: PapaLocal\IdentityAccess\Data\UserContactDetailHydrator
+        parent: PapaLocal\Core\Data\AbstractHydrator
+        tags: ['papalocal_data.hydrator']
+
+    PapaLocal\IdentityAccess\Data\UserRepository:
+        class: PapaLocal\IdentityAccess\Data\UserRepository
+        parent: PapaLocal\Core\Data\AbstractRepository
+        arguments:
+            $dataResourcePool: '@PapaLocal\Core\Data\DataResourcePool'
+            $userContactDetailHydrator: '@PapaLocal\IdentityAccess\Data\UserContactDetailHydrator'
+            $mysqlBus: '@messenger.bus.mysql'
+            $mysqlMessageFactory: '@PapaLocal\IdentityAccess\Data\MessageFactory'
+            $userFactory: '@papalocal_identity.user_factory'
+        tags: ['papalocal_data.repository']
+
+    PapaLocal\IdentityAccess\Data\Repository\CompanyRepository:
+        class: PapaLocal\IdentityAccess\Data\Repository\CompanyRepository
+        parent: PapaLocal\Core\Data\AbstractRepository
+        arguments:
+            $dataResourcePool: '@PapaLocal\Core\Data\DataResourcePool'
+            $mysqlBus: '@messenger.bus.mysql'
+            $mysqlMsgFactory: '@PapaLocal\IdentityAccess\Data\MessageFactory'
+            $companyHydrator: '@PapaLocal\Data\Hydrate\Company\CompanyHydrator'
+            $voFactory: '@PapaLocal\Core\Factory\VOFactory'
+            $guidGenerator: '@PapaLocal\Core\ValueObject\GuidGeneratorInterface'
+        tags: ['papalocal_data.repository']
+
+    ## Services
+    PapaLocal\IdentityAccess\Service\UserService:
+        class: PapaLocal\IdentityAccess\Service\UserService
+        arguments:
+            $workflowRegistry: '@Symfony\Component\Workflow\Registry'
+            $userRepository: '@PapaLocal\IdentityAccess\Data\UserRepository'
+            $mysqlMsgFactory: '@PapaLocal\IdentityAccess\Data\MessageFactory'
+            $mysqlBus: '@messenger.bus.mysql'
+            $passwordEncoder: '@security.user_password_encoder.generic'
+
+    PapaLocal\IdentityAccess\Service\UserAccountManager:
+        class: PapaLocal\IdentityAccess\Service\UserAccountManager
+        public: true
+        arguments:
+            $dataResourcePool: '@PapaLocal\Core\Data\DataResourcePool'
+            $userRepository: '@PapaLocal\IdentityAccess\Data\UserRepository'
+            $personRepository: '@PapaLocal\Data\Repository\Person\PersonRepository'
+
+    ### Application Messenger Bus
+
+    PapaLocal\IdentityAccess\Message\MessageFactory:
+        class: PapaLocal\IdentityAccess\Message\MessageFactory
+
+    #### Commands
+    ##### User
+    PapaLocal\IdentityAccess\Message\Command\User\CreateUserAccountHandler:
+        class: PapaLocal\IdentityAccess\Message\Command\User\CreateUserAccountHandler
+        arguments:
+            $userService: '@PapaLocal\IdentityAccess\Service\UserService'
+            $serializer: '@serializer'
+            $guidGenerator: '@PapaLocal\Core\ValueObject\GuidGeneratorInterface'
+            $voFactory: '@PapaLocal\Core\Factory\VOFactory'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\IdentityAccess\Message\Command\User\CreateUserAccount', bus: 'messenger.bus.application' }
+
+    PapaLocal\IdentityAccess\Message\Command\User\UpdatePasswordHandler:
+        class: PapaLocal\IdentityAccess\Message\Command\User\UpdatePasswordHandler
+        arguments:
+            $userService: '@PapaLocal\IdentityAccess\Service\UserService'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\IdentityAccess\Message\Command\User\UpdatePassword', bus: 'messenger.bus.application' }
+
+    PapaLocal\IdentityAccess\Message\Command\User\UpdateFirstNameHandler:
+        class: PapaLocal\IdentityAccess\Message\Command\User\UpdateFirstNameHandler
+        arguments:
+            $messageFactory: '@PapaLocal\IdentityAccess\Data\MessageFactory'
+            $mysqlBus: '@messenger.bus.mysql'
+            $guidFactory: '@PapaLocal\Core\ValueObject\GuidGeneratorInterface'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\IdentityAccess\Message\Command\User\UpdateFirstName', bus: 'messenger.bus.application' }
+
+    PapaLocal\IdentityAccess\Message\Command\User\UpdateLastNameHandler:
+        class: PapaLocal\IdentityAccess\Message\Command\User\UpdateLastNameHandler
+        arguments:
+            $messageFactory: '@PapaLocal\IdentityAccess\Data\MessageFactory'
+            $mysqlBus: '@messenger.bus.mysql'
+            $guidFactory: '@PapaLocal\Core\ValueObject\GuidGeneratorInterface'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\IdentityAccess\Message\Command\User\UpdateLastName', bus: 'messenger.bus.application' }
+
+    PapaLocal\IdentityAccess\Message\Command\User\UpdatePhoneNumberHandler:
+        class: PapaLocal\IdentityAccess\Message\Command\User\UpdatePhoneNumberHandler
+        arguments:
+            $messageFactory: '@PapaLocal\IdentityAccess\Data\MessageFactory'
+            $mysqlBus: '@messenger.bus.mysql'
+            $guidFactory: '@PapaLocal\Core\ValueObject\GuidGeneratorInterface'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\IdentityAccess\Message\Command\User\UpdatePhoneNumber', bus: 'messenger.bus.application' }
+
+    PapaLocal\IdentityAccess\Message\Command\User\UpdateUserAddressHandler:
+        class: PapaLocal\IdentityAccess\Message\Command\User\UpdateUserAddressHandler
+        arguments:
+            $messageFactory: '@PapaLocal\IdentityAccess\Data\MessageFactory'
+            $mysqlBus: '@messenger.bus.mysql'
+            $guidFactory: '@PapaLocal\Core\ValueObject\GuidGeneratorInterface'
+            $serializer: '@serializer'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\IdentityAccess\Message\Command\User\UpdateUserAddress', bus: 'messenger.bus.application' }
+
+    ##### Person
+
+    ##### Company
+    PapaLocal\IdentityAccess\Message\Command\Company\CreateCompanyHandler:
+        class: PapaLocal\IdentityAccess\Message\Command\Company\CreateCompanyHandler
+        arguments:
+            $messageFactory: '@PapaLocal\IdentityAccess\Data\MessageFactory'
+            $mysqlBus: '@messenger.bus.mysql'
+            $guidFactory: '@PapaLocal\Core\ValueObject\GuidGeneratorInterface'
+            $voFactory: '@PapaLocal\Core\Factory\VOFactory'
+            $serializer: '@serializer'
+            $companyRepository: '@PapaLocal\IdentityAccess\Data\Repository\CompanyRepository'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\IdentityAccess\Message\Command\Company\CreateCompany', bus: 'messenger.bus.application' }
+
+    PapaLocal\IdentityAccess\Message\Command\Company\UpdateCompanyNameHandler:
+        class: PapaLocal\IdentityAccess\Message\Command\Company\UpdateCompanyNameHandler
+        arguments:
+            $messageFactory: '@PapaLocal\IdentityAccess\Data\MessageFactory'
+            $mysqlBus: '@messenger.bus.mysql'
+            $guidGenerator: '@PapaLocal\Core\ValueObject\GuidGeneratorInterface'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\IdentityAccess\Message\Command\Company\UpdateCompanyName', bus: 'messenger.bus.application' }
+
+    PapaLocal\IdentityAccess\Message\Command\Company\UpdateCompanyPhoneNumberHandler:
+        class: PapaLocal\IdentityAccess\Message\Command\Company\UpdateCompanyPhoneNumberHandler
+        arguments:
+            $messageFactory: '@PapaLocal\IdentityAccess\Data\MessageFactory'
+            $mysqlBus: '@messenger.bus.mysql'
+            $guidFactory: '@PapaLocal\Core\ValueObject\GuidGeneratorInterface'
+            $voFactory: '@PapaLocal\Core\Factory\VOFactory'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\IdentityAccess\Message\Command\Company\UpdateCompanyPhoneNumber', bus: 'messenger.bus.application' }
+
+    PapaLocal\IdentityAccess\Message\Command\Company\UpdateCompanyEmailAddressHandler:
+        class: PapaLocal\IdentityAccess\Message\Command\Company\UpdateCompanyEmailAddressHandler
+        arguments:
+            $messageFactory: '@PapaLocal\IdentityAccess\Data\MessageFactory'
+            $mysqlBus: '@messenger.bus.mysql'
+            $guidFactory: '@PapaLocal\Core\ValueObject\GuidGeneratorInterface'
+            $voFactory: '@PapaLocal\Core\Factory\VOFactory'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\IdentityAccess\Message\Command\Company\UpdateCompanyEmailAddress', bus: 'messenger.bus.application' }
+
+    PapaLocal\IdentityAccess\Message\Command\Company\UpdateCompanyAddressHandler:
+        class: PapaLocal\IdentityAccess\Message\Command\Company\UpdateCompanyAddressHandler
+        arguments:
+            $messageFactory: '@PapaLocal\IdentityAccess\Data\MessageFactory'
+            $mysqlBus: '@messenger.bus.mysql'
+            $guidFactory: '@PapaLocal\Core\ValueObject\GuidGeneratorInterface'
+            $serializer: '@serializer'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\IdentityAccess\Message\Command\Company\UpdateCompanyAddress', bus: 'messenger.bus.application' }
+
+    PapaLocal\IdentityAccess\Message\Command\Company\UpdateCompanyWebsiteHandler:
+        class: PapaLocal\IdentityAccess\Message\Command\Company\UpdateCompanyWebsiteHandler
+        arguments:
+            $messageFactory: '@PapaLocal\IdentityAccess\Data\MessageFactory'
+            $mysqlBus: '@messenger.bus.mysql'
+            $guidFactory: '@PapaLocal\Core\ValueObject\GuidGeneratorInterface'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\IdentityAccess\Message\Command\Company\UpdateCompanyWebsite', bus: 'messenger.bus.application' }
+
+    #### Queries
+    ##### User
+    PapaLocal\IdentityAccess\Message\Query\User\FindUserByUsernameHandler:
+        class: PapaLocal\IdentityAccess\Message\Query\User\FindUserByUsernameHandler
+        arguments:
+            $userRepository: '@PapaLocal\IdentityAccess\Data\UserRepository'
+            $voFactory: '@PapaLocal\Core\Factory\VOFactory'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\IdentityAccess\Message\Query\User\FindUserByUsername', bus: 'messenger.bus.application' }
+
+    PapaLocal\IdentityAccess\Message\Query\User\FindUserByGuidHandler:
+        class: PapaLocal\IdentityAccess\Message\Query\User\FindUserByGuidHandler
+        arguments:
+            $userRepository: '@PapaLocal\IdentityAccess\Data\UserRepository'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\IdentityAccess\Message\Query\User\FindUserByGuid', bus: 'messenger.bus.application' }
+
+    ##### Person
+
+    ##### Company
+    PapaLocal\IdentityAccess\Message\Query\Company\FindByUserGuidHandler:
+        class: PapaLocal\IdentityAccess\Message\Query\Company\FindByUserGuidHandler
+        arguments:
+            $companyRepository: '@PapaLocal\IdentityAccess\Data\Repository\CompanyRepository'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\IdentityAccess\Message\Query\Company\FindByUserGuid', bus: 'messenger.bus.application' }
+
+    ## Events
+    PapaLocal\IdentityAccess\Event\EventFactory:
+        class: PapaLocal\IdentityAccess\Event\EventFactory
+
+    PapaLocal\IdentityAccess\Event\UserProfileCompiler:
+        class: PapaLocal\IdentityAccess\Event\UserProfileCompiler
+        arguments:
+            $tokenStorage: '@security.token_storage'
+            $serializer: '@serializer'
+            $repositoryRegistry: '@PapaLocal\Core\Data\RepositoryRegistry'
+            $hydratorRegistry: '@PapaLocal\Core\Data\HydratorRegistry'
+        tags:
+          - { name: kernel.event_subscriber }
+
+
+    ## WORKFLOW
+    PapaLocal\IdentityAccess\Workflow\User\CreateGuardSubscriber:
+        class: PapaLocal\IdentityAccess\Workflow\User\CreateGuardSubscriber
+        arguments:
+            $userRepository: '@PapaLocal\IdentityAccess\Data\UserRepository'
+            $voFactory: '@PapaLocal\Core\Factory\VOFactory'
+        tags:
+            - { name: kernel.event_subscriber }
+
+    PapaLocal\IdentityAccess\Workflow\User\CreateTransitionSubscriber:
+        class: PapaLocal\IdentityAccess\Workflow\User\CreateTransitionSubscriber
+        arguments:
+            $mysqlBus: '@messenger.bus.mysql'
+            $mysqlMsgFactory: '@PapaLocal\IdentityAccess\Data\MessageFactory'
+        tags:
+            - { name: kernel.event_subscriber }
+
+    PapaLocal\IdentityAccess\Workflow\User\EnteredActiveSubscriber:
+        class: PapaLocal\IdentityAccess\Workflow\User\EnteredActiveSubscriber
+        arguments:
+            $eventDispatcher: '@event_dispatcher'
+            $iaEventFactory: '@PapaLocal\IdentityAccess\Event\EventFactory'
+            $voFactory: '@PapaLocal\Core\Factory\VOFactory'
+            $notifier: '@PapaLocal\Notification\Notifier'
+            $logger: '@logger'
+        tags:
+            - { name: kernel.event_subscriber }

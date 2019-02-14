@@ -1,0 +1,95 @@
+{# Twig template #}
+{% extends 'templates/user.html.twig' %}
+
+
+{#
+|--------------------------------------------------------------------------
+| Billing
+|--------------------------------------------------------------------------
+|
+|
+|
+#}
+{% block body %}
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+
+
+    <div class="col-sm-6 col-xs-12">
+        <div style="max-width: 530px; background-color: #fff;" class="center-block apply-shadow push-down-large">
+            <div class="container-fluid">
+
+                <div class="row">
+                    <div class="col-xs-12 text-center primary-background contour-inner-small">
+                        <span style="font-size: 25px;" class="text-bold third-color">Ads</span>
+                    </div>
+
+                    <div class="col-xs-12 contour-outer-small">
+                        <div class="form-group">
+                            <div class="col-xs-6">
+                                <label for="ads">Organic Peachtree City:</label>
+                            </div>
+
+                            <div class="col-xs-6 text-right">
+                                <input id="ads" type="checkbox" data-toggle="toggle" data-on="Enabled" data-off="Disabled">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 contour-outer-small">
+                        <div class="form-group">
+                            <div class="col-xs-6">
+                                <label for="ads">Organic Peachtree City:</label>
+                            </div>
+
+                            <div class="col-xs-6 text-right">
+                                <input id="ads" type="checkbox" data-toggle="toggle" data-on="Enabled" data-off="Disabled">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="col-sm-6 col-xs-12">
+        <div style="max-width: 530px; background-color: #fff;" class="center-block apply-shadow push-down-large">
+            <div class="container-fluid">
+
+                <div class="row">
+                    <div class="col-xs-12 text-center primary-background contour-inner-small">
+                        <span style="font-size: 25px;" class="text-bold third-color">Calls</span>
+                    </div>
+
+                    <div class="col-xs-12 contour-outer-small">
+                        <div class="form-group">
+                            <div class="col-xs-6">
+                                <label for="calls">Organic Peachtree City:</label>
+                            </div>
+
+                            <div class="col-xs-6 text-right">
+                                <input id="calls" type="checkbox" data-toggle="toggle" data-on="Enabled" data-off="Disabled">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <script>
+        $(function() {
+            $('#toggle-two').bootstrapToggle({
+                on: 'Enabled',
+                off: 'Disabled'
+            });
+        })
+    </script>
+
+{% endblock %}

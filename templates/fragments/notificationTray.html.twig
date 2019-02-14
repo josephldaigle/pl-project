@@ -1,0 +1,73 @@
+{#
+    Template for notifications.
+#}
+
+{% if notificationList is defined and notificationList.count > 0 %}
+
+    {# standard Notification #}
+    {% for notification in notificationList.all %}
+
+        {% if notification.associateItemGuid is defined and notification.associateItemGuid is not null
+            and notification.associateItemType is defined and notification.associateItemType is not null %}
+
+            {# Associate feed item is present, so display a feed item form #}
+            <li class="apply-border">
+                <form name="feedFilter" method="POST" action="{{ path('feed') }}" data-form-type="standard">
+
+                    <a href="#" class="notification-card convert-block third-background clear-text-decoration {{ notification.isRead ? 'is-read' : '' }}" data-notification-guid="{{ notification.guid.value }}" data-csrf="{{ csrf_token('markNotificationRead') }}" >
+
+                        <div class="panel-body">
+                            <div style="font-size: 12px; white-space: normal; overflow-x: hidden" class="secondary-color text-bold">{{ notification.title }}</div>
+                            <div style="color: #b3b3b3; font-size: 12px;"><i class="fa fa-calendar"></i>&nbsp;{{ notification.timeSent }}</div>
+                        </div>
+
+                        <input type="hidden" name="types[]" value="{{ (notification.associateItemType is empty) ? 'notification' : notification.associateItemType }}" />
+                        <input type="hidden" name="startDate" value="01/01/2015" />
+                        <input type="hidden" name="endDate" value="{{ date().format('Y-m-d') }}" />
+                        <input type="hidden" name="sortOrder" value="{{ 'NEWEST_FIRST' }}" />
+                        <input type="hidden" name="id" value="{{ (notification.associateItemGuid is empty) ?  notification.guid.value : notification.associateItemGuid }}" />
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('feed') }}" />
+                    </a>
+                </form>
+
+            </li>
+
+        {% else %}
+
+            {# no associate feed item is present, so output a feed filter form for all notifications #}
+            <li class="apply-border">
+                <form name="loadNotificationsInFeed" action="{{ path('feed') }}" method="POST" data-form-type="standard">
+                    <a href="#" class="notification-card convert-block third-background clear-text-decoration {{ notification.isRead ? 'is-read' : '' }}" data-notification-guid="{{ notification.guid.value }}" data-csrf="{{ csrf_token('markNotificationRead') }}" >
+                        <div class="panel-body">
+                            <div style="font-size: 12px; white-space: normal; overflow-x: hidden" class="secondary-color text-bold">{{ notification.title }}</div>
+                            <div style="color: #b3b3b3; font-size: 12px;"><i class="fa fa-calendar"></i>&nbsp;{{ notification.timeSent }}</div>
+                        </div>
+
+                        <input type="hidden" name="types[]" value="notification" />
+                        <input type="hidden" name="startDate" value="01/01/2015" />
+                        <input type="hidden" name="endDate" value="{{ date().format('Y-m-d') }}" />
+                        <input type="hidden" name="sortOrder" value="{{ 'NEWEST_FIRST' }}" />
+                        <input type="hidden" name="id" value="{{ notification.guid.value }}" />
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('feed') }}" />
+                    </a>
+                </form>
+            </li>
+
+        {% endif %}
+
+        {# output last scroll row #}
+        {% if loop.last %}
+
+            {% if nextItem > 0 %}
+                <li class="apply-border"><a href="#" style="cursor:initial" data-index="{{ nextItem }}" data-csrf="{{ csrf_token('notificationTray') }}">Scroll to load more ...</a></li>
+            {% else %}
+                <li class="apply-border"><a href="#" style="cursor:initial" data-index="{{ nextItem }}" data-csrf="{{ csrf_token('notificationTray') }}">No more notification available.</a></li>
+            {% endif %}
+
+        {% endif %}
+
+    {% endfor %}
+
+{% else %}
+    <li class="apply-border"><a href="#" style="cursor:initial" data-index="{{ nextItem }}" data-csrf="{{ csrf_token('notificationTray') }}">No more notification available.</a></li>
+{% endif %}

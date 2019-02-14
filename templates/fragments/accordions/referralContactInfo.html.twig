@@ -1,0 +1,65 @@
+{# Twig template #}
+{% extends 'templates/accordion.html.twig' %}
+{% import 'templates/macros/formFields.html.twig' as fields %}
+
+{# base accordion targets #}
+{% block containerId %}referralContactInfo{% endblock %}
+
+{% block parentId %}referralContactInfo{% endblock %}
+
+{% block hrefId %}referral-contact-info{% endblock %}
+
+{% block ariaControlsId %}referral-contact-info{% endblock %}
+
+{% block panelCollapseId %}referral-contact-info{% endblock %}
+
+
+{% block headingId %}contactInfo{% endblock %}
+
+{% block ariaId %}contactInfo{% endblock %}
+
+{% block collapseIn %}in{% endblock %}
+
+{# accordion content #}
+{% block header %}
+    {{ 'Referral'| e }}
+{% endblock %}
+
+
+{% block content %}
+
+<div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-xs-1">
+                <div id="account-icon" class="dropdown-toggle clear-background clear-border clear-text-decoration">
+                    <img src="{{ asset('media/profile-icon-blue.png') }}" class="custom-size-ico"/>
+                </div>
+            </div>
+
+            <div class="col-xs-11">
+                <div class="row">
+                    <div class="col-xs-8">
+                        <div class="text-bold secondary-color">{{ item.refereeName }}</div>
+                    </div>
+                </div>
+
+                <div class="row push-down-small">
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="text-bold">Email: </div>
+                        <span class="small-font">{{ item.emailAddress }}</span>
+                    </div>
+
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="text-bold">Cell #: </div>
+                        <span class="tel-mask small-font">{{ item.phoneNumber }}</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div> <!-- Referral Participants -->
+
+{% endblock %}

@@ -1,0 +1,516 @@
+#notification-counter {
+    position: absolute;
+    margin-top: -6px;
+    margin-left: -1px;
+}
+
+.service-terms-body {
+    position: absolute;
+    bottom: 50px;
+    top: 85px;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+}
+
+.page-body {
+    position: absolute;
+    bottom: 50px;
+    top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+}
+
+.feed-body {
+    bottom: 20px;
+    top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+}
+
+.account-profile-body {
+    overflow: hidden;
+    position: absolute;
+    bottom: 20px;
+    top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+}
+
+/*
+ |---------------------------------------------
+ | Elements positioning
+ |---------------------------------------------
+ */
+.set-absolute {
+    position: absolute;
+}
+
+.pull-down-large{
+    margin-top: 20px;
+}
+
+.push-up-small{
+    margin-bottom: 10px;
+}
+
+.push-up-medium{
+    margin-bottom: 15px;
+}
+
+.push-up-large{
+    margin-bottom: 20px;
+}
+
+.push-up-3x{
+    margin-bottom: 50px;
+}
+
+.push-down-xs {
+    margin-top: 5px;
+}
+
+.push-down-small {
+    margin-top: 10px;
+}
+
+.push-down-medium {
+    margin-top: 15px;
+}
+
+.push-down-large {
+    margin-top: 25px;
+}
+
+.push-right-small {
+    margin-left: 10px;
+}
+
+.push-right-medium {
+    margin-left: 15px;
+}
+
+.push-right-large {
+    margin-left: 25px;
+}
+
+.push-right-xLarge {
+    margin-left: 40px;
+}
+
+.push-left-small {
+    margin-right: 10px;
+}
+
+.push-left-medium {
+    margin-right: 15px;
+}
+
+.force-center {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.sticky-left {
+    left: 0;
+    right: auto;
+}
+
+.sticky-right {
+    left: auto;
+    right: 0;
+}
+
+.align-middle {
+    vertical-align: middle;
+}
+
+/*
+ |---------------------------------------------
+ | Elements spacing
+ |---------------------------------------------
+ */
+.spacing-vertical-small {
+    padding: 10px 5px;
+}
+
+.spacing-inner-xsmall {
+    padding: 0 5px;
+}
+
+.spacing-inner-small {
+    padding: 0 10px;
+}
+
+.spacing-inner-medium {
+    padding: 0 15px;
+}
+
+.spacing-inner-large {
+    padding: 0 20px;
+}
+
+.spacing-inner-xlarge {
+    padding: 0 25px;
+}
+
+.spacing-outer-xsmall {
+    margin: 0 5px;
+}
+
+.spacing-outer-small {
+    margin: 0 10px;
+}
+
+.contour-inner-xsmall{
+    padding:5px;
+}
+
+.contour-inner-small {
+    padding: 10px;
+}
+
+.contour-inner-medium{
+    padding: 15px;
+}
+
+.contour-inner-large {
+    padding: 20px;
+}
+
+.contour-inner-xLarge {
+    padding: 25px;
+}
+
+.contour-inner-2x {
+    padding: 30px;
+}
+
+.contour-inner-8x {
+    padding: 60px;
+}
+
+.contour-outer-small{
+    margin: 10px;
+}
+
+.contour-outer-2x {
+    margin: 30px;
+}
+
+.top-bottom-padding-62px {
+    padding: 62px 0;
+}
+
+.top-bottom-padding-25px {
+    padding: 25px 0;
+}
+
+.side-padding-35px {
+    padding: 0 35px;
+}
+
+.clear-side-padding {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.clear-left-padding {
+    padding-left: 0;
+}
+
+.clear-right-padding {
+    padding-right: 0;
+}
+
+.clear-top-padding {
+    padding-top: 0;
+}
+
+.clear-bottom-padding {
+    padding-bottom: 0;
+}
+
+.clear-top-bottom-padding {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.clear-padding {
+    padding: 0;
+}
+
+.clear-side-margin {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.clear-top-margin {
+    margin-top: 0;
+}
+
+.clear-bottom-margin {
+    margin-bottom: 0;
+}
+
+.clear-margin {
+    margin: 0;
+}
+
+
+
+/*
+ |---------------------------------------------
+ | User Header
+ |---------------------------------------------
+ */
+/* Public and user header logo */
+.navbar-brand {
+
+    /*right:auto;*/
+    /*left:0;*/
+    padding: 5px;
+}
+
+/* Companies filter dropdown menu */
+.search-company>div.dropdown-menu {
+    right: auto;
+    left: -58px;
+    padding-bottom: 0;
+    color: #fff;
+}
+
+/* User profile and notification menu dropdowns > caret */
+.user-profile.dropdown-menu:after,
+.notification-tray.dropdown-menu:after{
+    position: absolute;
+    top: -6px;
+    left: auto;
+}
+
+/* User profile menu dropdowns > caret */
+.user-profile.dropdown-menu:after {
+    right: 25px;
+}
+
+/* Notifications menu dropdowns > caret */
+.notification-tray.dropdown-menu:after {
+    right: 55px;
+}
+
+/* User header > User profile and notifications menu dropdowns*/
+.navbar-nav .open .dropdown-menu{
+    position: absolute;
+    left: auto;
+    right: 5px;
+    margin-top: -9px;
+}
+
+/* User header > Companies filter button > caret */
+.bs-caret>span.caret {
+    left: 120px;
+}
+
+/* User header > Companies filter button caret */
+.bootstrap-select.btn-group .dropdown-toggle .caret {
+    position: absolute;
+    left: -6px;
+    display:none;
+}
+
+/*
+ |---------------------------------------------
+ | Modals
+ |---------------------------------------------
+*/
+/* Resize addMenu backdrop to fit in between the header and footer */
+#addMenu.in ~ .modal-backdrop.in {
+    top: 50px;
+    bottom: 47px;
+}
+
+/* Center addMenu icons */
+ul.list-inline.text-center {
+    margin-left: 15px;
+}
+
+.dropdown-menu.open {
+    left:unset;
+    right:0;
+}
+
+/*
+ |---------------------------------------------
+ | Feeds
+ |---------------------------------------------
+ */
+/* Feed cards container */
+.feed-card-container,
+.feed-display, .payment-card-container {
+    margin-bottom: 15px;
+}
+
+/*---------------------------------------------------------------------------------*/
+
+/*
+ |---------------------------------------------
+ | Forms
+ |---------------------------------------------
+ */
+.btn-form {
+    margin-top: 15px; /** TODO: replace with push down on all modal forms **/
+}
+
+/*
+ |---------------------------------------------
+ | Registration Form
+ |---------------------------------------------
+ */
+#register>.modal-dialog>.modal-content>.modal-body>.row>.panel-group {
+    margin: 0 15px; /** TODO: replace with item-spacing on registration form**/
+    padding: 15px; /** TODO: replace with contour inner on registration form**/
+}
+
+
+/*
+ |---------------------------------------------
+ | accordions
+ |---------------------------------------------
+*/
+.caret-up-down {
+    margin-top: -9px;
+}
+
+.panel-group .panel-heading {
+    padding: 0;
+}
+
+.panel-heading>.panel-title>a {
+    padding: 10px;
+}
+
+
+/*
+ |---------------------------------------------
+ | Feeds - Call card
+ |---------------------------------------------
+*/
+#call-card-footer {
+    padding: 0;
+}
+
+#call-card-footer>.container-fluid>.row>.col-xs-4 {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+#call-card-footer>.container-fluid>.row>.col-xs-4>a {
+    padding: 10px 5px 0;
+}
+
+
+#call-card-footer>.container-fluid>.row>.col-xs-4>a>p {
+    margin-bottom: 0;
+}
+
+/*
+ |---------------------------------------------
+ | Feeds - Project Card
+ |---------------------------------------------
+*/
+#hc-card-table>tbody>tr>td:first-child {
+    font-weight: bold;
+}
+
+/*
+ |---------------------------------------------
+ | Feeds - Outbound Referral Card
+ |---------------------------------------------
+*/
+#outbound-referral-card-footer>.container-fluid>.row>.col-xs-6>a>p {
+    margin-bottom: 0;
+}
+
+/*
+ |---------------------------------------------
+ | Feed Filter
+ |---------------------------------------------
+*/
+.feed-filter-container>.panel>.panel-heading>.container-fluid>.row>div {
+    padding: 0;
+}
+
+.feed-filter-container>.panel>.panel-heading>.container-fluid>.row>div>a {
+    padding: 10px;
+}
+
+.feed-filter-container>.panel>.panel-body {
+    padding: 0;
+}
+
+.feed-filter-container>.panel>.panel-heading>.container-fluid>.row>div>a {
+    padding: 5px;
+}
+
+/*
+ |---------------------------------------------
+ | Table Spacing
+ |---------------------------------------------
+ */
+#call-card-table>tbody>tr>td,
+#hc-card-table>tbody>tr>td {
+    padding: 1px 6px;
+}
+
+/*
+ |---------------------------------------------
+ | Media - font awesome
+ |---------------------------------------------
+ */
+.fa.fa-btn-validation {
+    margin-top: 12px;
+}
+
+/*
+ |---------------------------------------------
+ | Media - custom icons
+ |---------------------------------------------
+ */
+#spinner {
+    margin-top: 20%;
+}
+
+
+/*
+|----------------------------------------------
+| On page alert
+|----------------------------------------------
+ */
+
+.alert-notification {
+    z-index:9999;
+    border-radius:0;
+    position:absolute;
+    width:100%;
+}
+/*
+  |---------------------------------------------
+  | Billing
+  |---------------------------------------------
+  */
+/* Payment method container and table */
+
+.radio-billing-button{
+    width: 50px;
+    text-align: center;
+}
+
+

@@ -1,0 +1,24 @@
+<div id="transactionPanel" role="tabpanel" class="apply-border clear-top-bottom-border tab-pane contour-inner-small secondary-background" >
+
+    {% if app.user.getBillingProfile().getPastYearTransactionSummary() is null
+           or app.user.getBillingProfile().getPastYearTransactionSummary().count() == 0 %}
+
+        {{ 'Your account does not have transactions recorded.' }}
+
+    {% else %}
+
+        {# iterate over each monthly summary #}
+        {% for summary in app.user.getBillingProfile().getPastYearTransactionSummary().sortByDate().all() %}
+
+            {% set rowDate = date(summary.getDate() | slice(0, 4) ~ '-' ~ summary.getDate() | slice(4, 6) ~ '-01' ~ ' 00:00:00') %}
+
+            {# Only display accordions for periods where the user was registered, not before. #}
+            {% if (date(app.user.timeCreated) >= rowDate) and (date(app.user.timeCreated) | date('Y-m-d') <= rowDate | date('Y-m-t')) %}
+
+            {% include 'fragments/billing/monthlyTransaction.html.twig' %}
+
+            {% endif %}
+        {% endfor %}
+
+    {% endif %}
+</div>

@@ -1,0 +1,111 @@
+{# Twig template #}
+{% extends 'templates/accordion.html.twig' %}
+{% import 'templates/macros/formFields.html.twig' as fields %}
+
+{# base accordion targets #}
+{% block containerId %}accordion{% endblock %}
+
+{% block parentId %}accordion{% endblock %}
+
+{% block hrefId %}account-details{% endblock %}
+
+{% block ariaControlsId %}account-details{% endblock %}
+
+{% block panelCollapseId %}account-details{% endblock %}
+
+{% block headingId %}userAccountPanel{% endblock %}
+
+{% block ariaId %}userAccountPanel{% endblock %}
+
+{% block collapseIn %}in{% endblock %} {# collapse in block to open first accordion on page load #}
+
+{# accordion content #}
+{% block header %}{{ 'Account Details'| e }}{% endblock %}
+
+{% block caret %}<i class="caret-up-down fa fa-2x fa-caret-down"></i>{% endblock %}
+
+{% block content %}
+
+    <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+
+        <form name="accountProfileUsername" class="view-mode form-group" data-url="user/username/update" data-form-type="inline">
+
+            <div class="col-sm-12">
+                {% include 'fragments/alerts/formAlert.html.twig' %}
+            </div>
+
+            <div class="form-label col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label push-down-xs">
+                {{ fields.label('username','Username:') }}
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                {{ fields.input('username', app.user.getUsername() , 'email', null, {'disabled': true, 'required': true} ) }}
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 push-down-xs">
+                {{ fields.button() }}
+            </div>
+
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('accountProfileUsername') }}" />
+
+        </form>
+    </div><!-- end user email panel -->
+
+    {% if is_granted('ROLE_ADMIN') %}
+    <div class="apply-border apply-custom-overflow contour-inner-large clear-side-padding">
+        <form name="accountProfileStatus" class="view-mode form-group" data-url="" data-form-type="inline">
+
+            <div class="col-sm-12">
+                {% include 'fragments/alerts/formAlert.html.twig' %}
+            </div>
+
+            <div class="form-label col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label push-down-xs">
+                {{ fields.label('userAccountStatus','Status:') }}
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+
+                {% set accStatus =  app.user.isActive ? "Active": "Inactive" %}
+                {{ fields.input('userAccountStatus', accStatus, 'text', 'Account Status', {'required': true, 'disabled':true} ) }}
+
+            </div>
+
+                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 push-down-xs">
+                    {#{{ fields.button() }}#}
+                </div>
+
+
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('accountProfileStatus') }}" />
+
+        </form>
+    </div><!-- end user status panel -->
+    {% endif %}
+
+    <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+        <form name="accountProfilePassword" class="view-mode form-group" data-url="user/password/update" data-form-type="inline">
+
+            <div class="col-xs-12">
+                {% include 'fragments/alerts/formAlert.html.twig' %}
+            </div>
+
+            <div class="form-label col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label push-down-xs">
+                    {{ fields.label('password','Password:') }}
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 clear-side-padding">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    {{ fields.input('password', '', 'password', 'Enter New Password', {'required': true, 'disabled':true} ) }}
+                </div>
+                &nbsp;
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 push-up-large">
+                    {{ fields.input('confirmPassword', '', 'password', 'Confirm New Password', {'required': true, 'disabled': true} ) }}
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 push-down-xs">
+                {{ fields.button() }}
+            </div>
+
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('accountProfilePassword') }}" />
+
+        </form>
+    </div><!-- end user currency panel -->
+
+
+{% endblock %}
+

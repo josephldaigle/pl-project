@@ -1,0 +1,31 @@
+{#
+|--------------------------------------------------------------------------
+| Invitation to participate in a referral agreement.
+|--------------------------------------------------------------------------
+|
+#}
+
+{% extends 'templates/email.html.twig' %}
+
+{% block emailBody %}
+
+    <div class="row body-row">
+        <div class="col-lg-12">
+            <p>Greetings,</p>
+            <p>
+                An agreement you are participating in was recently updated.
+            </p>
+            <p></p>
+
+            <p>If you did not initiate this change to your account, please <a href="mailto:{{ constant('CUST_SUPP_EMAIL', ewebify) }}">notify us</a> immediately.</p>
+
+            <p>Thank you,</p>
+            <p>The PapaLocal Team
+                <br/>
+                <a href="tel:{{ constant('CUST_SUPP_PHONE', ewebify) }}">{{ constant('CUST_SUPP_PHONE', ewebify) }}</a>
+            </p>
+
+        </div>
+    </div>
+
+{% endblock %}

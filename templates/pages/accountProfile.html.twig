@@ -1,0 +1,76 @@
+{% extends 'templates/user.html.twig' %}
+
+{#
+|--------------------------------------------------------------------------
+| Feeds Layout: Layout for displaying feed items and details
+|--------------------------------------------------------------------------
+|
+| The empty columns are used in order to center the feeds-container
+|
+#}
+
+{% block body %}
+
+    <div class="col-lg-8 col-md-10 col-sm-10 col-xs-12 clear-side-padding page-body">
+        <div class="container-fluid clear-side-padding account-profile-body">
+
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation"  class="active fourth-background"><a style="padding: 10px 5px;" role="tab" class="clear-border-radius" data-toggle="tab" href="#companyPanel">Company</a></li>
+                <li role="presentation"  class="fourth-background"><a style="padding: 10px 5px;" role="tab" class="clear-border-radius spacing-vertical-small" data-toggle="tab" href="#userPanel">Profile</a></li>
+                <li role="presentation"  class="fourth-background"><a style="padding: 10px 5px;" role="tab" class="clear-border-radius spacing-vertical-small" data-toggle="tab" href="#paymentPanel">Payments</a></li>
+                <li role="presentation"  class="fourth-background"><a style="padding: 10px 5px;" role="tab" class="clear-border-radius spacing-vertical-small" data-toggle="tab" href="#transactionPanel">Transactions</a></li>
+            </ul>
+
+            <div id="account-profile" class="tab-content apply-auto-overflow scrollable-layout push-up-large">
+
+                {% include 'fragments/tabs/companyTab.html.twig' %}
+                {% include 'fragments/tabs/userTab.html.twig' %}
+                {% include 'fragments/tabs/paymentTab.html.twig' %}
+                {% include 'fragments/tabs/transactionsTab.html.twig' %}
+
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block footerResources %}
+    {{ parent() }}
+
+    <script type="text/javascript" async defer>
+        try {
+            let placesApiUrl = "//maps.googleapis.com/maps/api/js?key={{ keys.google.places_api | raw }}&libraries=places";
+
+            require(["/js/lib/modules/app.js", '/js/lib/modules/account-profile.js', placesApiUrl], function(PAPALOCAL, profile, placesApi) {
+                $(document).ready(function() {
+                    // handle checkbox changes to 'accept service terms'
+                    $('form[name="addBankAccount"]').find('input[name="terms"]').on('click', profile.checkTermsBox);
+
+                    // handle generating token for form submission
+                    $('form[name="addBankAccount"]').on('filterData', profile.createToken);
+
+                });
+
+                require([ '/js/lib/modules/address-autocomplete.js'], function(address) {
+                    $(document).ready(function() {
+
+                        // initialize address fields
+                        address.addressManager.configureAddressLookups();
+
+                        // bind address fields to input elements
+                        address.addressManager.bindInputsToApi();
+
+                        // attach change event handler to address lookups
+                        address.addressManager.attachKeyUpHandlerToInputs();
+                    });
+                });
+
+            });
+        } catch (error) {
+            console.log(error);
+        }
+
+    </script>
+
+{% endblock %}

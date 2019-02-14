@@ -1,0 +1,39 @@
+{% extends 'templates/feedDisplay.html.twig' %}
+{% import 'templates/macros/feedMacros.html.twig' as feedHelper %}
+
+{% block displayId %}{{ item.guid.value }}{% endblock %}
+
+{% block faIcon %}
+    {{ feedHelper.fetchCardIcon(item) }}
+{% endblock %}
+
+{% block title %}{{ item.title }}{% endblock %}
+
+{% block tag %}
+    {% if item.isProvider(app.user.guid.value) %}
+        <img src="{{ asset('media/outbound-referral.png') }}" style="width:46px; height:40px;"/>
+    {% else %}
+        <img src="{{ asset('media/inbound-referral.png') }}" style="width:46px; height:40px;"/>
+    {% endif %}
+{% endblock %}
+
+{% block feedBody %}
+
+    <div class="referral-dispute {{ (item.score is defined and item.score is not empty) ? '' : 'hide' }}">
+        {{ feedHelper.loadDisputeAlert(item) }}
+    </div>
+
+
+    {% if not item.isProvider(app.user.guid.value) %}
+        {% include 'fragments/accordions/referralScore.html.twig' %}
+    {% endif %}
+
+    {% if item.isProvider(app.user.guid.value) and (item.score is defined and item.score is not empty) %}
+        {% include 'fragments/accordions/referralScore.html.twig' %}
+    {% endif %}
+
+    {% include 'fragments/accordions/referralContactInfo.html.twig' %}
+    {% include 'fragments/accordions/referralDetails.html.twig' %}
+    {#{% include 'fragments/accordions/referralNotes.html.twig' %}#}
+
+{% endblock %}

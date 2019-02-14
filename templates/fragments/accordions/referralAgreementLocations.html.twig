@@ -1,0 +1,166 @@
+{# Twig template #}
+{% extends 'templates/accordion.html.twig' %}
+{% import 'templates/macros/formFields.html.twig' as fields %}
+
+{#
+|--------------------------------------------------------------------------
+| Referral Agreement Locations
+|--------------------------------------------------------------------------
+|
+| This file defines the accordion where a user can update referral agreement locations in the feed.
+|
+#}
+
+{# base accordion targets #}
+{% block containerId %}agreementCardLocations{% endblock %}
+
+{% block parentId %}agreementCardLocations{% endblock %}
+
+{% block hrefId %}agreement-card-locations{% endblock %}
+
+{% block ariaControlsId %}agreement-card-locations{% endblock %}
+
+{% block panelCollapseId %}agreement-card-locations{% endblock %}
+
+{% block headingId %}cardLocation{% endblock %}
+
+{% block ariaId %}cardLocation{% endblock %}
+
+{% block collapseIn %}in{% endblock %}
+
+{# accordion content #}
+{% block header %}
+    {{ 'Locations'| e }}
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+
+        <form name="updateReferralAgreementLocation" class="view-mode form-group" data-url="agreement/referral/location/include/update" data-form-type="inline">
+
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                <div class="col-xs-12">
+                    {% include 'fragments/alerts/formAlert.html.twig' %}
+                </div>
+
+                <div class="form-label col-lg-4 col-md-4 col-sm-4 col-xs-12 control-label push-down-xs" >
+                    {{ fields.label('includeLocation','Included:') }}
+                </div>
+
+                {# PRIMARY INPUT #}
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-10">
+                    {{ fields.input('includeLocation[]', null, 'text', 'Add a location', {'disabled': true}, 'collection-input primary-collection-input') }}
+                </div>
+
+                {# ADD BUTTON #}
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <i class="fa fa-2x fa-plus-circle collection-input-add-btn clickable hidden"></i>
+                </div>
+            </div>
+
+            {# Form Edit/Cancel Buttons #}
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 push-down-xs">
+                {#{% if item.isOwner(app.user.guid.value) %}#}
+                    {#{{ fields.button() }}#}
+                {#{% endif %}#}
+            </div>
+
+            {# Output list of locations #}
+            <div class="collection-input-table-display">
+
+                {% for location in item.getIncludedLocations.all %}
+
+                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 collection-input-row push-down-xs">
+
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
+
+                        {# INPUT LABEL #}
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-10">
+                            {{ fields.input('includeLocation[]', location.location, 'text', null, {'disabled': true}, 'collection-input') }}
+                        </div>
+
+                        {# REMOVE BUTTON #}
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                            <i class="fa fa-2x fa-times-circle clickable collection-input-del-btn hidden"></i>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 push-down-xs"></div>
+
+                {% endfor %}
+
+            </div>
+
+            {# CSRF Token #}
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('updateReferralAgreementLocation') }}" />
+            <input type="hidden" name="agreementGuid" value="{{ item.guid.value }}" />
+
+        </form>
+
+    </div> <!-- End Referral Agreement Included Locations -->
+
+    <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+
+        <form name="updateReferralAgreementLocation" class="view-mode form-group" data-url="agreement/referral/location/exclude/update" data-form-type="inline">
+
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                <div class="col-xs-12">
+                    {% include 'fragments/alerts/formAlert.html.twig' %}
+                </div>
+
+                <div class="form-label col-lg-4 col-md-4 col-sm-4 col-xs-12 control-label push-down-xs" >
+                    {{ fields.label('excludeLocation','Excluded:') }}
+                </div>
+
+                {# PRIMARY INPUT #}
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-10">
+                    {{ fields.input('excludeLocation[]', null, 'text', 'Add a location', {'disabled': true}, 'collection-input primary-collection-input') }}
+                </div>
+
+                {# ADD BUTTON #}
+                <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                    <i class="fa fa-2x fa-plus-circle collection-input-add-btn clickable hidden"></i>
+                </div>
+            </div>
+
+            {# Form Edit/Cancel Buttons #}
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 push-down-xs">
+                {#{% if item.isOwner(app.user.guid.value) %}#}
+                    {#{{ fields.button() }}#}
+                {#{% endif %}#}
+            </div>
+
+            {# Output list of locations #}
+            <div class="collection-input-table-display">
+
+                {% for location in item.getExcludedLocations.all %}
+
+                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 collection-input-row push-down-xs">
+                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12"></div>
+
+                        {# INPUT LABEL #}
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-10">
+                            {{ fields.input('excludeLocation[]', location.location, 'text', null, {'disabled': true}, 'collection-input') }}
+                        </div>
+
+                        {# REMOVE BUTTON #}
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                            <i class="fa fa-2x fa-times-circle clickable collection-input-del-btn hidden"></i>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 push-down-xs"></div>
+
+                {% endfor %}
+
+            </div>
+
+            {# CSRF Token #}
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('updateReferralAgreementLocation') }}" />
+            <input type="hidden" name="agreementGuid" value="{{ item.guid.value }}" />
+
+        </form>
+
+    </div> <!-- End Referral Agreement Excluded Locations -->
+
+{% endblock %}

@@ -1,0 +1,56 @@
+{% import 'templates/macros/formFields.html.twig' as fields %}
+
+<form name="withdrawFunds" class="form-group clear-bottom-margin" data-url="billing/transaction/withdraw" data-form-type="standard">
+
+    <div class="col-sm-12 push-down-small">
+        {% include 'fragments/alerts/formAlert.html.twig' %}
+    </div>
+
+    <div class="row apply-border contour-inner-medium">
+        <p>Funds withdrawals are not immediate, and required that we physically contact you, and mail you a check. Please ensure that you have a phone number saved in your profile, so that we are able to get in touch.</p>
+        <p>Withdrawals are not immediate, and depend on our ability to reach you. Typically, you will receive your check within 7 - 10 business days.</p>
+        {#<div class="col-xs-12 col-sm-3 contour-inner-xsmall push-down-xs">#}
+            {#{{ fields.radio('deliveryMethod', 'Check via mail') }}#}
+        {#</div>#}
+
+        {#<div class="col-xs-12 col-sm-1 contour-inner-xsmall push-down-xs">#}
+            {#{{ fields.label('selectAddress','Address:') }}#}
+        {#</div>#}
+
+        {#<div class="col-xs-12 col-sm-6 contour-inner-xsmall">#}
+
+            {#{% if (app.user.getContactProfile().getAddressList().findBy('type', 'Physical')) %}#}
+
+                {#<input type="text" class="form-control clear-border-radius" name="selectAddress"#}
+                       {#value="{{ app.user.getContactProfile().getAddressList().findBy('type', 'Physical').toString() }}" />#}
+
+            {#{% else %}#}
+
+                {#<input type="text" class="form-control clear-border-radius" name="selectAddress" placeholder="Add an address"#}
+                       {#value="" />#}
+
+            {#{% endif %}#}
+        {#</div>#}
+    </div>
+
+    <div class="row apply-border contour-inner-medium">
+        <div class="col-xs-12 col-sm-4 contour-inner-xsmall">
+            <div class="input-group">
+                <div class="input-group-addon clear-border-radius">$</div>
+                    {{ fields.input('amount', null, 'text', '300', {'required': true}, 'money-usd text-right spacing-inner-xsmall') }}
+                <div class="input-group-addon clear-border-radius">.00</div>
+            </div>
+        </div>
+
+        <div style="width: 88px;" class="col-xs-12 col-sm-8 contour-inner-xsmall">
+            <input type="submit" value="Withdraw Funds" class="clear-border-radius btn btn-block button-primary" style="width: 135px;"/>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('withdrawFunds') }}" />
+            <input type="hidden" name="userGuid" value="{{ app.user.guid.value }}" />
+
+        </div>
+    </div>
+
+    {# include address placeholder fields - required for google address autocomplete #}
+    {#{% include 'fragments/addressPlaceholder.html.twig' %}#}
+
+</form>

@@ -1,0 +1,228 @@
+{# Twig template #}
+{% extends 'templates/accordion.html.twig' %}
+{% import 'templates/macros/formFields.html.twig' as fields %}
+
+{#
+|--------------------------------------------------------------------------
+| Referral Agreement Basic Detail
+|--------------------------------------------------------------------------
+|
+| This fragment contains an editable representation of a referral agreement
+|
+#}
+
+{# base accordion targets #}
+{% block containerId %}agreementCardHeader{% endblock %}
+
+{% block parentId %}agreementCardHeader{% endblock %}
+
+{% block hrefId %}agreement-card-header{% endblock %}
+
+{% block ariaControlsId %}agreement-card-header{% endblock %}
+
+{% block panelCollapseId %}agreement-card-header{% endblock %}
+
+
+{% block headingId %}cardHeader{% endblock %}
+
+{% block ariaId %}cardHeader{% endblock %}
+
+{% block collapseIn %}in{% endblock %}
+
+
+{# accordion content #}
+{% block header %}
+    {{ 'Basic Info'| e }}
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+
+        <form name="referralAgreementName" class="view-mode form-group" data-url="agreement/name/update" data-form-type="inline">
+
+            <div class="col-sm-12">
+                {% include 'fragments/alerts/formAlert.html.twig' %}
+            </div>
+
+            <div class="form-label col-lg-2 col-md-2 col-sm-2 col-xs-12 control-label push-down-xs">
+                {{ fields.label('name','Name:') }}
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                {{ fields.input('name', item.name, 'text', null, {'disabled' : true, 'required': true} ) }}
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 push-down-xs">
+                {#{% if item.isOwner(app.user.guid.value) %}#}
+                    {#{{ fields.button() }}#}
+                {#{% endif %}#}
+            </div>
+
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('referralAgreementName') }}" />
+            <input type="hidden" name="id" value="{{ item.guid.value }}" />
+
+        </form>
+
+    </div> <!-- End Name Panel -->
+
+    <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+
+        <form name="referralAgreementDescription" class="view-mode form-group" data-url="agreement/description/update" data-form-type="inline">
+
+
+            <div class="col-sm-12">
+                {% include 'fragments/alerts/formAlert.html.twig' %}
+            </div>
+
+            <div class="form-label col-lg-2 col-md-2 col-sm-2 col-xs-12 control-label push-down-xs">
+                {{ fields.label('description','Description:') }}
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                {{ fields.textArea('description', item.description, null, {'disabled' : true, 'required': true, 'rows': 5, 'maxlength': 255} ) }}
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 push-down-xs">
+                {#{% if item.isOwner(app.user.guid.value) %}#}
+                    {#{{ fields.button() }}#}
+                {#{% endif %}#}
+            </div>
+
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('referralAgreementDescription') }}" />
+            <input type="hidden" name="agreementGuid" value="{{ item.guid.value }}" />
+
+        </form>
+
+    </div> <!-- End Description Panel -->
+
+    <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+
+        <form name="referralAgreementStatus" class="view-mode form-group" data-url="agreement/referral/status/update" data-form-type="inline">
+
+            <div class="col-sm-12">
+                {% include 'fragments/alerts/formAlert.html.twig' %}
+            </div>
+
+            <div class="form-label col-lg-2 col-md-2 col-sm-2 col-xs-12 control-label push-down-xs">
+                {{ fields.label('status','Status:') }}
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                {% set agreementStatus = item.statusHistory.currentStatus ? item.statusHistory.currentStatus.status : 'Unknown' %}
+                {{ fields.select('status', {'Active':'Active', 'Inactive':'Inactive'}, agreementStatus, {'disabled' : true, 'required': true} ) }}
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 push-down-xs">
+                {% if item.isOwner(app.user.guid.value) %}
+
+                    {% if item.statusHistory.currentStatus == 'Unknown'
+                        or item.statusHistory.currentStatus.reason != 'Created' %}
+                        {{ fields.button() }}
+                    {% endif %}
+
+                {% endif %}
+            </div>
+
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('referralAgreementStatus') }}" />
+            <input type="hidden" name="agreementGuid" value="{{ item.guid.value }}" />
+
+        </form>
+
+    </div> <!-- End Status Panel -->
+
+    <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+
+        <form name="referralAgreementQuantity" class="view-mode form-group" data-url="agreement/referral/quantity/update" data-form-type="inline">
+
+            <div class="col-sm-12">
+                {% include 'fragments/alerts/formAlert.html.twig' %}
+            </div>
+
+            <div class="form-label col-lg-2 col-md-2 col-sm-2 col-xs-12 control-label push-down-xs">
+                {{ fields.label('quantity','Quantity:') }}
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+
+                {{ fields.input('quantity', item.quantity, 'number', null, {'disabled' : true, 'required': true, 'maxlength': 3} ) }}
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 push-down-xs">
+                {#{% if item.isOwner(app.user.guid.value) %}#}
+                    {#{{ fields.button() }}#}
+                {#{% endif %}#}
+            </div>
+
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('referralAgreementQuantity') }}" />
+            <input type="hidden" name="agreementGuid" value="{{ item.guid.value }}" />
+
+        </form>
+
+    </div> <!-- End Quantity Panel -->
+
+
+    <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+
+        <form name="referralAgreementStrategy" class="view-mode form-group" data-url="agreement/referral/strategy/update" data-form-type="inline">
+
+            <div class="col-sm-12">
+                {% include 'fragments/alerts/formAlert.html.twig' %}
+            </div>
+
+            <div class="form-label col-lg-2 col-md-2 col-sm-2 col-xs-12 control-label push-down-xs">
+                {{ fields.label('strategy','Strategy:') }}
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                {{ fields.select('strategy', {'weekly':'Weekly', 'monthly':'Monthly'}, item.strategy, {'disabled' : true, 'required': true} ) }}
+
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 push-down-xs">
+                {#{% if item.isOwner(app.user.guid.value) %}#}
+                    {#{{ fields.button() }}#}
+                {#{% endif %}#}
+            </div>
+
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('referralAgreementStrategy') }}" />
+            <input type="hidden" name="agreementGuid" value="{{ item.guid.value }}" />
+
+        </form>
+
+    </div> <!-- End Strategy Panel -->
+
+
+    <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+
+        <form name="referralAgreementPrice" class="view-mode form-group" data-url="agreement/referral/price/update" data-form-type="inline">
+
+            <div class="col-sm-12">
+                {% include 'fragments/alerts/formAlert.html.twig' %}
+            </div>
+
+            <div class="form-label col-lg-2 col-md-2 col-sm-2 col-xs-12 control-label push-down-xs">
+                {{ fields.label('bid','Referral Price:') }}
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <div class="input-group">
+                    <div class="input-group-addon clear-border-radius">$</div>
+                    {% if item.isOwner(app.user.guid.value) %}
+                        {{ fields.input('price', item.bid, 'number', '30', {'required': true, disabled: true }, 'money-usd text-right spacing-inner-xsmall', {'border':'1px solid #ddd'}) }}
+                    {% else %}
+                        {{ fields.input('price', (item.bid * constant('PapaLocal\\Billing\\ValueObject\\TransactionTier::TIER_ONE_USER')) | round(0, 'floor'), 'number', '30', {'required': true, disabled: true }, 'money-usd text-right spacing-inner-xsmall', {'border':'1px solid #ddd'}) }}
+                    {% endif %}
+                    <div class="input-group-addon clear-border-radius">.00</div>
+                </div>
+
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 push-down-xs">
+                {#{% if item.isOwner(app.user.guid.value) %}#}
+                    {#{{ fields.button() }}#}
+                {#{% endif %}#}
+            </div>
+
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('referralAgreementPrice') }}" />
+            <input type="hidden" name="agreementGuid" value="{{ item.guid.value }}" />
+
+        </form>
+
+    </div> <!-- End Description Panel -->
+
+
+{% endblock %}

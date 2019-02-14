@@ -1,0 +1,56 @@
+{% extends 'templates/feedCard.html.twig' %}
+{% import 'templates/macros/feedMacros.html.twig' as feedHelper %}
+
+{#
+|--------------------------------------------------------------------------
+| Agreement Participant Card Feed
+|--------------------------------------------------------------------------
+|
+| This template deplays a referral agreement participant card in the feed
+|
+#}
+{% block cardName %}{{ item.feedType }}{{ item.guid.value }}{% endblock %}
+
+{% block feedCardHeader %}{{ item.guid.value }}{% endblock %}{# panel header target #}
+{% block feedCardBody %}{{ item.guid.value }}{% endblock %}
+
+{% block faIcon %}
+    {{ feedHelper.fetchCardIcon(item) }}
+{% endblock %}
+
+{% block tag %}
+    <div class="push-down-small pull-right">
+        {{ feedHelper.fetchReferralAgreementLabel(item) }}
+    </div>
+{% endblock %}
+
+{% block title %}&nbsp;{{ item.title }}{% endblock %}
+
+{% block feedBody %}
+    <div class="row">
+        <div class="col-xs-8">
+            <div class="col-xs-12">
+
+                {# Display the referral count summary #}
+                <span class="text-bold clear-top-margin" style="font-size: 20px;">&nbsp;{{ item.referralCount }}&nbsp;/&nbsp;{{ item.quantity }}&nbsp;Referrals</span>
+            </div>
+
+            <div class="col-xs-12">
+                <span>{{ item.strategy }}</span>
+            </div>
+        </div>
+
+        <div class="col-xs-4">
+            <span class="referral-price">${{ (item.bid * constant('PapaLocal\\Billing\\ValueObject\\TransactionTier::TIER_ONE_USER')) | round(0, 'floor') }}</span>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+
+
+
+
+
+

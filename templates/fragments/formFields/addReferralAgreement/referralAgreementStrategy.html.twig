@@ -1,0 +1,63 @@
+{% extends 'templates/accordion.html.twig' %}
+{% import 'templates/macros/formFields.html.twig' as fields %}
+
+{# base accordion targets #}
+{% block containerId %}agreementStrategy{% endblock %}
+
+{% block parentId %}agreementStrategy{% endblock %}
+
+{% block hrefId %}referral-agreement-strategy{% endblock %}
+
+{% block ariaControlsId %}referral-agreement-strategy{% endblock %}
+
+{% block panelCollapseId %}referral-agreement-strategy{% endblock %}
+
+
+{% block headingId %}agreementStrategyDetails{% endblock %}
+
+{% block ariaId %}agreementStrategyDetails{% endblock %}
+
+{# accordion content #}
+{% block header %}
+    {{ 'How Many Referrals Do You Want?'| e }}
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+        <div class="form-group">
+            <div class="form-label col-lg-4 col-md-4 col-sm-4 col-xs-12 control-label push-down-xs">
+                {{ fields.label('quantity','Strategy:') }}
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-2 col-xs-4">
+                {{ fields.input('quantity', null, 'number', '0', "maxlength=3", 'text-right') }}
+            </div>
+            <div class="col-lg-5 col-md-5 col-sm-6 col-xs-8">
+                {{ fields.select('strategy', {'weekly':'Weekly', 'monthly':'Monthly'}) }}
+            </div>
+        </div>
+    </div><!-- end referral agreement Strategy -->
+
+    <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+        <div class="form-group">
+            <div class="form-label col-lg-4 col-md-4 col-sm-4 col-xs-12 control-label push-down-xs">
+                {{ fields.label('bid','Per Referral:') }}
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                <div class="input-group">
+                    <div class="input-group-addon clear-border-radius">$</div>
+                        {{ fields.input('bid', null, 'number', '30', {'required': true}, 'money-usd text-right spacing-inner-xsmall') }}
+                    <div class="input-group-addon clear-border-radius">.00</div>
+                </div>
+
+                <small>The amount you are willing to pay for a qualifying referral.</small>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div><!-- end referral agreement price per referral -->
+
+
+{% endblock %}
+
+

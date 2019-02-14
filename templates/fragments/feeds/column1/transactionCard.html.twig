@@ -1,0 +1,49 @@
+{% extends 'templates/feedCard.html.twig' %}
+{% import 'templates/macros/feedMacros.html.twig' as feedHelper %}
+{#
+|--------------------------------------------------------------------------
+| Transaction Card Feed
+|--------------------------------------------------------------------------
+|
+|
+|
+#}
+{% block feedCardHeader %}{{ item.guid.value }}{% endblock %}{# panel header target #}
+{% block feedCardBody %}{{ item.guid.value }}{% endblock %}
+
+{% block faIcon %}
+    {{ feedHelper.fetchCardIcon(item) }}
+{% endblock %}
+
+{% block title %}&nbsp;{{ item.title() }}{% endblock %}
+
+{% block feedBody %}
+    <table id="" cellpadding="15">
+        <tbody>
+        <tr>
+            <td><b>Type:</b></td>
+            <td>&nbsp;&nbsp;&nbsp;{{ item.transactionType|capitalize }}</td>
+        </tr>
+
+        <tr>
+            <td><b>Date:</b></td>
+            <td>&nbsp;&nbsp;&nbsp;{{ item.timeCreated | date('m/d/Y') }}</td>
+        </tr>
+
+        <tr>
+            <td><b>Amount:</b></td>
+            <td>&nbsp;&nbsp;&nbsp;${{ (item.transactionType == 'debit') ? (item.amount * -1)|round(0, 'floor') : item.amount|round(0, 'floor') }}</td>
+        </tr>
+
+        </tbody>
+    </table>
+{% endblock %}
+
+
+
+
+
+
+
+
+

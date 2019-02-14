@@ -1,0 +1,213 @@
+################################################################
+# Data Layer
+#
+# Services related to the Core\Data namespace.
+#################################################################
+services:
+    ## MySQL Connection
+    PapaLocal\Core\Data\MySqlConnection:
+        class: PapaLocal\Core\Data\MySqlConnection
+        arguments:
+            $connection: "@=service('doctrine').getConnection()"
+    papalocal_data.mysql_connection:
+        alias: PapaLocal\Core\Data\MySqlConnection
+
+    PapaLocal\Core\Data\QueryBuilderInterface:
+        class: PapaLocal\Core\Data\WrappedQueryBuilder
+        arguments:
+            $queryBuilder: "@=service('doctrine').getConnection().createQueryBuilder()"
+
+    papalocal_data.mysql.query_builder:
+        alias: PapaLocal\Core\Data\QueryBuilderInterface
+        public: true
+
+    PapaLocal\Core\Data\RecordFactory:
+        class: PapaLocal\Core\Data\RecordFactory
+
+    PapaLocal\Core\Data\AdaptedTableGateway:
+        class: PapaLocal\Core\Data\AdaptedTableGateway
+        arguments:
+            $connection: "@papalocal_data.mysql_connection"
+            $recordFactory: '@PapaLocal\Core\Data\RecordFactory'
+
+    papalocal_data.adapted_table_gateway:
+        alias: PapaLocal\Core\Data\AdaptedTableGateway
+
+    PapaLocal\Core\Data\TableGatewayInterface:
+        alias: PapaLocal\Core\Data\AdaptedTableGateway
+        public: true
+
+    #TODO: Deprecate original gateway
+    PapaLocal\Core\Data\TableGateway:
+        class: PapaLocal\Core\Data\TableGateway
+        arguments:
+            $connection: "@=service('doctrine').getConnection()"
+
+    papalocal_data.table_gateway:
+        alias: PapaLocal\Core\Data\TableGateway
+
+    ## configure a normalizer that will map object properties to table columns
+    PapaLocal\Serializer\Normalizer\StorageNormalizer:
+            class: PapaLocal\Serializer\Normalizer\StorageNormalizer
+            public: true
+            tags: [serializer.normalizer]
+
+    ## Data Mapper
+    PapaLocal\Data\DataMapper\Mapper:
+        class: PapaLocal\Data\DataMapper\Mapper
+        arguments:
+            $mapperFactory: '@PapaLocal\Data\DataMapper\MapperFactory'
+            $entityFactory: '@papalocal_data.entity_factory'
+    papalocal_data.mapper:
+        alias: PapaLocal\Data\DataMapper\Mapper
+
+    ## Command Factory
+    PapaLocal\Data\Command\Factory\CommandFactory:
+        class: PapaLocal\Data\Command\Factory\CommandFactory
+    papalocal_data.command_factory:
+        alias: PapaLocal\Data\Command\Factory\CommandFactory
+
+    PapaLocal\Core\Data\DataResourcePool:
+        class: PapaLocal\Core\Data\DataResourcePool
+        arguments:
+            $tableGateway: '@papalocal_data.table_gateway'
+            $mapper: '@papalocal_data.mapper'
+            $serializer: '@serializer'
+            $commandFactory: '@papalocal_data.command_factory'
+    papalocal_data.resource_pool:
+        alias: PapaLocal\Core\Data\DataResourcePool
+
+    PapaLocal\Core\Data\AbstractCommandFactory:
+        class: PapaLocal\Core\Data\AbstractCommandFactory
+        abstract: true
+
+    ## MySqlBus
+
+    ### Commands
+    PapaLocal\Core\Data\Command\StartTransactionHandler:
+        class: PapaLocal\Core\Data\Command\StartTransactionHandler
+        arguments:
+            $tableGateway: '@papalocal_data.adapted_table_gateway'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\Core\Data\Command\StartTransaction', bus: 'messenger.bus.mysql' }
+
+    PapaLocal\Core\Data\Command\RollbackTransactionHandler:
+        class: PapaLocal\Core\Data\Command\RollbackTransactionHandler
+        arguments:
+            $tableGateway: '@papalocal_data.adapted_table_gateway'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\Core\Data\Command\RollbackTransaction', bus: 'messenger.bus.mysql' }
+
+    PapaLocal\Core\Data\Command\CommitTransactionHandler:
+        class: PapaLocal\Core\Data\Command\CommitTransactionHandler
+        arguments:
+            $tableGateway: '@papalocal_data.adapted_table_gateway'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\Core\Data\Command\CommitTransaction', bus: 'messenger.bus.mysql' }
+
+    ### Queries
+    PapaLocal\Core\Data\Query\FindByGuidHandler:
+        class: PapaLocal\Core\Data\Query\FindByGuidHandler
+        arguments:
+            $tableGateway: '@papalocal_data.adapted_table_gateway'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\Core\Data\Query\FindByGuid', bus: 'messenger.bus.mysql' }
+
+    PapaLocal\Core\Data\Query\FindByHandler:
+        class: PapaLocal\Core\Data\Query\FindByHandler
+        arguments:
+            $tableGateway: '@papalocal_data.adapted_table_gateway'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\Core\Data\Query\FindBy', bus: 'messenger.bus.mysql' }
+
+    PapaLocal\Core\Data\Query\FindByColsHandler:
+        class: PapaLocal\Core\Data\Query\FindByColsHandler
+        arguments:
+            $tableGateway: '@papalocal_data.adapted_table_gateway'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\Core\Data\Query\FindByCols', bus: 'messenger.bus.mysql' }
+
+    PapaLocal\Core\Data\Query\FindByRowIdHandler:
+        class: PapaLocal\Core\Data\Query\FindByRowIdHandler
+        arguments:
+            $tableGateway: '@papalocal_data.adapted_table_gateway'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\Core\Data\Query\FindByRowId', bus: 'messenger.bus.mysql' }
+
+    ## Data Service (command director)
+    PapaLocal\Data\DataService:
+        class: PapaLocal\Data\DataService
+        public: true
+        arguments:
+            $tableGateway: '@papalocal_data.table_gateway'
+            $mapper: '@papalocal_data.mapper'
+            $serializer: '@serializer'
+            $commandFactory: '@papalocal_data.command_factory'
+    papalocal_data.data_service:
+        alias: PapaLocal\Data\DataService
+
+    ## Repository
+    PapaLocal\Core\Data\AbstractRepository:
+        abstract: true
+        arguments:
+            $dataResourcePool: '@PapaLocal\Core\Data\DataResourcePool'
+
+    PapaLocal\Data\Repository\:
+        resource: '../../src/Data/Repository/*'
+        parent: PapaLocal\Core\Data\AbstractRepository
+        exclude: '../../src/Data/Repository/{Strategy}'
+        tags: ['papalocal_data.repository']
+
+    PapaLocal\Core\Data\SchemaRepository:
+        class: PapaLocal\Core\Data\SchemaRepository
+        parent: PapaLocal\Core\Data\AbstractRepository
+        tags: ['papalocal_data.repository']
+
+    ## Hydrator
+    PapaLocal\Core\Data\AbstractHydrator:
+        abstract: true
+        arguments:
+            $tableGateway: '@papalocal_data.table_gateway'
+            $entityFactory: '@PapaLocal\Entity\EntityFactory'
+            $serializer: '@serializer'
+
+    PapaLocal\Data\Hydrate\:
+        resource: '../../src/Data/Hydrate/*'
+        parent: PapaLocal\Core\Data\AbstractHydrator
+        exclude: '../../src/Data/Hydrate/Company/{CompanyHydrator.php}'
+        tags: ['papalocal_data.hydrator']
+
+    PapaLocal\Data\Hydrate\Company\CompanyHydrator:
+        class: PapaLocal\Data\Hydrate\Company\CompanyHydrator
+        parent: PapaLocal\Core\Data\AbstractHydrator
+        arguments:
+            $tableGateway: '@papalocal_data.table_gateway'
+            $entityFactory: '@PapaLocal\Entity\EntityFactory'
+            $serializer: '@serializer'
+            $companyContactProfileHydrator: '@PapaLocal\Data\Hydrate\Company\CompanyContactProfileHydrator'
+        tags: ['papalocal_data.hydrator']
+
+    ## Repository Registry
+    PapaLocal\Core\Data\RepositoryRegistry:
+        class: PapaLocal\Core\Data\RepositoryRegistry
+        public: true
+    papalocal_data.repository_registry:
+        alias: PapaLocal\Core\Data\RepositoryRegistry
+
+    ## Hydrator Registry
+    PapaLocal\Core\Data\HydratorRegistry:
+        class: PapaLocal\Core\Data\HydratorRegistry
+        public: true
+    app.data.hydrator_registry:
+        alias: PapaLocal\Core\Data\HydratorRegistry
+
+    ## User Provider
+    PapaLocal\Security\User\DatabaseUserProvider:
+        class: PapaLocal\Security\User\DatabaseUserProvider
+        public: true
+        arguments:
+            $appBus: '@messenger.bus.application'
+            $iaMessageFactory: '@PapaLocal\IdentityAccess\Message\MessageFactory'
+            $voFactory: '@PapaLocal\Core\Factory\VOFactory'
+    papalocal_data.user_provider:
+        alias: PapaLocal\Security\User\DatabaseUserProvider

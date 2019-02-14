@@ -1,0 +1,156 @@
+{% extends 'templates/feedCard.html.twig' %}
+{% import 'templates/macros/feedMacros.html.twig' as feedHelper %}
+{##}
+{#|--------------------------------------------------------------------------#}
+{#| Call Feed Card#}
+{#|--------------------------------------------------------------------------#}
+{#|#}
+{#| This fragment contains the calls feed card.#}
+{#|#}
+{##}
+
+{% block cardName %}{{ item.feedType }}{{ item.guid.value }}{% endblock %}
+
+
+{% block feedCardHeader %}{{ item.guid.value }}{% endblock %} {# panel header target #}
+{% block feedCardBody %}{{ item.guid.value }}{% endblock %}
+
+
+{% block faIcon %}
+    {{ feedHelper.fetchCardIcon(item) }}
+{% endblock %}
+
+{% block tag %}
+    {% if item.isProvider(app.user.guid.value) %}
+        <div class="push-down-small pull-right">
+            <span class="label label-warning">Outgoing</span>
+        </div>
+    {% else %}
+        <div class="push-down-small pull-right">
+            <span class="label label-success">Incoming</span>
+        </div>
+    {% endif %}
+{% endblock %}
+
+
+{% block title %}{{ item.title }}{% endblock %}
+
+
+{% block feedBody %}
+
+    <table id="call-card-table" cellpadding="15">
+        <tbody>
+        <tr>
+            <td><i class="fa fa-phone fa-lg"></i></td>
+            <td class="tel-mask">&nbsp;{{ item.phoneNumber }}</td>
+        </tr>
+
+        <tr>
+            <td><i class="fa fa-globe fa-lg"></i></td>
+            <td>&nbsp;{{ item.CityState }}</td>
+        </tr>
+
+        <tr>
+            <td><i class="fa fa-calendar fa-lg"></i></td>
+            <td>&nbsp;{{ item.timeCreated | date('m/d/Y') }}</td>
+        </tr>
+
+        <tr>
+            <td><i class="fa fa-clock-o fa-lg"></i></td>
+            <td>&nbsp;{{ item.timeCreated | date('h:i A', app.user.timezone) }}</td>
+        </tr>
+
+        <tr>
+            <td><i class="fa fa-user fa-lg"></i></td>
+            <td>&nbsp;{{ item.refereeName }}</td>
+        </tr>
+
+        {#<tr>#}
+            {#<td><i class="fa fa-volume-control-phone fa-lg"></i></td>#}
+            {#<td>&nbsp;{{ 'Missed' }}</td>#}
+        {#</tr>#}
+        </tbody>
+    </table>
+
+{% endblock %}
+
+
+{#{% block feedFooter %}#}
+
+    {#<div class="panel-footer" id="call-card-footer">#}
+        {#<div class="container-fluid">#}
+            {#<div class="row">#}
+
+                {#<div class="col-xs-4">#}
+                    {#<a href="#call-note" data-toggle="collapse">#}
+                        {#<img src="{{ PAPALOCAL.baseUrl }}assets/media/edit-pencil.png" class="small-ico center-block"/>#}
+                        {#<p class="text-center">Notes</p>#}
+                    {#</a>#}
+                {#</div>#}
+
+                {#<div class="col-xs-4">#}
+                    {#<a href="#call-score" data-toggle="collapse">#}
+                        {#<img src="{{ PAPALOCAL.baseUrl }}assets/media/score-icon.png" class="small-ico center-block"/>#}
+                        {#<p class="text-center">Score</p>#}
+                    {#</a>#}
+                {#</div>#}
+
+                {#<div class="col-xs-4">#}
+                    {#<a href="#call-audio" data-toggle="collapse">#}
+                        {#<img src="{{ PAPALOCAL.baseUrl }}assets/media/headset-icon.png" class="small-ico center-block"/>#}
+                        {#<p class="text-center">{{ call_duration }}</p>#}
+                    {#</a>#}
+                {#</div>#}
+
+            {#</div>#}
+        {#</div>#}
+    {#</div>#}
+
+    {#<div style="background-color: #D9D9D9;" id="call-card-shortcut">#}
+
+        {#<div id="call-note" class="container-fluid collapse" style="padding: 15px;">#}
+
+            {#<div class="row">#}
+
+                {#<div class="col-lg-12">#}
+                    {#<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">#}
+                        {#<label for="shortcut-note">Note:</label>#}
+                    {#</div>#}
+
+                    {#<div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">#}
+                        {#<textarea style="margin: 0; width: 195px; height: 85px;" id="shortcut-note"></textarea>#}
+                    {#</div>#}
+                {#</div>#}
+
+            {#</div>#}
+
+            {#<button class="contour-outer-small clear-button">#}
+                {#<i class="fa fa-plus-circle" aria-hidden="true"></i>#}
+                {#<span class="text-center primary-color">Add Another Note:</span>#}
+            {#</button>#}
+
+            {#<input type="button" name="submit" class="form-control button-primary clear-border-radius" value="Update Card">#}
+
+        {#</div>#}
+
+
+        {#<div id="call-score" class="container-fluid collapse" style="font-size: 20px; padding: 15px;">#}
+            {#<span>Score:&nbsp;&nbsp;</span>#}
+            {#<span style="font-size: 25px;"><i style="color: #fff;" class="fa fa-star" aria-hidden="true"></i></span>#}
+            {#<span style="font-size: 25px;"><i style="color: #fff;" class="fa fa-star" aria-hidden="true"></i></span>#}
+            {#<span style="font-size: 25px;"><i style="color: #fff;" class="fa fa-star" aria-hidden="true"></i></span>#}
+            {#<span style="font-size: 25px;"><i style="color: #fff;" class="fa fa-star" aria-hidden="true"></i></span>#}
+            {#<span style="font-size: 25px;"><i style="color: #fff;" class="fa fa-star" aria-hidden="true"></i></span>#}
+        {#</div>#}
+
+        {#<div id="call-audio" class="container-fluid collapse" style="padding: 15px;">#}
+            {#<audio style="width: 270px;" controls>#}
+                {#<source src="https://ct4.s3.amazonaws.com/accounts/AC31fe87364641848e5d08c041cac16c84/recordings/RE21768ba26184dafb00167f70e81357fd/244632890.mp3?AWSAccessKeyId=AKIAJ4IYBGVRUKGP5RIQ&Expires=1506612154&Signature=MDhlvtZPxD3j68%2FmsECuHkitSlA%3D" type="audio/mpeg">#}
+                {#<source src="https://ct4.s3.amazonaws.com/accounts/AC31fe87364641848e5d08c041cac16c84/recordings/RE21768ba26184dafb00167f70e81357fd/244632890.mp3?AWSAccessKeyId=AKIAJ4IYBGVRUKGP5RIQ&Expires=1506612154&Signature=MDhlvtZPxD3j68%2FmsECuHkitSlA%3D" type="audio/wav">#}
+            {#</audio>#}
+        {#</div>#}
+
+    {#</div>#}
+
+
+{#{% endblock %}#}

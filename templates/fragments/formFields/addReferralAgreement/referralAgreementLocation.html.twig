@@ -1,0 +1,88 @@
+{% extends 'templates/accordion.html.twig' %}
+{% import 'templates/macros/formFields.html.twig' as fields %}
+
+{#
+|--------------------------------------------------------------------------
+| Referral Agreement Locations
+|--------------------------------------------------------------------------
+|
+| This file defines the accordion where a user can add referral agreement locations on the modal form.
+|
+#}
+
+{# base accordion targets #}
+{% block containerId %}referralAgreementLocation{% endblock %}
+
+{% block parentId %}referralAgreementLocation{% endblock %}
+
+{% block hrefId %}agreement-location{% endblock %}
+
+{% block ariaControlsId %}agreement-location{% endblock %}
+
+{% block panelCollapseId %}agreement-location{% endblock %}
+
+{% block headingId %}agreementLocations{% endblock %}
+
+{% block ariaId %}agreementLocations{% endblock %}
+
+{# accordion content #}
+{% block header %}
+    {{ 'Where Do You Want Your Referrals Located?'| e }}
+{% endblock %}
+
+
+{% block content %}
+    {# INCLUDED LOCATIONS #}
+    <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+        <div class="form-group">
+
+            {# INPUT LABEL #}
+            <div class="form-label col-sm-3 col-xs-12 control-label push-down-xs">
+                {{ fields.label('includeLocation', 'Included:') }}
+            </div>
+
+            {# PRIMARY INPUT #}
+            <div class="col-sm-7 col-xs-10">
+                {{ fields.input('includeLocation[]', null, 'text', 'Add a location', null, 'collection-input primary-collection-input') }}
+            </div>
+
+            {# ADD BUTTON #}
+            <div class="col-sm-2 col-xs-2 contour-inner-xsmall">
+                <i class="fa fa-2x fa-plus-circle clickable collection-input-add-btn"></i>
+            </div>
+
+            {# ADDED ITEMS TABLE #}
+            <div class="col-xs-12 collection-input-table-display clear-side-padding"></div>
+
+        </div>
+    </div><!-- end included agreement location -->
+
+
+    {# EXCLUDED LOCATIONS #}
+    <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+        <div class="form-group">
+
+            {# INPUT LABEL #}
+            <div class="form-label col-sm-3 col-xs-12 control-label push-down-xs">
+                {{ fields.label('excludeLocation', 'Excluded:') }}
+            </div>
+
+            {# PRIMARY INPUT #}
+            <div class="col-sm-7 col-xs-10">
+                {{ fields.input('excludeLocation[]', null, 'text', 'Add a location', null, 'collection-input primary-collection-input') }}
+            </div>
+
+            {# ADD BUTTON #}
+            <div class="col-sm-2 col-xs-2 contour-inner-xsmall">
+                <i class="fa fa-2x fa-plus-circle clickable collection-input-add-btn"></i>
+            </div>
+
+            {# ADDED ITEMS TABLE #}
+            <div class="col-xs-12 collection-input-table-display clear-side-padding"></div>
+
+        </div>
+
+        <div class="clearfix"></div>
+    </div><!-- end excluded agreement location -->
+
+{% endblock %}

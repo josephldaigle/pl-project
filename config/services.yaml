@@ -1,0 +1,60 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    locale: 'en'
+
+
+# import individual component configurations
+imports:
+    - { resource: 'services/data_layer.yaml' }
+    - { resource: 'services/core.yaml' }
+    - { resource: 'services/database_logger.yaml' }
+    - { resource: 'services/identity_access.yaml' }
+    - { resource: 'services/notification.yaml' }
+    - { resource: 'services/feed.yaml' }
+    - { resource: 'services/twig.yaml' }
+    - { resource: 'services/billing.yaml' }
+    - { resource: 'services/referral.yaml' }
+    - { resource: 'services/referral_agreement.yaml' }
+
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+        public: false       # Allows optimizing the container by removing unused services; this also means
+                            # fetching services directly from the container via $container->get() won't work.
+                            # The best practice is to be explicit about your dependencies anyway.
+#        bind:
+#            $applicationBus: '@messenger.bus.application'
+#            $mysqlBus: '@messenger.bus.mysql'
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    PapaLocal\:
+        resource: '../src/*'
+        exclude: '../src/{AuthorizeDotNet,Billing,Core/Data,Core/Event,Core/Factory,Core/Logging/*,Core/Messenger,Core/Notification,Core/Security,Core/Twig,Core/Validation/*,Command,Data/Hydrate,Data/Repository,Entity,Feed,Form,IdentityAccess,Migrations,Notification,Referral,ReferralAgreement,Security,Test/*,Test/Controller/*,ValueObject,Kernel.php}'
+
+    # controllers are imported separately to make sure services can be injected
+    # as action arguments even if you don't extend any base controller class
+    PapaLocal\Controller\:
+        resource: '../src/Controller'
+        public: true
+        tags: ['controller.service_arguments']
+
+    PapaLocal\Security\Cryptographer:
+        class: 'PapaLocal\Core\Security\Cryptographer'
+
+    PapaLocal\Core\Security\SecureLinkGenerator:
+        class: 'PapaLocal\Core\Security\SecureLinkGenerator'
+        public: true
+        arguments:
+            $guidGenerator: '@papalocal_core.guid_generator'
+            $saltRepository: '@PapaLocal\Core\Security\EmailSaltRepository'
+            $serializer: '@serializer'
+            $router: '@router'
+            $cryptographer: '@PapaLocal\Core\Security\Cryptographer'

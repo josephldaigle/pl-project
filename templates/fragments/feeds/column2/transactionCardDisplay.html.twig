@@ -1,0 +1,24 @@
+{% extends 'templates/feedDisplay.html.twig' %}
+{% import 'templates/macros/feedMacros.html.twig' as feedHelper %}
+{#
+|--------------------------------------------------------------------------
+| Transaction Card Display
+|--------------------------------------------------------------------------
+|
+|
+|
+#}
+
+{% block displayId %}{{ item.guid.value }}{% endblock %}{# display target when card is selected #}
+
+{% block faIcon %}
+    {{ feedHelper.fetchCardIcon(item) }}
+{% endblock %}
+
+{% block title %}{{ item.title }}{% endblock %}
+
+{% block feedBody %}
+
+    {% include 'fragments/accordions/transactionDetails.html.twig' %}
+
+{% endblock %}

@@ -1,0 +1,323 @@
+framework:
+    workflows:
+        referral_delivering:
+             type: 'workflow'
+             audit_trail:
+                 enabled: true
+             marking_store:
+                 type: 'single_state'
+                 arguments:
+                     - 'currentPlace'
+             initial_place: 'initialized'
+             places:
+                 - 'initialized'
+                 - 'created'
+                 - 'acquired'
+                 - 'disputed'
+                 - 'finalized'
+             supports:
+                 - PapaLocal\Referral\Entity\Referral
+             transitions:
+                 create:
+                     from: 'initialized'
+                     to: 'created'
+                 acquire:
+                     from: 'created'
+                     to: 'acquired'
+                 dispute:
+                     from: 'acquired'
+                     to: 'disputed'
+                 admin_review:
+                     from: 'disputed'
+                     to: 'finalized'
+                 accept:
+                     from: 'acquired'
+                     to: 'finalized'
+
+services:
+    #------------------------------
+    # Param Converter
+    #------------------------------
+    PapaLocal\Referral\ParamConverter\ReferralFormConverter:
+        class: PapaLocal\Referral\ParamConverter\ReferralFormConverter
+        public: false
+        arguments:
+            $serializer: '@PapaLocal\Serializer\FosRestAdapter'
+            $groups: []
+            $version: null
+            $validator: '@fos_rest.validator'
+            $validationErrorsArgument: validationErrors
+        tags:
+            - { name: 'request.param_converter', priority: -52, converter: PapaLocal\Referral\ParamConverter\ReferralFormConverter }
+
+    #------------------------------
+    # Entity Factory
+    #------------------------------
+    PapaLocal\Referral\Entity\Factory\ReferralFactory:
+        class: PapaLocal\Referral\Entity\Factory\ReferralFactory
+        arguments:
+            $serializer: '@serializer'
+
+    PapaLocal\Referral\Entity\Factory\FeedItemFactory:
+        class: PapaLocal\Referral\Entity\Factory\FeedItemFactory
+        arguments:
+            $serializer: '@serializer'
+
+    #------------------------------
+    # Notification Factory
+    #------------------------------
+    PapaLocal\Referral\Notification\NotificationFactory:
+        class: PapaLocal\Referral\Notification\NotificationFactory
+
+    #------------------------------
+    # Data
+    #------------------------------
+    PapaLocal\Referral\Data\MessageFactory:
+        class: PapaLocal\Referral\Data\MessageFactory
+
+    PapaLocal\Referral\Data\ReferralRepository:
+        class: PapaLocal\Referral\Data\ReferralRepository
+        arguments:
+            $messageFactory: '@PapaLocal\Referral\Data\MessageFactory'
+            $referralFactory: '@PapaLocal\Referral\Entity\Factory\ReferralFactory'
+            $mysqlBus: '@messenger.bus.mysql'
+
+    #------------------------------
+    # Validations
+    #------------------------------
+    PapaLocal\Referral\Validation\ScoreConstraintValidator:
+        class: PapaLocal\Referral\Validation\ScoreConstraintValidator
+        arguments:
+            $referralService: '@PapaLocal\Referral\ReferralService'
+        tags: ['validator.constraint_validator']
+
+    #------------------------------
+    # Events
+    #------------------------------
+    PapaLocal\Referral\Event\:
+        resource: '../../src/Referral/Event'
+        exclude: '../../src/Referral/Event/{*Event.php}'
+        tags:
+            - { name: 'kernel.event_subscriber' }
+
+    PapaLocal\Referral\Event\ContactRegisteredSubscriber:
+        class: PapaLocal\Referral\Event\ContactRegisteredSubscriber
+        arguments:
+            $referralRepository: '@PapaLocal\Referral\Data\ReferralRepository'
+            $workflowRegistry: '@workflow.registry'
+        tags:
+            - { name: 'kernel.event_subscriber' }
+
+    #------------------------------
+    # Workflow
+    #------------------------------
+    PapaLocal\Referral\Workflow\EnteredAcquiredSubscriber:
+        class: PapaLocal\Referral\Workflow\EnteredAcquiredSubscriber
+        arguments:
+            $emailMessageBuilder: '@PapaLocal\Core\Notification\EmailMessageBuilder'
+            $emailer: '@PapaLocal\Core\Notification\EmailerInterface'
+            $eventDispatcher: '@event_dispatcher'
+            $notificationFactory: '@PapaLocal\Referral\Notification\NotificationFactory'
+            $notifier: '@PapaLocal\Notification\Notifier'
+            $appBus: '@messenger.bus.application'
+            $raMessageFactory: '@PapaLocal\ReferralAgreement\Message\MessageFactory'
+            $iaMessageFactory: '@PapaLocal\IdentityAccess\Message\MessageFactory'
+        tags:
+            - { name: 'kernel.event_subscriber' }
+
+    PapaLocal\Referral\Workflow\EnteredCreatedSubscriber:
+        class: PapaLocal\Referral\Workflow\EnteredCreatedSubscriber
+        arguments:
+            $emailMessageBuilder: '@PapaLocal\Core\Notification\EmailMessageBuilder'
+            $emailer: '@PapaLocal\Core\Notification\EmailerInterface'
+            $notificationFactory: '@PapaLocal\Referral\Notification\NotificationFactory'
+            $notifier: '@PapaLocal\Notification\Notifier'
+            $appBus: '@messenger.bus.application'
+            $iaMessageFactory: '@PapaLocal\IdentityAccess\Message\MessageFactory'
+        tags:
+            - { name: 'kernel.event_subscriber' }
+
+    PapaLocal\Referral\Workflow\EnteredDisputedSubscriber:
+        class: PapaLocal\Referral\Workflow\EnteredDisputedSubscriber
+        arguments:
+            $emailMessageBuilder: '@PapaLocal\Core\Notification\EmailMessageBuilder'
+            $emailer: '@PapaLocal\Core\Notification\EmailerInterface'
+            $eventDispatcher: '@event_dispatcher'
+            $notificationFactory: '@PapaLocal\Referral\Notification\NotificationFactory'
+            $notifier: '@PapaLocal\Notification\Notifier'
+            $appBus: '@messenger.bus.application'
+            $raMessageFactory: '@PapaLocal\ReferralAgreement\Message\MessageFactory'
+            $iaMessageFactory: '@PapaLocal\IdentityAccess\Message\MessageFactory'
+            $serializer: '@serializer'
+        tags:
+            - { name: 'kernel.event_subscriber' }
+
+    PapaLocal\Referral\Workflow\EnteredFinalizedSubscriber:
+        class: PapaLocal\Referral\Workflow\EnteredFinalizedSubscriber
+        arguments:
+            $emailMessageBuilder: '@PapaLocal\Core\Notification\EmailMessageBuilder'
+            $emailer: '@PapaLocal\Core\Notification\EmailerInterface'
+            $eventDispatcher: '@event_dispatcher'
+            $notificationFactory: '@PapaLocal\Referral\Notification\NotificationFactory'
+            $notifier: '@PapaLocal\Notification\Notifier'
+            $appBus: '@messenger.bus.application'
+            $raMessageFactory: '@PapaLocal\ReferralAgreement\Message\MessageFactory'
+            $iaMessageFactory: '@PapaLocal\IdentityAccess\Message\MessageFactory'
+        tags:
+            - { name: 'kernel.event_subscriber' }
+
+    PapaLocal\Referral\Workflow\GuardAcquireSubscriber:
+        class: PapaLocal\Referral\Workflow\GuardAcquireSubscriber
+        arguments:
+            $appBus: '@messenger.bus.application'
+            $raMessageFactory: '@PapaLocal\ReferralAgreement\Message\MessageFactory'
+            $iaMessageFactory: '@PapaLocal\IdentityAccess\Message\MessageFactory'
+        tags:
+            - { name: 'kernel.event_subscriber' }
+
+    PapaLocal\Referral\Workflow\GuardCreateSubscriber:
+        class: PapaLocal\Referral\Workflow\GuardCreateSubscriber
+        arguments:
+            $appBus: '@messenger.bus.application'
+            $raMessageFactory: '@PapaLocal\ReferralAgreement\Message\MessageFactory'
+            $iaMessageFactory: '@PapaLocal\IdentityAccess\Message\MessageFactory'
+        tags:
+            - { name: 'kernel.event_subscriber' }
+
+    PapaLocal\Referral\Workflow\TransitionAcceptSubscriber:
+        class: PapaLocal\Referral\Workflow\TransitionAcceptSubscriber
+        arguments:
+            $messageFactory: '@PapaLocal\Referral\Data\MessageFactory'
+            $mysqlBus: '@messenger.bus.mysql'
+        tags:
+            - { name: 'kernel.event_subscriber' }
+
+    PapaLocal\Referral\Workflow\TransitionAcquireSubscriber:
+        class: PapaLocal\Referral\Workflow\TransitionAcquireSubscriber
+        arguments:
+            $messageFactory: '@PapaLocal\Referral\Data\MessageFactory'
+            $mysqlBus: '@messenger.bus.mysql'
+        tags:
+            - { name: 'kernel.event_subscriber' }
+
+    PapaLocal\Referral\Workflow\TransitionAdminReviewSubscriber:
+        class: PapaLocal\Referral\Workflow\TransitionAdminReviewSubscriber
+        arguments:
+            $messageFactory: '@PapaLocal\Referral\Data\MessageFactory'
+            $mysqlBus: '@messenger.bus.mysql'
+        tags:
+            - { name: 'kernel.event_subscriber' }
+
+    PapaLocal\Referral\Workflow\TransitionCreateSubscriber:
+        class: PapaLocal\Referral\Workflow\TransitionCreateSubscriber
+        arguments:
+            $messageFactory: '@PapaLocal\Referral\Data\MessageFactory'
+            $mysqlBus: '@messenger.bus.mysql'
+        tags:
+            - { name: 'kernel.event_subscriber' }
+
+    PapaLocal\Referral\Workflow\TransitionDisputeSubscriber:
+        class: PapaLocal\Referral\Workflow\TransitionDisputeSubscriber
+        arguments:
+            $messageFactory: '@PapaLocal\Referral\Data\MessageFactory'
+            $mysqlBus: '@messenger.bus.mysql'
+        tags:
+            - { name: 'kernel.event_subscriber' }
+
+    #------------------------------
+    # Service
+    #------------------------------
+    PapaLocal\Referral\ReferralService:
+        class: PapaLocal\Referral\ReferralService
+        arguments:
+            $workflowRegistry: '@workflow.registry'
+            $referralRepository: '@PapaLocal\Referral\Data\ReferralRepository'
+            $guidGenerator: '@PapaLocal\Core\Factory\GuidFactory'
+
+    #------------------------------
+    # Application Bus Messages
+    #------------------------------
+    PapaLocal\Referral\Message\MessageFactory:
+        class: PapaLocal\Referral\Message\MessageFactory
+
+    #------------------------------
+    # Data Command Handlers
+    #------------------------------
+    PapaLocal\Referral\Data\Command\SaveReferralHandler:
+        class: PapaLocal\Referral\Data\Command\SaveReferralHandler
+        arguments:
+            $tableGateway: '@papalocal_data.adapted_table_gateway'
+            $serializer: '@serializer'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\Referral\Data\Command\SaveReferral', bus: 'messenger.bus.mysql' }
+
+    PapaLocal\Referral\Data\Command\UpdateReferralHandler:
+        class: PapaLocal\Referral\Data\Command\UpdateReferralHandler
+        arguments:
+            $tableGateway: '@papalocal_data.adapted_table_gateway'
+            $serializer: '@serializer'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\Referral\Data\Command\UpdateReferral', bus: 'messenger.bus.mysql' }
+
+    #------------------------------
+    # AppBus Command Handlers
+    #------------------------------
+    PapaLocal\Referral\Message\Command\CreateReferralHandler:
+        class: PapaLocal\Referral\Message\Command\CreateReferralHandler
+        arguments:
+            $referralService: '@PapaLocal\Referral\ReferralService'
+            $serializer: '@serializer'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\Referral\Message\Command\CreateReferral', bus: 'messenger.bus.application' }
+
+    PapaLocal\Referral\Message\Command\RateReferralHandler:
+        class: PapaLocal\Referral\Message\Command\RateReferralHandler
+        arguments:
+            $referralService: '@PapaLocal\Referral\ReferralService'
+            $serializer: '@serializer'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\Referral\Message\Command\RateReferral', bus: 'messenger.bus.application' }
+
+    PapaLocal\Referral\Message\Command\ResolveDisputeHandler:
+        class: PapaLocal\Referral\Message\Command\ResolveDisputeHandler
+        arguments:
+            $referralService: '@PapaLocal\Referral\ReferralService'
+            $serializer: '@serializer'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\Referral\Message\Command\ResolveDispute', bus: 'messenger.bus.application' }
+
+    #------------------------------
+    # AppBus Query Handlers
+    #------------------------------
+    PapaLocal\Referral\Message\Query\FindByGuidHandler:
+        class: PapaLocal\Referral\Message\Query\FindByGuidHandler
+        arguments:
+            $referralService: '@PapaLocal\Referral\ReferralService'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\Referral\Message\Query\FindByGuid', bus: 'messenger.bus.application' }
+
+    PapaLocal\Referral\Message\Query\FindByAgreementGuidHandler:
+        class: PapaLocal\Referral\Message\Query\FindByAgreementGuidHandler
+        arguments:
+            $referralRepository: '@PapaLocal\Referral\Data\ReferralRepository'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\Referral\Message\Query\FindByAgreementGuid', bus: 'messenger.bus.application' }
+
+    PapaLocal\Referral\Message\Query\LoadFeedHandler:
+        class: PapaLocal\Referral\Message\Query\LoadFeedHandler
+        arguments:
+            $referralRepository: '@PapaLocal\Referral\Data\ReferralRepository'
+            $feedItemFactory: '@PapaLocal\Referral\Entity\Factory\FeedItemFactory'
+            $serializer: '@serializer'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\Feed\Message\Query\LoadFeed', bus: 'messenger.bus.application' }
+
+    PapaLocal\Referral\Message\Query\LoadFeedItemHandler:
+        class: PapaLocal\Referral\Message\Query\LoadFeedItemHandler
+        arguments:
+            $referralRepository: '@PapaLocal\Referral\Data\ReferralRepository'
+            $feedItemFactory: '@PapaLocal\Referral\Entity\Factory\FeedItemFactory'
+            $raMessageFactory: '@PapaLocal\ReferralAgreement\Message\MessageFactory'
+            $appBus: '@messenger.bus.application'
+        tags:
+            - { name: messenger.message_handler, handles: 'PapaLocal\Feed\Message\Query\LoadFeedItem', bus: 'messenger.bus.application' }

@@ -1,0 +1,14 @@
+{# twig template #}
+{% extends 'templates/email.html.twig' %}
+
+{% block emailBody %}
+
+    <div class="row body-row">
+        <div class="col-lg-12">
+            <p>
+                A transaction was successfully made on your account, please check out your new balance. Thank you for using PapaLocal.
+            </p>
+        </div>
+    </div>
+
+{% endblock %}

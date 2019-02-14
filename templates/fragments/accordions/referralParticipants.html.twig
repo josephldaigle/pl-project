@@ -1,0 +1,126 @@
+{# Twig template #}
+{% extends 'templates/accordion.html.twig' %}
+{% import 'templates/macros/formFields.html.twig' as fields %}
+
+{#
+|--------------------------------------------------------------------------
+| Referral Participants (Feed Display)
+|--------------------------------------------------------------------------
+|
+| This fragment contains the referral participants for the feed detail display.
+|
+#}
+
+{# base accordion targets #}
+{% block containerId %}referralParticipants{% endblock %}
+
+{% block parentId %}referralParticipants{% endblock %}
+
+{% block hrefId %}referral-participants{% endblock %}
+
+{% block ariaControlsId %}referral-participants{% endblock %}
+
+{% block panelCollapseId %}referral-participants{% endblock %}
+
+
+{% block headingId %}referralParticipantsHeading{% endblock %}
+
+{% block ariaId %}referralParticipantsHeading{% endblock %}
+
+
+{# accordion content #}
+{% block header %}
+    {{ 'Referral Participants'| e }}
+{% endblock %}
+
+{% block content %}
+
+    {% if item.invitees.all is defined and item.invitees.all is not empty %}
+
+        <div role="tabpanel" class="apply-border clear-top-bottom-border tab-pane contour-inner-small secondary-background">
+            {# show link #}
+            <p class="push-down-small clear-margin">
+                <a href="#" data-toggle="modal" data-dismiss="modal" data-agreementId="{{ item.guid.value }}" class="btn-invite-participant clear-text-decoration">
+                    <button class="contour-outer-small clear-button">
+                        <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                        <span class="text-center secondary-color text-bold">Add Participant</span>
+                    </button>
+                </a>
+            </p>
+        </div>
+        
+        {% for invitee in item.invitees.all %}
+
+            <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-xs-1">
+                            <div id="account-icon" class="dropdown-toggle clear-background clear-border clear-text-decoration">
+                                <img src="{{ asset('media/profile-icon-blue.png') }}" class="custom-size-ico"/>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-9">
+                            <div class="row">
+                                <div class="col-xs-8">
+                                    <div class="text-bold secondary-color">{{ invitee.firstName }}&nbsp;{{ invitee.lastName }}</div>
+                                </div>
+
+                                <div class="col-xs-4">
+
+                                    {% if invitee.currentPlace == 'Removed' %}
+                                        <span class="label label-danger invitee-status-label">Removed</span>
+                                    {% elseif invitee.isParticipant %}
+                                        <span class="label label-success invitee-status-label">Accepted</span>
+                                    {% elseif invitee.isDeclined %}
+                                        <span class="label label-danger invitee-status-label">Declined</span>
+                                    {% elseif invitee.timeNotified is not null %}
+                                        <span class="label label-info invitee-status-label">Invited</span>
+                                    {% else %}
+                                        <span class="label label-warning invitee-status-label">Not Invited</span>
+                                    {% endif %}
+
+                                </div>
+                            </div>
+
+                            <div class="row push-down-small">
+                                <div class="col-sm-6 col-xs-12">
+                                    <div class="text-bold">Email: </div>
+                                    <span class="small-font">{{ invitee.emailAddress.emailAddress }}</span>
+                                </div>
+
+                                <div class="col-sm-6 col-xs-12">
+                                    <div class="text-bold">Cell #: </div>
+                                    <span class="tel-mask small-font">{{ invitee.phoneNumber.phoneNumber }}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        {# Remove Participant button #}
+                        {% if (invitee.currentPlace != 'Removed') %}
+                            <div class="col-xs-2 clear-side-padding pull-right">
+                                <i class="fa fa-2x fa-times-circle clickable collection-input-del-btn remove-participant" data-csrf="{{ csrf_token('removeAgreementInvitee') }}" data-invitee-guid="{{ invitee.guid.value }}" data-agreement-guid="{{ item.guid.value }}" ></i>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div> <!-- Referral Participants -->
+
+        {% endfor %}
+    {% else %}
+
+        <div role="tabpanel" class="apply-border clear-top-bottom-border tab-pane contour-inner-small secondary-background">
+            {# show link #}
+            <p class="push-down-small clear-margin">
+                <a href="#" data-toggle="modal" data-dismiss="modal" data-agreementId="{{ item.guid.value }}" class="btn-invite-participant clear-text-decoration">
+                    <button class="contour-outer-small clear-button">
+                        <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                        <span class="text-center secondary-color text-bold">Add Participant</span>
+                    </button>
+                </a>
+            </p>
+        </div>
+
+    {% endif %}
+
+{% endblock %}

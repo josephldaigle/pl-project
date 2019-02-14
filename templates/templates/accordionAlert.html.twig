@@ -1,0 +1,24 @@
+{% import 'templates/macros/formFields.html.twig' as fields %}
+
+<div id="accordionAlert" class="panel-group accordion-layout" role="tablist" aria-multiline="true">
+    <div class="panel panel-default">
+
+        <div id="acc-alert" class="panel-heading" role="tab" style="{% block headerAlertLevel %}{% endblock %}">
+            <h4 class="panel-title">
+                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordionAlert" href="#accordion-alert" aria-expanded="true" aria-controls="accordion-alert">
+                    {% block accordion_alert_header %}{% endblock %}
+                </a>
+            </h4>
+        </div>
+
+        <div id="accordion-alert" class="{% block contentAlertLevel %}{% endblock %} panel-collapse collapse in" role="tabpanel" aria-labelledby="acc-alert">
+            <div class="panel-body clear-padding">
+
+                {% block accordion_alert_content %}{% endblock %}
+
+            </div>
+        </div>
+
+    </div>
+</div>
+

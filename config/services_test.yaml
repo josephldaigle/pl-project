@@ -1,0 +1,25 @@
+services:
+    ## Test Environment User Providers
+    PapaLocal\Test\UserProvider\InMemoryUserProvider:
+        class: PapaLocal\Test\UserProvider\InMemoryUserProvider
+        arguments:
+            # these users are not in the test database, and cannot be used for end-to-end tests
+            # these users are convenient for
+            $users:
+                test@ewebify.com:
+                    password: testUser123!!
+                    roles: [ROLE_USER, ROLE_ADMIN]
+
+    papalocal_identity.in_memory_user_provider:
+        alias: PapaLocal\Test\UserProvider\InMemoryUserProvider
+        public: true
+
+    PapaLocal\Test\UserProvider\DatabaseUserProvider:
+        class: PapaLocal\Test\UserProvider\DatabaseUserProvider
+        arguments:
+            $appBus: '@messenger.bus.application'
+            $aiMessageFactory: '@PapaLocal\IdentityAccess\Message\MessageFactory'
+
+    papalocal_identity.databse_user_provider:
+        alias: PapaLocal\Test\UserProvider\DatabaseUserProvider
+        public: true

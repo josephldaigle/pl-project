@@ -1,0 +1,6 @@
+{# twig template #}
+{% import 'templates/macros/feedMacros.html.twig' as feedHelper %}
+
+{% if (item is defined and item is not empty) %}
+    {{ feedHelper.loadDetailFragment(item) }}
+{% endif %}

@@ -1,0 +1,40 @@
+{# Twig template #}
+{% extends 'templates/accordion.html.twig' %}
+{% import 'templates/macros/formFields.html.twig' as fields %}
+
+{# base accordion targets #}
+{% block type1 %}accordion2{% endblock %}
+
+{% block type2 %}accordion2{% endblock %}
+
+{% block target1 %}company-videos{% endblock %}
+
+{% block target2 %}company-videos{% endblock %}
+
+{% block target3 %}company-videos{% endblock %}
+
+
+{% block heading1 %}
+   companyVideosPanel
+{% endblock %}
+
+{% block heading2 %}
+   companyVideosPanel
+{% endblock %}
+
+
+{# accordion body #}
+
+{% block header %}
+   Videos:
+{% endblock %}
+
+
+{% block content %}
+
+<form class="view-mode contour-inner-large clear-side-padding">
+    {{ fields.video() }}
+</form><!-- end company photos panel -->
+
+{% endblock %}
+

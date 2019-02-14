@@ -1,0 +1,50 @@
+{% extends 'templates/accordion.html.twig' %}
+{% import 'templates/macros/formFields.html.twig' as fields %}
+
+{# base accordion targets #}
+{% block containerId %}credit-card-accordion{% endblock %}
+
+{% block parentId %}credit-card-accordion{% endblock %}
+
+{% block hrefId %}credit-card-details{% endblock %}
+
+{% block ariaControlsId %}credit-card-details{% endblock %}
+
+{% block panelCollapseId %}credit-card-details{% endblock %}
+
+{% block headingId %}creditCardAccordion{% endblock %}
+
+{% block ariaId %}creditCardAccordion{% endblock %}
+
+{% block collapseIn %}in{% endblock %} {# collapse in block to open first accordion on page load #}
+
+{% block header %}{{ 'Manage Credit Cards'| e }}{% endblock %}
+
+{% block caret %}<i class="caret-up-down fa fa-2x fa-caret-down"></i>{% endblock %}
+
+{% block content %}
+
+    <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+
+        <div class="col-xs-12">
+
+            {% if app.user.getBillingProfile().getPaymentProfile() is not null and app.user.getBillingProfile().getPaymentProfile().count() > 0 %}
+
+            <div style="width: 300px; margin-right: 20px;"class="col-xs-12 col-sm-6 clear-side-padding">{% include 'fragments/billing/currentPaymentCard.html.twig' %}</div>
+
+            {% endif %}
+
+            <div style="width: 300px;" class="col-xs-12 col-sm-6 clear-side-padding">{% include 'fragments/billing/addPaymentCard.html.twig' %}</div>
+
+        </div>
+
+        <div class="col-xs-12">
+
+            {% include 'fragments/billing/creditCardTable.html.twig' %}
+
+        </div>
+
+    </div>
+
+
+{% endblock %}

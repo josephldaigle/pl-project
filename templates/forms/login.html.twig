@@ -1,0 +1,66 @@
+{% extends 'templates/onPageContainer.html.twig' %}
+
+{% block header %}Login{% endblock %}
+
+{% block content %}
+
+    <form name="login" action="{{ path('login') }}" method="post" data-form-type="standard">
+
+        <div class="col-sm-12">
+            {% include 'fragments/alerts/formAlert.html.twig' %}
+        </div>
+
+        {# FORM ELEMENTS #}
+        <div class="col-sm-12">
+            <div class="form-group">
+                <input type="email"  name="_username" value="{{ (lastUsername is defined) ? lastUsername : '' }}" class="form-control clear-border-radius" placeholder="Email"
+                       autocomplete="username" required />
+            </div>
+        </div>
+
+        <div class="col-sm-12">
+            <div class="form-group">
+                <input type="password" name="_password" class="form-control clear-border-radius" placeholder="Password"
+                       autocomplete="current-password" required />
+            </div>
+        </div>
+
+        {# FORGOT PASSWORD LINK #}
+        <div class="col-sm-12">
+            <div class="form-group text-left">
+                <a class="link-primary" href="#forgot-password" data-toggle="modal" data-keyboard="true"><strong>Forgot Password?</strong></a>
+            </div>
+        </div>
+
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
+        <input type="hidden" name="_target_path" value="/feed" >
+
+        {# SUBMIT BUTTON #}
+        <div class="col-sm-12">
+            <div class="form-group">
+                <input type="submit" class="form-control button-primary push-down-small clear-border-radius" value="Submit"/>
+            </div>
+        </div>
+
+        {# LOGIN FOOTER PANEL #}
+        <div class="col-sm-12">
+            <div class="form-group">
+                <div class="panel-footer secondary-background">
+                    <div class="text-center">
+                        <label class="custom-control radio"><strong>Don't have an account?</strong>
+                            <a class="link-primary" href="#register" data-toggle="modal" >Register</a>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+{% endblock %}
+
+
+
+
+
+

@@ -1,0 +1,53 @@
+{% extends 'templates/public.html.twig' %}
+
+{% block body %}
+    {#<div class="col-xs-2"></div><!-- Empty column -->#}
+
+    <div class="col-xs-12">
+
+        <div class="container-fluid">
+
+            {% include 'forms/login.html.twig' %}
+            {% include 'forms/modal/forgotPassword.html.twig' %}
+            {% include 'forms/modal/register.html.twig' %}
+            {% include 'fragments/serviceTerms.html.twig' %}
+
+        </div>
+    </div>
+
+    {#<div class="col-xs-2"></div><!-- Empty column -->#}
+
+{% endblock %}
+
+{% block footerResources %}
+    {{ parent() }}
+
+    <script type="text/javascript" async defer>
+
+        try {
+            let placesApiUrl = "//maps.googleapis.com/maps/api/js?key={{ keys.google.places_api | raw }}&libraries=places";
+
+            require(["/js/lib/modules/app.js", placesApiUrl], function(PAPALOCAL, placesApi) {
+
+                require([ '/js/lib/modules/address-autocomplete.js'], function(address) {
+                    $(document).ready(function() {
+
+                        // initialize address fields
+                        address.addressManager.configureAddressLookups();
+
+                        // bind address fields to input elements
+                        address.addressManager.bindInputsToApi();
+
+                        // attach change event handler to address lookups
+                        address.addressManager.attachKeyUpHandlerToInputs();
+                    });
+                });
+
+            });
+        } catch (error) {
+            console.log(error);
+        }
+
+    </script>
+
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'templates/paymentMethodCard.html.twig' %}
+
+{% block paymentMethodBody %}
+
+    {% if app.user.getBillingProfile().getPaymentProfile() is not null and app.user.getBillingProfile.getPaymentProfile().count() > 0 %}
+
+        {% set card = app.user.getBillingProfile().getPaymentProfile().getDefaultPayProfile() %}
+
+        <div class="col-xs-12 secondary-background contour-inner-large">
+
+            <div class="col-xs-3 push-down-medium">
+
+                {% if card.getCardType() == 'Visa' %}
+
+                    <i class="{{ 'fa fa-cc-visa fa-2x' }}"></i>
+
+                {% elseif card.getCardType() == 'Master' %}
+
+                    <i class="{{ 'fa fa-cc-mastercard fa-2x' }}"></i>
+
+                {% elseif card.getCardType() == 'Discover' %}
+
+                    <i class="{{ 'fa fa-cc-discover fa-2x' }}"></i>
+
+                {% elseif card.getCardType() == 'American Express' %}
+
+                    <i class="{{ 'fa fa-cc-amex fa-2x' }}"></i>
+
+                {% endif %}
+
+            </div>
+
+            <div class="col-xs-9 pull-right contour-inner-xsmall text-center">
+                <p>
+                    <span>&#42;&#42;&#42;&#42;&nbsp;&#42;&#42;&#42;&#42;&nbsp;&#42;&#42;&#42;&#42;&nbsp;</span>
+                    <span class="card_number">{{ card.getCardNumber }}</span>
+                </p>
+
+                <p>
+                    <span class="fullName">{{ card.getFirstName() }}&nbsp;{{ card.getLastName() }}</span>&emsp;&emsp;
+                    <span class="date_value">{{ card.getExpirationMonth()  ~ '/' ~ card.getExpirationYear() }}</span>
+                </p>
+            </div>
+
+        </div>
+
+    {% endif %}
+
+{% endblock %}
+
+{% block paymentMethodFooter %}
+
+    <div class="panel-footer clear-side-padding">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12">
+                    <span class="link-primary pull-right text-bold">PRIMARY PAYMENT METHOD</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

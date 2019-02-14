@@ -1,0 +1,19 @@
+{% extends 'templates/accordionAlert.html.twig' %}
+
+
+{% block headerAlertLevel %}
+    color: {{ '#fff' }};
+    background-color: {{ '#ffad17' }};
+{% endblock %}
+
+{% block accordion_alert_header %}{{ 'Paused' }}{% endblock %}
+
+{% block contentAlertLevel %}{{ 'alert-warning' }}{% endblock %}
+
+{% block accordion_alert_content %}
+
+    <div class="join-agreement-container container-fluid contour-outer-small">
+        <p>This agreement has been paused by it's owner. We'll notify you if the agreement is re-activated, so you can continue selling referrals.</p>
+    </div>
+
+{% endblock %}

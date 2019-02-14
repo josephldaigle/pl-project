@@ -1,0 +1,80 @@
+{# Twig template #}
+{% extends 'templates/accordion.html.twig' %}
+{% import 'templates/macros/formFields.html.twig' as fields %}
+
+{# base accordion targets #}
+{% block containerId %}agreementCardBudget{% endblock %}
+
+{% block parentId %}agreementCardBudget{% endblock %}
+
+{% block hrefId %}agreement-card-budget{% endblock %}
+
+{% block ariaControlsId %}agreement-card-budget{% endblock %}
+
+{% block panelCollapseId %}agreement-card-budget{% endblock %}
+
+
+{% block headingId %}cardBudget{% endblock %}
+
+{% block ariaId %}cardBudget{% endblock %}
+
+
+
+
+{# accordion content #}
+{% block header %}
+    {{ 'Budget'| e }}
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="contour-inner-large clear-side-padding">
+        <div class="view-mode form-group">
+            <div class="form-label col-lg-4 col-md-4 col-sm-4 col-xs-12 control-label push-down-xs">
+                {{ fields.label('referralAgreementStrategy','Strategy:') }}
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                {{ fields.select('referralAgreementStrategy', {'oneTime':'One Time Only', 'perWeek':'Per Week', 'perMonth':'Per Month'}, 'Per Week', {'disabled': true}) }}
+            </div>
+        </div>
+    </div><!-- end referral agreement Strategy -->
+    <hr class="clear-bottom-margin">
+
+    <div class="contour-inner-large clear-side-padding">
+        <div class="view-mode form-group">
+            <div class="form-label col-lg-4 col-md-4 col-sm-4 col-xs-12 control-label push-down-xs">
+                {{ fields.label('referralAgreementBudget','Budget:') }}
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                {{ fields.input('referralAgreementBudget',null,'text') }}
+            </div>
+        </div>
+    </div><!-- end referral agreement Budget -->
+    <hr class="clear-bottom-margin">
+
+    <div class="contour-inner-large clear-side-padding">
+        <div class="view-mode form-group">
+            <div class="form-label col-lg-4 col-md-4 col-sm-4 col-xs-12 control-label push-down-xs">
+                {{ fields.label('agreementStatus','When:') }}
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                {{ fields.select('agreementStatus', {'paused':'Paused', 'active':'Active', 'cancelled':'Cancelled', 'published':'published'}) }}
+            </div>
+        </div>
+    </div><!-- end referral agreement When  -->
+    <hr class="clear-bottom-margin">
+
+    <div class="contour-inner-large clear-side-padding">
+        <div class="view-mode form-group">
+            <div class="form-label col-lg-4 col-md-4 col-sm-4 col-xs-12 control-label push-down-xs">
+                {{ fields.label('pricePerReferral','Price:') }}
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                {{ fields.input('pricePerReferral','$','text', null, {'disabled': true}) }}
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div><!-- end referral agreement price per referral -->
+
+{% endblock %}

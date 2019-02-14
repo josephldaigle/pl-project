@@ -1,0 +1,30 @@
+{#
+|--------------------------------------------------------------------------
+| Confirmation to agreement owner that agreement has been published.
+|--------------------------------------------------------------------------
+|
+#}
+
+{% extends 'templates/email.html.twig' %}
+
+{% block emailBody %}
+
+    <div class="row body-row">
+        <div class="col-lg-12">
+            <p>Hi {{ user.getFirstName() }},</p>
+            <p>
+                This email is your confirmation that you've published a new referral agreement.
+                You're invitations have been sent, and you should start seeing people join soon.
+                Once someone joins your agreement, they can start sending you referrals!
+            </p>
+
+            <p>Sincerely,</p>
+            <p>The PapaLocal Team
+                <br/>
+                <a href="tel:{{ constant('CUST_SUPP_PHONE', ewebify) }}">{{ constant('CUST_SUPP_PHONE', ewebify) }}</a>
+            </p>
+
+        </div>
+    </div>
+
+{% endblock %}

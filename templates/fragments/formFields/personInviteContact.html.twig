@@ -1,0 +1,83 @@
+{% extends 'templates/accordion.html.twig' %}
+{% import 'templates/macros/formFields.html.twig' as fields %}
+
+{# base accordion targets #}
+{% block containerId %}personalInviteAccordion{% endblock %}
+
+{% block parentId %}personalInviteAccordion{% endblock %}
+
+{% block hrefId %}personal-invite-contact{% endblock %}
+
+{% block ariaControlsId %}personal-invite-contact{% endblock %}
+
+{% block panelCollapseId %}personal-invite-contact{% endblock %}
+
+
+{% block headingId %}personalInviteContact{% endblock %}
+
+{% block ariaId %}personalInviteContact{% endblock %}
+
+{# accordion content #}
+{% block header %}
+    {{ 'Who Do You Want To Send This Offer To?'| e }}
+{% endblock %}
+
+
+{% block content %}
+    <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+        <div class="form-group">
+            <div class="form-label col-lg-4 col-md-4 col-sm-4 col-xs-12 control-label push-down-xs">
+                {{ fields.label('firstName','First Name:') }}
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                {{ fields.input('firstName', null, 'text', null, {'required': true, 'maxlength': 100} ) }}
+            </div>
+        </div>
+    </div><!-- end personal contact name -->
+
+    <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+        <div class="form-group">
+            <div class="form-label col-lg-4 col-md-4 col-sm-4 col-xs-12 control-label push-down-xs">
+                {{ fields.label('lastName','Last Name:') }}
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                {{ fields.input('lastName', null, 'text', null, {'required': true, 'maxlength': 100} ) }}
+            </div>
+        </div>
+    </div><!-- end personal contact name -->
+
+    <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+        <div class="form-group">
+            <div class="form-label col-lg-4 col-md-4 col-sm-4 col-xs-12 control-label push-down-xs">
+                {{ fields.label('message','Message:') }}
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                {{ fields.textArea('message', null, 'Include a 3-5 sentence message introducing your offer.', {'rows': 5, 'maxlength': 255} ) }}
+            </div>
+        </div>
+    </div><!-- end personal contact message -->
+
+    <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+        <div class="form-group">
+            <div class="form-label col-lg-4 col-md-4 col-sm-4 col-xs-12 control-label push-down-xs">
+                {{ fields.label('phoneNumber','Cell Phone:') }}
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                {{ fields.input('phoneNumber', null, 'tel', null, {'required': true, 'minlength': 10, 'maxlength': 10}) }}
+            </div>
+        </div>
+    </div><!-- end personal contact phone number -->
+
+    <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+        <div class="form-group">
+            <div class="form-label col-lg-4 col-md-4 col-sm-4 col-xs-12 control-label push-down-xs">
+                {{ fields.label('emailAddress','Email:') }}
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                {{ fields.input('emailAddress',null,'email') }}
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div><!-- end personal contact email address -->
+
+{% endblock %}

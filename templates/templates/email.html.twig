@@ -1,0 +1,121 @@
+{# Twig template #}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+
+        <title>{{ constant('BUSINESS_SHORT_NAME', ewebify) }}</title>
+
+        {# email styles #}
+        <style>
+            a {
+                color: #00b5f1;
+                text-decoration: none;
+            }
+
+            a:hover {
+                text-decoration: none;
+            }
+            .container-fluid {
+                margin: 30px;
+                box-shadow: 0 1px 8px 0 #989898;
+            }
+
+            div.header-row>div>img {
+                height: auto;
+                max-width: 50px;
+            }
+
+            .row {
+                padding: 15px;
+            }
+            .header-row {
+                background-color: #fff;
+            }
+
+            .body-row {
+                background-color: #fff;
+            }
+
+            .footer-row {
+                background-color: #e3e3e8;
+            }
+
+            .button-primary {
+                color: #fff;
+                background-color: #00b5f1;
+                border: none;
+                margin: 10px;
+                padding: 10px;
+            }
+
+            .button-primary:hover {
+                background-color: #03a7ec;
+                text-decoration: none;
+            }
+
+            .col-lg-12.text-center {
+                padding: 3px;
+            }
+        </style>
+
+    </head>
+
+    <body>
+
+        <div class="col-lg-3 col-md-2 col-sm-1"></div>
+
+        <div class="container-fluid col-lg-6 col-md-8 col-sm-10">
+
+            {# logo #}
+            <div class="row header-row">
+                <div class="col-lg-12">
+                    <img src="{{ absolute_url(asset('media/papalocal.logo.png')) }}" title="papalocal logo" alt="papalocal logo">
+                </div>
+            </div><!-- Header row -->
+            <hr>
+
+            {% block emailBody %}
+
+                {# Override in instance-specific email #}
+
+            {% endblock %}<!-- Body row  -->
+
+
+            <div class="row footer-row">
+
+                <div class="col-lg-12 text-center">
+
+                </div>
+
+                <div class="col-lg-12 text-center">
+                    &nbsp;&nbsp;&nbsp;<span><a href="{{ constant('SOCIAL_FACEBOOK', ewebify) }}"><i class="fa fa-facebook-official fa-2x" aria-hidden="true"></i></a></span>
+                    &nbsp;&nbsp;&nbsp;<span><a href="{{ constant('SOCIAL_TWITTER', ewebify) }}"><i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a></span>
+                    &nbsp;&nbsp;&nbsp;<span><a href="{{ constant('SOCIAL_LINKEDIN', ewebify) }}"><i class="fa fa-linkedin fa-2x" aria-hidden="true"></i></a></span>
+                    &nbsp;&nbsp;&nbsp;<span><a href="{{ constant('SOCIAL_GOOGLEPLUS', ewebify) }}"><i class="fa fa-google-plus fa-2x" aria-hidden="true"></i></a></span>
+                </div>
+                <br/>
+                <div class="col-lg-12 text-center">
+                    <span class="third-color">&copy;&nbsp;{{ date()|date('Y') }}&nbsp;{{ constant('BUSINESS_NAME', ewebify) }} All rights reserved.</span>
+                    <span>{{ constant('CUST_SUPP_ADDRESS', ewebify) }}</span>
+                    <p><a href="{{ constant('SERVICE_TERMS_ADDRESS', ewebify) }}">Service Terms</a></p>
+                </div>
+            </div><!-- Footer row  -->
+
+        </div><!-- Container-fluid -->
+
+        <div class="col-lg-3 col-md-2 col-sm-1"></div>
+
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    </body>
+
+</html>

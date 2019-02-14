@@ -1,0 +1,21 @@
+## twig extensions
+services:
+    PapaLocal\Core\Twig\TwigWorkflowExtension:
+        class: PapaLocal\Core\Twig\TwigWorkflowExtension
+        arguments:
+            $workflowRegistry: '@workflow.registry'
+            $logger: '@logger'
+        tags:
+            - { name: twig.extension }
+
+    PapaLocal\Core\Twig\TwigIdentityAccessExtension:
+        class: PapaLocal\Core\Twig\TwigIdentityAccessExtension
+        arguments:
+            $iaMessageFactory: '@PapaLocal\IdentityAccess\Message\MessageFactory'
+            $applicationBus: '@messenger.bus.application'
+            $guidGenerator: '@papalocal_core.guid_generator'
+            $userViewFactory: '@PapaLocal\IdentityAccess\ValueObject\UserViewFactory'
+            $tokenStorageInterface: '@security.token_storage'
+            $logger: '@logger'
+        tags:
+            - { name: twig.extension }

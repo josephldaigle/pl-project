@@ -1,0 +1,29 @@
+{#
+|--------------------------------------------------------------------------
+| Public header
+|--------------------------------------------------------------------------
+|
+| This fragment contains the public header.
+|
+#}
+
+<nav class="navbar navbar-default navigation-height clear-border-radius clear-border secondary-background apply-shadow">
+    <div class="container-fluid">
+        <div class="inline float-left">
+            <div class="col-sm-10 col-xs-10">
+                <a href="{{ url('login', [], true) }}">
+                    <img src="{{ asset('media/papalocal.logo.png') }}"  class="navbar-brand header-brand"/>
+                </a>
+            </div>
+
+            {#TODO: style register button#}
+            {#<div class="inline float-right">#}
+                {#<div class="nav navbar-nav" >#}
+                    {#<div class="col-sm-10 col-xs-10">#}
+                    {#<button type="submit" class="btn navbar-btn secondary-color secondary-background text-bold" name="register-button" href="#register-user" data-toggle="modal">Register</button>#}
+                    {#</div>#}
+                {#</div>#}
+            {#</div>#}
+            </div><!-- Close row -->
+        </div><!-- Close container-fluid -->
+    </nav>

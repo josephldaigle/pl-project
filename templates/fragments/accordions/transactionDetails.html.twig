@@ -1,0 +1,65 @@
+{# Twig template #}
+{% extends 'templates/accordion.html.twig' %}
+{% import 'templates/macros/formFields.html.twig' as fields %}
+
+{# base accordion targets #}
+{% block containerId %}transactionDetails{% endblock %}
+
+{% block parentId %}transactionDetails{% endblock %}
+
+{% block hrefId %}transaction-details{% endblock %}
+
+{% block ariaControlsId %}transaction-details{% endblock %}
+
+{% block panelCollapseId %}transaction-details{% endblock %}
+
+
+{% block headingId %}tDetails{% endblock %}
+
+{% block ariaId %}tDetails{% endblock %}
+
+{% block collapseIn %}in{% endblock %}
+
+{# accordion content #}
+{% block header %}
+    {{ 'Transaction Details'| e }}
+{% endblock %}
+
+
+{% block content %}
+    <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+        <div class="form-label col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label push-down-xs">
+            <b>{{ 'Date:' }}</b>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 push-down-xs">
+            {{ item.timeCreated | date('m/d/Y') }}
+        </div>
+    </div><!-- end transaction date panel -->
+
+    <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+        <div class="form-label col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label push-down-xs">
+            <b>{{ 'Time:' }}</b>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 push-down-xs">
+            {{ item.timeCreated | date('h:i A', app.user.timezone) }}
+        </div>
+    </div><!-- end transaction time panel -->
+
+    <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+        <div class="form-label col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label push-down-xs">
+            <b>{{ 'Type:' }}</b>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 push-down-xs">
+            {{ item.transactionType | capitalize }}
+        </div>
+    </div><!-- end transaction type panel -->
+
+    <div class="apply-border apply-auto-overflow contour-inner-large clear-side-padding">
+        <div class="form-label col-lg-3 col-md-3 col-sm-3 col-xs-12 control-label push-down-xs">
+            <b>{{ 'Amount:' }}</b>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 push-down-xs">
+            ${{ (item.transactionType == 'debit') ? (item.amount * -1)|round(0, 'floor') : item.amount|round(0, 'floor') }}
+        </div>
+    </div><!-- end transaction amount panel -->
+{% endblock %}

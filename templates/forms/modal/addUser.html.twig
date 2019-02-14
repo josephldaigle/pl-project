@@ -1,0 +1,172 @@
+{% extends 'templates/modalContainer.html.twig' %}
+
+{% block header %}Create An Account{% endblock %}
+
+{% block id %}addUser{% endblock %}
+
+{% block content %}
+
+    <form name="addUser" role="form" method="post" data-form-type="modal">
+
+        <div class="panel-body">
+            {# FLASH MESSAGE BLOCK #}
+            {% include 'fragments/alerts/flashMessageContainer.html.twig' %}
+
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <select class="selectpicker form-control ctm-account" data-live-search="true" name="CTMAccount">
+                        <option value="-1" >CTM Account</option>
+                    </select>
+                </div>
+            </div><!-- CTM Accounts -->
+
+            <div class="col-sm-6">
+                <div class="form-group"> {# TODO: turn inputs in to twig template parts (look at twig themes? #}
+                    <div class="input-group">
+                        <span class="input-group-addon clear-border-radius"><i class="fa fa-user "></i></span>
+                        <input type="text" name="firstName" required class="form-control clear-border-radius" placeholder="First Name">
+                    </div>
+                </div>
+            </div><!-- First name -->
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon clear-border-radius"><i class="fa fa-user "></i></span>
+                        <input type="text" name="lastName" class="form-control clear-border-radius" placeholder="Last Name">
+                    </div>
+                </div>
+            </div><!-- Last name -->
+
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon clear-border-radius"><i class="fa fa-building fa-lg" aria-hidden="true"></i></span>
+                        <input type="text" name="companyName" required class="form-control clear-border-radius" placeholder="Company Name">
+                    </div>
+                </div>
+            </div><!-- Company name -->
+
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon clear-border-radius"><i class="fa fa-envelope "></i></span>
+                        <input type="email" name="emailAddress" required class="form-control clear-border-radius" placeholder="Email Address">
+                    </div>
+                </div>
+            </div><!-- Email address -->
+
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon clear-border-radius"><i class="fa fa-mobile fa-lg" aria-hidden="true"></i></span>
+                        <input type="text" name="userPhoneNumber" required class="form-control clear-border-radius" placeholder="Phone Number">
+                    </div>
+                </div>
+            </div><!-- Phone number name -->
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon clear-border-radius"> <i class="fa fa-fw fa-lock "></i></span>
+                        <input type="password" name="password" required class="form-control clear-border-radius" placeholder="Password">
+                    </div>
+                </div>
+            </div><!-- Password -->
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon clear-border-radius"><i class="fa fa-fw fa-lock "></i></span>
+                        <input type="password" name="confirmPassword" class="form-control clear-border-radius" required placeholder="Confirm Password">
+                    </div>
+                </div>
+            </div><!-- Confirm password -->
+
+            <div class="col-sm-12 apply-border third-background">
+
+                <h5>Business Address:</h5>
+
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon clear-border-radius"><i class="fa fa-map-marker fa-lg" aria-hidden="true"></i></span>
+                            <input type="text"  name="streetAddress1" class="form-control clear-border-radius" required placeholder="Street Address">
+                        </div>
+                    </div>
+                </div><!-- Street Address -->
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <select name="country" class="form-control" onchange="updateStateSelect(this)">
+                            {# Throwing twig error  TODO: need to fix this #}
+
+
+                            {% if countries is defined and countries is not empty %}
+                                <option value="-1">Choose country</option>
+
+                                {% for country in countries %}
+
+                                    <option value="{{ country.id }}">{{ country.name }}</option>
+                                {% endfor %}
+
+                            {% else %}
+                                <option value = "-1">No countries found...</option>
+                            {% endif %}
+
+                        </select>
+                    </div>
+                </div><!-- Country -->
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <select name="state" class="form-control">
+                            {# Throwing twig error  TODO: need to fix this #}
+
+
+                            {% if states is defined and states is not empty %}
+                                <option value="-1">Choose state</option>
+
+                                {% for state in states %}
+                                    <option value="{{ state.id }}" data-country="{{ state.countryId }}">{{ state.name }}</option>
+                                {% endfor %}
+
+                            {% else %}
+                                <option value = "-1">No states found...</option>
+                            {% endif %}
+
+                        </select>
+                    </div>
+                </div><!-- State -->
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon clear-border-radius"><i class="fa fa-map-marker fa-lg" aria-hidden="true"></i></span>
+                            <input type="text" name="city" class="form-control clear-border-radius" placeholder="City">
+                        </div>
+                    </div>
+                </div><!-- City -->
+
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon clear-border-radius"><i class="fa fa-map-marker fa-lg" aria-hidden="true"></i></span>
+                            <input type="text" name="postalCode" class="form-control clear-border-radius" placeholder="Postal Code">
+                        </div>
+                    </div>
+                </div><!-- Zip code -->
+
+            </div>
+
+        </div><!-- Panel-body -->
+
+        <div class="modal-footer">
+            <input type="button" name="submit" class="form-control button-primary clear-border-radius" value="Add User">
+        </div><!-- Closes modal-footer -->
+
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" />
+
+    </form>
+
+{% endblock %}

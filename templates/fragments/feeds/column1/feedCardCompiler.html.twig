@@ -1,0 +1,24 @@
+{% import 'templates/macros/feedMacros.html.twig' as feedHelper %}
+
+
+{# BEGIN INDIVIDUAL FEED ITEMS #}
+{% if items.all is defined and items.all is not empty %}
+    {#feedList contains items, output them #}
+    {% for item in items.all %}
+        {% set cardIndex = {'id': loop.index } %}
+        {{ feedHelper.loadCardFragment(item, cardIndex) }}
+    {% endfor %}
+{% else %}
+    {#Display a card with a simple message #}
+    {% include 'fragments/feeds/column1/singleHeaderCard.html.twig' with
+        { 'item':
+            {
+                'guid':
+                {'value': constant('PapaLocal\\Feed\\ValueObject\\NoItemsFoundFeedDetail::GUID') },
+                'title': 'Oh No!',
+                'cardBody': 'We weren\'t able to find any items matching your criteria.',
+                'feedType': 'not found' },
+            'cardIndex': {'id': 0}
+        }
+    %}
+{% endif %}
